@@ -8,9 +8,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _React = require('React');
+var _react = require('react');
 
-var _React2 = _interopRequireDefault(_React);
+var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70,12 +70,12 @@ exports.default = function (ComposedComponent) {
     }, {
       key: 'render',
       value: function render() {
-        return _React2.default.createElement(ComposedComponent, this.state.props);
+        return _react2.default.createElement(ComposedComponent, this.state.props);
       }
     }]);
 
     return _class;
-  }(_React.Component), _class.propTypes = {
-    load: _React.PropTypes.func
+  }(_react.Component), _class.propTypes = {
+    load: _react.PropTypes.func
   }, _temp2;
 };
