@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'React'
+import React, { Component, PropTypes } from 'react'
 
 export default ComposedComponent => class extends Component {
   static propTypes = {
