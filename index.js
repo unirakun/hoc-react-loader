@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Loader = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -21,7 +20,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Loader = exports.Loader = function Loader(ComposedComponent) {
+exports.default = function (ComposedComponent) {
   var _class, _temp2;
 
   return _temp2 = _class = function (_Component) {
@@ -38,7 +37,9 @@ var Loader = exports.Loader = function Loader(ComposedComponent) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.isLoadAFunction = function () {
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+        props: {}
+      }, _this.isLoadAFunction = function () {
         return typeof _this.props.load === 'function';
       }, _this.omitLoadInProps = function (props) {
         var isLoadAFunction = _this.isLoadAFunction();
@@ -49,6 +50,8 @@ var Loader = exports.Loader = function Loader(ComposedComponent) {
               load: undefined
             })
           });
+        } else {
+          _this.setState({ props: props });
         }
 
         return isLoadAFunction;

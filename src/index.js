@@ -1,8 +1,12 @@
 import React, { Component, PropTypes } from 'React'
 
-export const Loader = ComposedComponent => class extends Component {
+export default ComposedComponent => class extends Component {
   static propTypes = {
     load: PropTypes.func,
+  }
+
+  state = {
+    props: {},
   }
 
   isLoadAFunction = () => {
@@ -19,6 +23,8 @@ export const Loader = ComposedComponent => class extends Component {
           load: undefined,
         },
       })
+    } else {
+      this.setState({ props })
     }
 
     return isLoadAFunction
