@@ -24,7 +24,7 @@
   },
   "scripts": {
     "lint": "eslint src/index.js",
-    "build": "rimraf lib && cross-env BABEL_ENV=cjs babel ./src -d lib",
+    "build": "cross-env BABEL_ENV=cjs babel ./src -d .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
