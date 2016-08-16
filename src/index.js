@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 
+const getDisplayName = (c) => c.displayName || c.name || 'Component'
+
 export default ComposedComponent => class extends Component {
+  static displayName = `Loader(${getDisplayName(ComposedComponent)})`
   static propTypes = {
     load: PropTypes.func,
   }

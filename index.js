@@ -20,6 +20,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var getDisplayName = function getDisplayName(c) {
+  return c.displayName || c.name || 'Component';
+};
+
 exports.default = function (ComposedComponent) {
   var _class, _temp2;
 
@@ -75,7 +79,7 @@ exports.default = function (ComposedComponent) {
     }]);
 
     return _class;
-  }(_react.Component), _class.propTypes = {
+  }(_react.Component), _class.displayName = 'Loader(' + getDisplayName(ComposedComponent) + ')', _class.propTypes = {
     load: _react.PropTypes.func
   }, _temp2;
 };
