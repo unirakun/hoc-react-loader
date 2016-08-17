@@ -24,8 +24,16 @@ var getDisplayName = function getDisplayName(c) {
   return c.displayName || c.name || 'Component';
 };
 
-exports.default = function (ComposedComponent) {
+exports.default = function (ComposedComponent, config) {
   var _class, _temp2;
+
+  var _ref = config || {};
+
+  var _ref$Loader = _ref.Loader;
+  var Loader = _ref$Loader === undefined ? null : _ref$Loader;
+  var _ref$prop = _ref.prop;
+  var prop = _ref$prop === undefined ? 'loaded' : _ref$prop;
+
 
   return _temp2 = _class = function (_Component) {
     _inherits(_class, _Component);
@@ -43,6 +51,8 @@ exports.default = function (ComposedComponent) {
 
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
         props: {}
+      }, _this.isLoaded = function () {
+        return Boolean(_this.props[prop]);
       }, _this.isLoadAFunction = function () {
         return typeof _this.props.load === 'function';
       }, _this.omitLoadInProps = function (props) {
@@ -74,7 +84,10 @@ exports.default = function (ComposedComponent) {
     }, {
       key: 'render',
       value: function render() {
-        return _react2.default.createElement(ComposedComponent, this.state.props);
+        if (this.isLoaded() || Loader === null) {
+          return _react2.default.createElement(ComposedComponent, this.state.props);
+        }
+        return _react2.default.createElement(Loader, this.state.props);
       }
     }]);
 
