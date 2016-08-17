@@ -57,7 +57,7 @@ export default (
     }
 
     render() {
-      if (this.isLoaded() || Loader === null) {
+      if (Loader === null || this.isLoaded()) {
         return <ComposedComponent {...this.state.props} />
       }
       return <Loader {...this.state.props} />
