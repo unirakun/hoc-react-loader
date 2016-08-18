@@ -12,7 +12,14 @@ This is convenient to load data from a `backend` for instance.
 ## use
 You have to wrap your component, and give a `load` props to that resulted component.
 
-Example with `redux` :
+You can also add an optional configuration object as second parameter.
+
+Parameter | Needed | Default value | Description
+----------|--------|---------------|-------------
+`Loader` | no | `null` | A component that will be display depending on `prop` value.
+`prop` | no | `loaded` | A prop name that determine when to display the `Loader` component. The prop value should be a Boolean.
+
+### Simple example with `redux` :
 
 **Component.js**
 ```(javascript)
@@ -43,3 +50,46 @@ export default connect(mapStateToProps, mapDispatchToProps)(reactLoader(Componen
 ```
 
 The `fetchText` may be an [redux-thunk](https://github.com/gaearon/redux-thunk) action that fetch a text to a `backend`, and update the state : `state.text`.
+
+### Advanced example with `redux` :
+
+**Component.js**
+```(javascript)
+import React from 'react'
+export default ({ text }) => <div>{text}</div>
+```
+
+**Loader.js**
+```(javascript)
+import React from 'react'
+export default () => <div>loading...</div>
+```
+
+**Container.js**
+```(javascript)
+import { connect } from 'react-redux'
+import reactLoader from 'hoc-react-loader'
+import { fetchText } from '%%your_actions%%'
+import Component from './Component'
+import Loader from './Loader'
+
+const mapStateToProps = ({ text, isTextFetched }) => {
+  return {
+    text,
+    fetched: isTextFetched,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    load: () => dispatch(fetchText()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(reactLoader(Component, {
+  Loader,
+  prop: 'fetched'
+}))
+```
+
+The `Loader` component will displayed instead of `Component` as long as `prop` value is false.
