@@ -1,0 +1,12 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node npm install
+
+test:
+  override:
+    - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node npm run test
+    - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node npm run lint

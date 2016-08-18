@@ -9,6 +9,7 @@ export default (
   const {
     Loader = null,
     prop = 'loaded',
+    wait = true,
   } = config || {}
 
   return class extends Component {
@@ -57,10 +58,15 @@ export default (
     }
 
     render() {
-      if (Loader === null || this.isLoaded()) {
-        return <ComposedComponent {...this.state.props} />
+      if (wait && !this.isLoaded()) {
+        if (Loader) {
+          return <Loader {...this.state.props} />
+        }
+
+        return null
       }
-      return <Loader {...this.state.props} />
+
+      return <ComposedComponent {...this.state.props} />
     }
   }
 }

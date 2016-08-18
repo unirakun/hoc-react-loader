@@ -33,6 +33,8 @@ exports.default = function (ComposedComponent, config) {
   var Loader = _ref$Loader === undefined ? null : _ref$Loader;
   var _ref$prop = _ref.prop;
   var prop = _ref$prop === undefined ? 'loaded' : _ref$prop;
+  var _ref$wait = _ref.wait;
+  var wait = _ref$wait === undefined ? true : _ref$wait;
 
 
   return _temp2 = _class = function (_Component) {
@@ -84,10 +86,15 @@ exports.default = function (ComposedComponent, config) {
     }, {
       key: 'render',
       value: function render() {
-        if (Loader === null || this.isLoaded()) {
-          return _react2.default.createElement(ComposedComponent, this.state.props);
+        if (wait && !this.isLoaded()) {
+          if (Loader) {
+            return _react2.default.createElement(Loader, this.state.props);
+          }
+
+          return null;
         }
-        return _react2.default.createElement(Loader, this.state.props);
+
+        return _react2.default.createElement(ComposedComponent, this.state.props);
       }
     }]);
 

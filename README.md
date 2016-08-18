@@ -18,6 +18,7 @@ Parameter | Needed | Default value | Description
 ----------|--------|---------------|-------------
 `Loader` | no | `null` | A component that will be display depending on `prop` value.
 `prop` | no | `loaded` | A prop name that determine when to display the `Loader` component. The prop value should be a Boolean.
+`wait` | no | `true` | Set to `false` if you don't want to wait for the `prop` to be set.
 
 ### Simple example with `redux` :
 
