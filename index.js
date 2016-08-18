@@ -84,7 +84,7 @@ exports.default = function (ComposedComponent, config) {
     }, {
       key: 'render',
       value: function render() {
-        if (this.isLoaded() || Loader === null) {
+        if (Loader === null || this.isLoaded()) {
           return _react2.default.createElement(ComposedComponent, this.state.props);
         }
         return _react2.default.createElement(Loader, this.state.props);
