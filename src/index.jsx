@@ -59,7 +59,11 @@ export default (
 
     render() {
       if (wait && !this.isLoaded()) {
-        return <Loader {...this.state.props} />
+        if (Loader) {
+          return <Loader {...this.state.props} />
+        }
+
+        return null
       }
 
       return <ComposedComponent {...this.state.props} />
