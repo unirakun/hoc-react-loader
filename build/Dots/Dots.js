@@ -71,8 +71,8 @@ var Dots = function (_Component) {
       }
     }
   }, {
-    key: 'componentDidUnMount',
-    value: function componentDidUnMount() {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
       if (this.intervals) {
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;

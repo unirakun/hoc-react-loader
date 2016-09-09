@@ -29,6 +29,14 @@ class Dots extends Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.intervals) {
+      for (const interval of this.intervals) {
+        clearInterval(interval)
+      }
+    }
+  }
+
   computeOpacity = (index) => {
     this.intervals.push(setInterval(() => {
       const { opacities } = this.state
@@ -43,14 +51,6 @@ class Dots extends Component {
   }
 
   runDot = (index) => this.computeOpacity(index)
-
-  componentDidUnMount() {
-    if (this.intervals) {
-      for (const interval of this.intervals) {
-        clearInterval(interval)
-      }
-    }
-  }
 
   render() {
     const { style, className } = this.props
