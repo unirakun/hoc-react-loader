@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
+import Dots from './Dots'
+
 const getDisplayName = (c) => c.displayName || c.name || 'Component'
 
 export default (
@@ -7,7 +9,7 @@ export default (
   config,
 ) => {
   const {
-    Loader = null,
+    Loader = Dots,
     prop = 'loaded',
     wait = true,
   } = config || {}

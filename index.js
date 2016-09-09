@@ -12,6 +12,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Dots = require('./Dots');
+
+var _Dots2 = _interopRequireDefault(_Dots);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30,7 +34,7 @@ exports.default = function (ComposedComponent, config) {
   var _ref = config || {};
 
   var _ref$Loader = _ref.Loader;
-  var Loader = _ref$Loader === undefined ? null : _ref$Loader;
+  var Loader = _ref$Loader === undefined ? _Dots2.default : _ref$Loader;
   var _ref$prop = _ref.prop;
   var prop = _ref$prop === undefined ? 'loaded' : _ref$prop;
   var _ref$wait = _ref.wait;
@@ -41,7 +45,7 @@ exports.default = function (ComposedComponent, config) {
     _inherits(_class, _Component);
 
     function _class() {
-      var _Object$getPrototypeO;
+      var _ref2;
 
       var _temp, _this, _ret;
 
@@ -51,7 +55,7 @@ exports.default = function (ComposedComponent, config) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(_class)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
         props: {}
       }, _this.isLoaded = function () {
         return Boolean(_this.props[prop]);

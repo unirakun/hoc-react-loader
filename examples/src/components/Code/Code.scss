@@ -1,0 +1,10 @@
+@import '~styles/colors';
+
+.code {
+  align-items: center;
+  background-color: darken($primary, 10);
+  display: flex;
+  font-size: 80%;
+  padding: 20px 10px;
+  position: relative;
+}

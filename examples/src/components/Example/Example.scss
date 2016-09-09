@@ -1,0 +1,32 @@
+@import '~styles/colors';
+
+.sample {
+  background-color: $primary;
+  box-shadow: 0 2px 5px 0 $shadow-start, 0 2px 10px 0 $shadow-end;
+  display: flex;
+  flex-direction: column;
+
+
+  &:hover {
+    box-shadow: 0 4px 10px 0 $shadow-start, 0 4px 20px 0 $shadow-end;
+  }
+
+  .render {
+    display: flex;
+  }
+
+  .result {
+    margin: 10px;
+    min-width: 700px;
+  }
+
+  a {
+    flex: 1;
+    position: relative;
+    text-decoration: none;
+  }
+
+  pre {
+    margin: 0;
+  }
+}
