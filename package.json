@@ -2,7 +2,7 @@
   "name": "hoc-react-loader",
   "version": "0.3.0",
   "description": "High order component to call a load function if present.",
-  "main": "index.js",
+  "main": "build/index.js",
   "dependencies": {},
   "peerDependencies": {
     "react": "^15.3.0"
@@ -35,7 +35,7 @@
   },
   "scripts": {
     "lint": "eslint src/index.jsx",
-    "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-file index.js",
+    "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
     "test": "NODE_ENV=test mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" "
   },
   "repository": {
