@@ -1,6 +1,6 @@
 # react-loader
 ## What
-This is a high order component (`HOC`).
+This is a higher order component (`HOC`).
 
 This HOC purpose is to call a `load` callback passes in `props` of a component only once (at `componentWillMount`).
 

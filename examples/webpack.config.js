@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 const dev = (process.env.NODE_ENV !== 'production')
+const PUBLIC_PATH = dev ? '/' : './'
 
 function getEntrySources(sources) {
   if (dev) {
@@ -39,7 +40,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public'),
     filename: '[name].js',
-    publicPath: '/',
+    publicPath: PUBLIC_PATH,
   },
   resolve: {
     root: [path.resolve('./src'), path.resolve('./src/components')],
@@ -58,6 +59,9 @@ module.exports = {
         'css?modules&localIdentName=[path]_[local]__[hash:base64:5]',
         'sass',
       ],
+    }, {
+      test: /\.(png|svg|gif|jpg|html)$/,
+      loader: 'file?name=[name].[ext]',
     }],
   },
 }

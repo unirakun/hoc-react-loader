@@ -2,7 +2,7 @@ import React from 'react'
 
 import Examples from './Examples'
 import styles from './App.scss'
-import Icon from 'file?name=[name].[ext]!../favicon.gif'
+import Icon from 'favicon.gif'
 
 const App = () => (
   <div className={styles.app}>
@@ -27,11 +27,13 @@ const App = () => (
     </div>
 
     <p className={styles.description}>
-      {"hoc-react-loader .... FIXME"}
+      {"hoc-react-loader is an higher order component to call a function whenever "}
+      {"a props is undefined."}
+      {"It shows a placeholder component when it waits for the props."}
     </p>
 
     <p className={styles.description}>
-      {"Check out the examples below. Use the button to trigger the load."}
+      {"Check out the examples below. Use the button to trigger a stubed load."}
     </p>
 
     <Examples className={styles.app} />

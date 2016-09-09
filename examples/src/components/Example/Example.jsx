@@ -32,7 +32,7 @@ class Example extends Component {
           <Code className={styles.code}>{code}</Code>
           <Ink />
         </a>
-        <Button onClick={this.onClick} />
+        <Button onClick={this.onClick} loaded={this.state.loaded} />
       </div>
     )
   }

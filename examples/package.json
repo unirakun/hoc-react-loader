@@ -8,7 +8,8 @@
   "scripts": {
     "start": "set NODE_ENV=development && webpack-dev-server --inline --hot --port=3000 --history-api-fallback",
     "build": "NODE_ENV=production webpack --define process.env.NODE_ENV='\"production\"' -p ",
-    "lint": "eslint src && find ./src/ -iname \"*.scss\" -exec sass-lint -v -q {} +"
+    "lint": "eslint src && find ./src/ -iname \"*.scss\" -exec sass-lint -v -q {} +",
+    "publish": "npm run build && node publish"
   },
   "author": "Fabien JUIF",
   "license": "MIT",
@@ -34,6 +35,7 @@
     "eslint-plugin-react": "^6.0.0",
     "expect": "~1.16.0",
     "file-loader": "~0.8.5",
+    "gh-pages": "^0.11.0",
     "jsdom": "^9.4.2",
     "mocha": "~2.4.5",
     "node-sass": "^3.7.0",
