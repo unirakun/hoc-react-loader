@@ -35,7 +35,7 @@
   },
   "scripts": {
     "lint": "eslint src/index.jsx",
-    "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ -d .",
+    "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-file index.js",
     "test": "NODE_ENV=test mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" "
   },
   "repository": {

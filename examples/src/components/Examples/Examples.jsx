@@ -12,7 +12,7 @@ const Examples = ({ style, className }) => (
       link="TODO"
       code="TODO"
     >
-      <Base />
+      <Base className={styles.base} />
     </Example>
   </div>
 )
