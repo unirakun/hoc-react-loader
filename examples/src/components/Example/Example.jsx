@@ -5,7 +5,6 @@ import Code from 'Code'
 import Button from './Button'
 import styles from './Example.scss'
 
-const words = ['Banana', 'House', 'Train', 'Dog', 'Cat', 'River']
 const BASE_URL = 'https://github.com/Zenika/react-loader/blob/master/examples/src/components/Examples/'
 
 class Example extends Component {
@@ -13,15 +12,13 @@ class Example extends Component {
     super()
 
     this.state = {
-      ex: 'Hi',
+      loaded: false,
     }
   }
 
   onClick = () => {
-    const index = Math.round((Math.random() * 10) % (words.length - 1))
-
     this.setState({
-      ex: words[index],
+      loaded: !this.state.loaded,
     })
   }
 
@@ -30,7 +27,7 @@ class Example extends Component {
 
     return (
       <div style={style} className={`${styles.sample} ${className}`}>
-        {React.cloneElement(children, { ex: this.state.ex, className: styles.result })}
+        {React.cloneElement(children, { loaded: this.state.loaded, className: styles.result })}
         <a href={`${BASE_URL}${link}`}>
           <Code className={styles.code}>{code}</Code>
           <Ink />

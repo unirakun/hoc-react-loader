@@ -9,10 +9,10 @@ const Examples = ({ style, className }) => (
   <div style={style} className={`${styles.examples} ${className}`}>
     <Example
       className={styles.example}
-      link="TODO"
-      code="TODO"
+      link="Base"
+      code="export&nbsp;default loader(Base)"
     >
-      <Base className={styles.base} />
+      <Base />
     </Example>
   </div>
 )
