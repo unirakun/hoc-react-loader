@@ -1,0 +1,32 @@
+.app {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+
+  .icon {
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    width: 100px;
+  }
+
+  .description {
+    margin-bottom: 30px;
+    width: 50%;
+  }
+
+  .github {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+}
+
+:global(.github-button) {
+  display: none;
+}

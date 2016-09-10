@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import { expect, spy } from 'chai'
 
 import loader from './index'
+import Dots from './Dots'
 
 const Component = () => <div />
 const Loader = () => <div />
@@ -28,9 +29,9 @@ describe('react-loader', () => {
       load.should.have.been.called.once()
     })
 
-    it('should shows a null component when waiting', () => {
+    it('should shows a Dots component when waiting', () => {
       const loaded = getWrapped()
-      expect(loaded.children().node).to.be.undefined
+      loaded.find(Dots).node.should.exists
     })
 
     it('should shows the component when the Boolean(prop) is true', () => {
@@ -50,6 +51,11 @@ describe('react-loader', () => {
   it('should shows the given component when waiting', () => {
     const loaded = getWrapped({ Loader })
     loaded.find(Loader).node.should.exists
+  })
+
+  it('shouldn\'t shows a Loader component when asking for', () => {
+    const loaded = getWrapped({ Loader: null })
+    expect(loaded.find(Loader).node).to.be.undefined
   })
 
   it('should shows the component when Boolean("define prop") is true', () => {
