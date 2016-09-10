@@ -12,12 +12,8 @@ class Dots extends Component {
   constructor(props, context) {
     super(props, context)
 
-    // FIXME : google help me to initialize this
-    const opacities = []
-    for (let i = 0; i < maxDots; ++i) opacities.push(minOpacity)
-
     this.state = {
-      opacities,
+      opacities: Array.from(Array(maxDots)).map(() => minOpacity),
     }
 
     this.intervals = []

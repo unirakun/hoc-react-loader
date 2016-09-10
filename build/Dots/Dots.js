@@ -39,16 +39,30 @@ var Dots = function (_Component) {
   function Dots(props, context) {
     _classCallCheck(this, Dots);
 
-    // FIXME : google help me to initialize this
     var _this = _possibleConstructorReturn(this, (Dots.__proto__ || Object.getPrototypeOf(Dots)).call(this, props, context));
 
-    _initialiseProps.call(_this);
+    _this.computeOpacity = function (index) {
+      _this.intervals.push(setInterval(function () {
+        var opacities = _this.state.opacities;
 
-    var opacities = [];
-    for (var i = 0; i < maxDots; ++i) {
-      opacities.push(minOpacity);
-    }_this.state = {
-      opacities: opacities
+
+        var newOpacities = [].concat(_toConsumableArray(opacities));
+        newOpacities[index] = newOpacities[index] === minOpacity ? maxOpacity : minOpacity;
+
+        _this.setState({
+          opacities: newOpacities
+        });
+      }, timeout));
+    };
+
+    _this.runDot = function (index) {
+      return _this.computeOpacity(index);
+    };
+
+    _this.state = {
+      opacities: Array.from(Array(maxDots)).map(function () {
+        return minOpacity;
+      })
     };
 
     _this.intervals = [];
@@ -121,28 +135,6 @@ var Dots = function (_Component) {
 
   return Dots;
 }(_react.Component);
-
-var _initialiseProps = function _initialiseProps() {
-  var _this3 = this;
-
-  this.computeOpacity = function (index) {
-    _this3.intervals.push(setInterval(function () {
-      var opacities = _this3.state.opacities;
-
-
-      var newOpacities = [].concat(_toConsumableArray(opacities));
-      newOpacities[index] = newOpacities[index] === minOpacity ? maxOpacity : minOpacity;
-
-      _this3.setState({
-        opacities: newOpacities
-      });
-    }, timeout));
-  };
-
-  this.runDot = function (index) {
-    return _this3.computeOpacity(index);
-  };
-};
 
 Dots.propTypes = {
   style: _react.PropTypes.object,
