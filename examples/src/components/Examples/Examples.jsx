@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react'
 
+/* eslint-disable import/no-extraneous-dependencies */
 import Example from 'Example'
+/* eslint-enable import/no-extraneous-dependencies */
+
 import styles from './Examples.scss'
 
 import Base from './Base'

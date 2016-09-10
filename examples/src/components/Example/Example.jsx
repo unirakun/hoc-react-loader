@@ -1,7 +1,10 @@
 import React, { PropTypes, Component } from 'react'
 import Ink from 'react-ink'
 
+/* eslint-disable import/no-extraneous-dependencies */
 import Code from 'Code'
+/* eslint-enable import/no-extraneous-dependencies */
+
 import Button from './Button'
 import styles from './Example.scss'
 

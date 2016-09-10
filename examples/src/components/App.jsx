@@ -1,8 +1,11 @@
 import React from 'react'
 
+/* eslint-disable import/no-extraneous-dependencies */
+import Icon from 'favicon.png'
+/* eslint-enable import/no-extraneous-dependencies */
+
 import Examples from './Examples'
 import styles from './App.scss'
-import Icon from 'favicon.png'
 
 const App = () => (
   <div className={styles.app}>
