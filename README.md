@@ -1,10 +1,14 @@
 # react-loader
-## What
+## what is this?
 This is a higher order component (`HOC`).
-
 This HOC purpose is to call a `load` callback passes in `props` of a component only once (at `componentWillMount`).
-
 This is convenient to load data from a `backend` for instance.
+
+It shows a loading component when it's waiting for the props to be defined.
+This loading component can be changed easely.
+
+## try it
+You can test some examples [here](https://zenika.github.io/react-loader/).
 
 ## install
 `npm i --save hoc-react-loader`
@@ -16,8 +20,8 @@ You can also add an optional configuration object as second parameter.
 
 Parameter | Needed | Default value | Description
 ----------|--------|---------------|-------------
-`Loader` | no | `null` | A component that will be display depending on `prop` value.
-`prop` | no | `loaded` | A prop name that determine when to display the `Loader` component. The prop value should be a Boolean.
+`Loader` | no | `Dots` | A component that will be display depending on `prop` value.
+`prop` | no | `loaded` | A prop name that determine when to display the `Loader` component.
 `wait` | no | `true` | Set to `false` if you don't want to wait for the `prop` to be set.
 
 ### Simple example with `redux` :
