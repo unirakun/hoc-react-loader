@@ -40,12 +40,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZenNantes/react-loader.git"
+    "url": "git+https://github.com/Zenika/react-loader.git"
   },
-  "author": "",
+  "author": "Fabien JUIF <fabien.juif@zenika.com>",
+  "contributors": [
+    "Yvonnick FRIN <yvonnick.frin@zenika.com>"
+  ],
   "license": "MIT",
+  "keywords": [
+    "react",
+    "loader",
+    "hoc",
+    "placeholder"
+  ],
   "bugs": {
-    "url": "https://github.com/ZenNantes/react-loader/issues"
+    "url": "https://github.com/Zenika/react-loader/issues"
   },
-  "homepage": "https://github.com/ZenNantes/react-loader#readme"
+  "homepage": "https://github.com/Zenika/react-loader#readme"
 }
