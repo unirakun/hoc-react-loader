@@ -27,16 +27,12 @@ class Dots extends Component {
   }
 
   componentWillUnmount() {
-    if (this.timeouts) {
-      for (const timeout of this.timeouts) {
-        clearTimeout(timeout)
-      }
+    for (const timeout of this.timeouts) {
+      clearTimeout(timeout)
     }
 
-    if (this.intervals) {
-      for (const interval of this.intervals) {
-        clearInterval(interval)
-      }
+    for (const interval of this.intervals) {
+      clearInterval(interval)
     }
   }
 
