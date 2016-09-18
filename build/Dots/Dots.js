@@ -28,10 +28,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var maxDots = 3;
-var maxOpacity = 0.6;
-var minOpacity = 0.1;
-var timeout = 1000;
+var MAX_DOTS = 3;
+var MAX_OPACITY = 0.6;
+var MIN_OPACITY = 0.1;
+var TIMEOUT = 1000;
 
 var Dots = function (_Component) {
   _inherits(Dots, _Component);
@@ -47,12 +47,12 @@ var Dots = function (_Component) {
 
 
         var newOpacities = [].concat(_toConsumableArray(opacities));
-        newOpacities[index] = newOpacities[index] === minOpacity ? maxOpacity : minOpacity;
+        newOpacities[index] = newOpacities[index] === MIN_OPACITY ? MAX_OPACITY : MIN_OPACITY;
 
         _this.setState({
           opacities: newOpacities
         });
-      }, timeout));
+      }, TIMEOUT));
     };
 
     _this.runDot = function (index) {
@@ -60,12 +60,13 @@ var Dots = function (_Component) {
     };
 
     _this.state = {
-      opacities: Array.from(Array(maxDots)).map(function () {
-        return minOpacity;
+      opacities: Array.from(Array(MAX_DOTS)).map(function () {
+        return MIN_OPACITY;
       })
     };
 
     _this.intervals = [];
+    _this.timeouts = [];
     return _this;
   }
 
@@ -75,28 +76,28 @@ var Dots = function (_Component) {
       var _this2 = this;
 
       var _loop = function _loop(i) {
-        setTimeout(function () {
+        _this2.timeouts.push(setTimeout(function () {
           return _this2.runDot(i);
-        }, timeout / maxDots * i);
+        }, TIMEOUT / MAX_DOTS * i));
       };
 
-      for (var i = 0; i < maxDots; ++i) {
+      for (var i = 0; i < MAX_DOTS; ++i) {
         _loop(i);
       }
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      if (this.intervals) {
+      if (this.timeouts) {
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
 
         try {
-          for (var _iterator = this.intervals[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var interval = _step.value;
+          for (var _iterator = this.timeouts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var timeout = _step.value;
 
-            clearInterval(interval);
+            clearTimeout(timeout);
           }
         } catch (err) {
           _didIteratorError = true;
@@ -109,6 +110,33 @@ var Dots = function (_Component) {
           } finally {
             if (_didIteratorError) {
               throw _iteratorError;
+            }
+          }
+        }
+      }
+
+      if (this.intervals) {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = this.intervals[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var interval = _step2.value;
+
+            clearInterval(interval);
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
             }
           }
         }
