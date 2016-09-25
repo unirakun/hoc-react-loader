@@ -1,4 +1,8 @@
-# react-loader
+# hoc-react-loader
+[![CircleCI](https://circleci.com/gh/Zenika/react-loader.svg?&style=shield&circle-token=07eae4d9bdbe138c04d32753312ba543a4e08f34)](https://circleci.com/gh/Zenika/react-loader/tree/master)
+[![NPM Version](https://badge.fury.io/js/hoc-react-loader.svg)](https://www.npmjs.com/package/hoc-react-loader)
+[![Coverage Status](https://coveralls.io/repos/github/Zenika/react-loader/badge.svg?branch=master)](https://coveralls.io/github/Zenika/react-loader?branch=master)
+
 ## what is this?
 This is a higher order component (`HOC`).
 This HOC purpose is to call a `load` callback passes in `props` of a component only once (at `componentWillMount`).
@@ -39,7 +43,7 @@ import loader from 'hoc-react-loader'
 const MyLoader = () => <div>Waiting ...</div>
 const Component = ({ data }) => <div>Component {data}</div>
 
-export loader(Component, { wait: ['data'], Loader: MyLoader })
+export default loader(Component, { wait: ['data'], Loader: MyLoader })
 ```
 
 ### Don't wait
