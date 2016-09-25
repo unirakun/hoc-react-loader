@@ -45,12 +45,8 @@ export default (
       return Boolean(wait)
     }
 
-    isLoadAFunction = () => {
-      return isFunction(this.props.load)
-    }
-
     omitLoadInProps = (props) => {
-      const isLoadAFunction = this.isLoadAFunction()
+      const isLoadAFunction = isFunction(props.load)
 
       if (isLoadAFunction) {
         this.setState({
