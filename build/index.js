@@ -80,10 +80,8 @@ exports.default = function (ComposedComponent) {
 
         // Anything else
         return Boolean(wait);
-      }, _this.isLoadAFunction = function () {
-        return isFunction(_this.props.load);
       }, _this.omitLoadInProps = function (props) {
-        var isLoadAFunction = _this.isLoadAFunction();
+        var isLoadAFunction = isFunction(props.load);
 
         if (isLoadAFunction) {
           _this.setState({
