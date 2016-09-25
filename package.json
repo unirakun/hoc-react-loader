@@ -1,6 +1,6 @@
 {
   "name": "hoc-react-loader",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "High order component to call a load function if present.",
   "main": "build/index.js",
   "dependencies": {},
@@ -16,6 +16,7 @@
     "babel-preset-es2017": "^1.6.1",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
+    "blanket": "^1.2.3",
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
     "cross-env": "^2.0.0",
@@ -28,15 +29,17 @@
     "jsdom": "^9.4.2",
     "lodash": "^4.15.0",
     "mocha": "^3.0.2",
+    "nyc": "^8.3.0",
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.3.0",
     "react-dom": "^15.3.0",
     "webpack": "^1.13.1"
   },
   "scripts": {
-    "lint": "eslint src/index.jsx",
+    "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
     "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
-    "test": "NODE_ENV=test mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" "
+    "test": "mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" ",
+    "coverage": "nyc --extension .jsx npm test"
   },
   "repository": {
     "type": "git",

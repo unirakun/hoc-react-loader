@@ -14,87 +14,56 @@ You can test some examples [here](https://zenika.github.io/react-loader/).
 `npm i --save hoc-react-loader`
 
 ## use
-You have to wrap your component, and give a `load` props to that resulted component.
+### With `this.props`
+```es6
+import loader from 'hoc-react-loader'
 
-You can also add an optional configuration object as second parameter.
+const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-Parameter | Needed | Default value | Description
-----------|--------|---------------|-------------
-`Loader` | no | `Dots` | A component that will be display depending on `prop` value.
-`prop` | no | `loaded` | A prop name that determine when to display the `Loader` component.
-`wait` | no | `true` | Set to `false` if you don't want to wait for the `prop` to be set.
+export default loader(Component, { wait: ['data'] })
+```
+In this case, the loader `HOC` waits for `this.props.data` to be set and be equivalent to `true`.
+This is usefull when the parent has control over the data injected, or when the `Component` is connected with `redux`.
 
-### Simple example with `redux` :
+Here, `this.props.load` is called once, when the component is mounted.
+`this.props.load` should be injected by parent component or injected by a `Container` (redux).
 
-**Component.js**
-```(javascript)
-import React from 'react'
-export default ({ text }) => <div>{text}</div>
+The `wait` parameter can be an array of props to waits.
+All the props listed should be set and be equivalent to `true`.
+
+The `Loader` is not specified, so the default `Loader` is printed while waiting for all the props.
+Here an exemple with a specified loader :
+```es6
+import loader from 'hoc-react-loader'
+
+const MyLoader = () => <div>Waiting ...</div>
+const Component = ({ data }) => <div>Component {data}</div>
+
+export loader(Component, { wait: ['data'], Loader: MyLoader })
 ```
 
-**Container.js**
-```(javascript)
-import { connect } from 'react-redux'
-import reactLoader from 'hoc-react-loader'
-import { fetchText } from '%%your_actions%%'
-import Component from './Component'
+### Don't wait
+```es6
+import loader from 'hoc-react-loader'
 
-const mapStateToProps = ({ text }) => {
-  return {
-    text,
-  }
-}
+const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    load: () => dispatch(fetchText()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(reactLoader(Component))
+export default loader(Component, { wait: false })
 ```
+In this example, the loader component doesn't wait for props.
+`this.props.load` is called once, but the `Loader` component isn't printed.
 
-The `fetchText` may be an [redux-thunk](https://github.com/gaearon/redux-thunk) action that fetch a text to a `backend`, and update the state : `state.text`.
+### Load as a parameter
+```es6
+import loader from 'hoc-react-loader'
 
-### Advanced example with `redux` :
+const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-**Component.js**
-```(javascript)
-import React from 'react'
-export default ({ text }) => <div>{text}</div>
+export default loader(Component, { load: () => console.log('here') })
 ```
+In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter resulting in `here` to be printed.
 
-**Loader.js**
-```(javascript)
-import React from 'react'
-export default () => <div>loading...</div>
-```
+The default `wait` parameter value is `false`. It means that in this example the `Loader` isn't printed.
 
-**Container.js**
-```(javascript)
-import { connect } from 'react-redux'
-import reactLoader from 'hoc-react-loader'
-import { fetchText } from '%%your_actions%%'
-import Component from './Component'
-import Loader from './Loader'
-
-const mapStateToProps = ({ text, isTextFetched }) => {
-  return {
-    text,
-    fetched: isTextFetched,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    load: () => dispatch(fetchText()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(reactLoader(Component, {
-  Loader,
-  prop: 'fetched'
-}))
-```
-
-The `Loader` component will displayed instead of `Component` as long as `prop` value is false.
+### Wait as a function
+The `wait` parameter could also be a function. Then the `context` and `props` are given to it.
