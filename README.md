@@ -4,12 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Zenika/react-loader/badge.svg?branch=master)](https://coveralls.io/github/Zenika/react-loader?branch=master)
 
 ## what is this?
-This is a higher order component (`HOC`).
-This HOC purpose is to call a `load` callback passes in `props` of a component only once (at `componentWillMount`).
-This is convenient to load data from a `backend` for instance.
-
-It shows a loading component when it's waiting for the props to be defined.
-This loading component can be changed easely.
+This is a higher order component ("HOC"). It's purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
 
 ## try it
 You can test some examples [here](https://zenika.github.io/react-loader/).
@@ -26,21 +21,15 @@ const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
 export default loader(Component, { wait: ['data'] })
 ```
-In this case, the loader `HOC` waits for `this.props.data` to be set and be equivalent to `true`.
-This is usefull when the parent has control over the data injected, or when the `Component` is connected with `redux`.
+In this case, the loader waits for `this.props.data` to be truthy, then mounts its child component and calls `this.props.load` if it exists. This is useful when the parent has control over the injected data, or when the `Component` is connected with `redux`. `this.props.load` should be injected by the parent component or injected by a `Container` (redux).
 
-Here, `this.props.load` is called once, when the component is mounted.
-`this.props.load` should be injected by parent component or injected by a `Container` (redux).
+The `wait` parameter should be an array of props to waits. All these props should become truthy at some point.
 
-The `wait` parameter can be an array of props to waits.
-All the props listed should be set and be equivalent to `true`.
-
-The `Loader` is not specified, so the default `Loader` is printed while waiting for all the props.
-Here an exemple with a specified loader :
+Since the `Loader` is not specified, the default `Loader` is displayed while waiting for all the props. Here's an exemple with a specified loader:
 ```es6
 import loader from 'hoc-react-loader'
 
-const MyLoader = () => <div>Waiting ...</div>
+const MyLoader = () => <div>Waiting...</div>
 const Component = ({ data }) => <div>Component {data}</div>
 
 export default loader(Component, { wait: ['data'], Loader: MyLoader })
@@ -54,8 +43,7 @@ const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
 export default loader(Component, { wait: false })
 ```
-In this example, the loader component doesn't wait for props.
-`this.props.load` is called once, but the `Loader` component isn't printed.
+In this example, the loader component doesn't wait for props. `this.props.load` is called once, but the `Loader` component isn't displayed.
 
 ### Load as a parameter
 ```es6
@@ -65,9 +53,9 @@ const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
 export default loader(Component, { load: () => console.log('here') })
 ```
-In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter resulting in `here` to be printed.
+In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter, resulting in `here` to be printed.
 
-The default `wait` parameter value is `false`. It means that in this example the `Loader` isn't printed.
+The default `wait` parameter value is `false`. It means that in this example the `Loader` isn't displayed.
 
 ### Wait as a function
-The `wait` parameter could also be a function. Then the `context` and `props` are given to it.
+The `wait` parameter can also be a function. Then the `context` and `props` are given to it, and it should return the array of props to wait for.
