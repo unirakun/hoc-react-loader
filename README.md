@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Zenika/react-loader/badge.svg?branch=master)](https://coveralls.io/github/Zenika/react-loader?branch=master)
 
 ## what is this?
-This is a higher order component ("HOC"). It's purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
+This is a higher order component ("HOC"). Its purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
 
 ## try it
 You can test some examples [here](https://zenika.github.io/react-loader/).
