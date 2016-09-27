@@ -19,6 +19,7 @@
     "blanket": "^1.2.3",
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
+    "coveralls": "^2.11.14",
     "cross-env": "^2.0.0",
     "enzyme": "^2.4.1",
     "eslint": "^3.2.2",
@@ -39,7 +40,8 @@
     "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
     "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
     "test": "mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" ",
-    "coverage": "nyc --extension .jsx npm test"
+    "coverage": "nyc --extension .jsx npm test",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
