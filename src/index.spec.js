@@ -184,15 +184,15 @@ describe('react-loader', () => {
 
   it('should call the `load` function parameter if present', () => {
     // Mount
-    const load = spy(() => {})
-    const load2 = spy(() => {})
-    const loaded = getWrapped({ load: load2 }, { load })
+    const loadProp = spy(() => {})
+    const loadParam = spy(() => {})
+    const loaded = getWrapped({ load: loadParam }, { load: loadProp })
 
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once()
-    load2.should.have.been.called.once()
+    loadProp.should.have.been.called.once()
+    loadParam.should.have.been.called.once()
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
   })
