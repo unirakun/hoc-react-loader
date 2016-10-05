@@ -20,32 +20,47 @@ const getWrapped = (config, props) => {
   return mount(<Container {...props} />)
 }
 
-const isLoading = (load, loaded, CustomLoader = undefined) => {
+const isLoading = (load, loaded, CustomLoader) => {
+  // Load function is called
+  // Graphic component isn't called
+  // Loader should be Dots
   load.should.have.been.called.once
   expect(loaded.find(Component).node).to.be.undefined
   loaded.find(CustomLoader || Dots).node.should.exists
 }
 
 const isLoadingCustomLoader = (load, loaded) => {
+  // Load function is called
+  // Graphic component isn't called
+  // Loader should be `Loader` and not `Dots`
   isLoading(load, loaded, Loader)
   expect(loaded.find(Dots).node).to.be.undefined
 }
 
-const isLoaded = (load, loaded, CustomLoader = undefined) => {
+const isLoaded = (load, loaded, CustomLoader) => {
+  // Load function is not called twice
+  // Graphic component is called
+  // Loader shouldn't be printed
   load.should.have.been.called.once
   loaded.find(Component).node.should.exists
   expect(loaded.find(CustomLoader || Dots).node).to.be.undefined
 }
 
 const isLoadedCustomLoader = (load, loaded) => {
+  // Load function is not called twice
+  // Graphic component is called
+  // `Loader` shouldn't be printed
   isLoaded(load, loaded, Loader)
   expect(loaded.find(Dots).node).to.be.undefined
 }
 
-const isLoadedTwice = (load, loaded, CustomLoader = undefined) => {
+const isLoadedTwice = (load, loaded) => {
+  // Load function is called twice
+  // Graphic is printed
+  // Loader shouldn't be printed
   load.should.have.been.called.twice
   loaded.find(Component).node.should.exists
-  expect(loaded.find(CustomLoader || Dots).node).to.be.undefined
+  expect(loaded.find(Dots).node).to.be.undefined
 }
 
 describe('react-loader', () => {
@@ -54,17 +69,11 @@ describe('react-loader', () => {
     const load = spy(() => {})
     const loaded = getWrapped({ wait: ['data'] }, { load })
 
-    // Load function is called
-    // Graphic component isn't called
-    // Loader should be Dots
     isLoading(load, loaded)
 
     // Change `data` value
     loaded.setProps({ data: true })
 
-    // Load function is not called twice
-    // Graphic component is called
-    // Loader shouldn't be printed
     isLoaded(load, loaded)
   })
 
@@ -73,17 +82,11 @@ describe('react-loader', () => {
     const load = spy(() => {})
     const loaded = getWrapped(undefined, { load })
 
-    // Load function is called
-    // Graphic component isn't called
-    // Loader should be Dots
     isLoading(load, loaded)
 
     // Change `loaded` value
     loaded.setProps({ loaded: true })
 
-    // Load function is not called twice
-    // Graphic component is called
-    // Loader shouldn't be printed
     isLoaded(load, loaded)
   })
 
@@ -92,33 +95,21 @@ describe('react-loader', () => {
     const load = spy(() => {})
     const loaded = getWrapped({ wait: ['prop1', 'prop2'] }, { load })
 
-    // Load function is called
-    // Graphic component isn't called
-    // Loader should be Dots
     isLoading(load, loaded)
 
     // Change `prop1` value
     loaded.setProps({ prop1: true })
 
-    // Load function is not called twice
-    // Graphic component isn't called
-    // Loader should be Dots
     isLoading(load, loaded)
 
     // Change `prop3` value
     loaded.setProps({ prop3: true })
 
-    // Load function is not called twice
-    // Graphic component isn't called
-    // Loader should be Dots
     isLoading(load, loaded)
 
     // Change `prop2` value
     loaded.setProps({ prop2: true })
 
-    // Load function isn't called twice
-    // Graphic component is printed
-    // Loader shouldn't be printed
     isLoaded(load, loaded)
   })
 
@@ -127,17 +118,11 @@ describe('react-loader', () => {
     const load = spy(() => {})
     let loaded = getWrapped({ wait: () => false }, { load })
 
-    // Load function is called
-    // Graphic component isn't printed
-    // Loader should be Dots
     isLoading(load, loaded)
 
     // Mount (true case)
     loaded = getWrapped({ wait: () => true }, { load })
 
-    // Load function is called
-    // Graphic component is printed
-    // Loader shouldn't be printed
     isLoadedTwice(load, loaded)
   })
 
@@ -146,17 +131,11 @@ describe('react-loader', () => {
     const load = spy(() => {})
     let loaded = getWrapped({ wait: false }, { load })
 
-    // Load function is called
-    // Graphic component isn't called
-    // Loader should be Dots
     isLoading(load, loaded)
 
     // Mount (true case)
     loaded = getWrapped({ wait: true }, { load })
 
-    // Load function is called
-    // Graphic is printed
-    // Loader shouldn't be printed
     isLoadedTwice(load, loaded)
   })
 
@@ -165,17 +144,11 @@ describe('react-loader', () => {
     const load = spy(() => {})
     const loaded = getWrapped({ Loader, wait: ['data'] }, { load })
 
-    // Load function is called
-    // Graphic component isn't called
-    // Loader should `Loader` and not `Dots`
     isLoadingCustomLoader(load, loaded)
 
     // Change `data` value
     loaded.setProps({ data: true })
 
-    // Load function is not called twice
-    // Graphic component is called
-    // Loader shouldn't be printed
     isLoadedCustomLoader(load, loaded)
   })
 
