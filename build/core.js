@@ -62,8 +62,8 @@ exports.default = function (ComposedComponent) {
         if (Array.isArray(wait)) {
           return wait.map(function (w) {
             return Boolean(_this.props[w]);
-          }).reduce(function (f, s) {
-            return f && s;
+          }).reduce(function (allProps, currentProp) {
+            return allProps && currentProp;
           });
         }
 
