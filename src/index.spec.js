@@ -20,6 +20,33 @@ const getWrapped = (config, props) => {
   return mount(<Container {...props} />)
 }
 
+const isLoading = (load, loaded, CustomLoader = undefined) => {
+  load.should.have.been.called.once
+  expect(loaded.find(Component).node).to.be.undefined
+  loaded.find(CustomLoader || Dots).node.should.exists
+}
+
+const isLoadingCustomLoader = (load, loaded, ) => {
+  isLoading(Loader)
+  expect(loaded.find(Dots).node).to.be.undefined
+}
+
+const isLoaded = (load, loaded, CustomLoader = undefined) => {
+  load.should.have.been.called.once
+  loaded.find(Component).node.should.exists
+  expect(loaded.find(CustomLoader || Dots).node).to.be.undefined
+}
+
+const isLoadedCustomLoader = (load, loaded, ) => {
+  isLoaded(Loader)
+  expect(loaded.find(Dots).node).to.be.undefined
+}
+
+const isLoadedTwice = (load, loaded, CustomLoader = undefined) => {
+  load.should.have.been.called.twice
+  loaded.find(Component).node.should.exists
+  expect(loaded.find(CustomLoader || Dots).node).to.be.undefined
+}
 
 describe('react-loader', () => {
   it('should wait for a `data` props [readme]', () => {
@@ -30,8 +57,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    isLoading(load, loaded)
 
     // Change `data` value
     loaded.setProps({ data: true })
@@ -39,9 +65,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component is called
     // Loader shouldn't be printed
-    load.should.have.been.called.once
-    loaded.find(Component).node.should.exists
-    expect(loaded.find(Dots).node).to.be.undefined
+    isLoaded(load, loaded)
   })
 
   it('should wait for a `loaded` props [default]', () => {
@@ -52,9 +76,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    isLoading(load, loaded)
 
     // Change `loaded` value
     loaded.setProps({ loaded: true })
@@ -62,9 +84,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component is called
     // Loader shouldn't be printed
-    load.should.have.been.called.once
-    loaded.find(Component).node.should.exists
-    expect(loaded.find(Dots).node).to.be.undefined
+    isLoaded(load, loaded)
   })
 
   it('should wait for an array of props', () => {
@@ -75,9 +95,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    isLoading(load, loaded)
 
     // Change `prop1` value
     loaded.setProps({ prop1: true })
@@ -85,9 +103,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    isLoading(load, loaded)
 
     // Change `prop3` value
     loaded.setProps({ prop3: true })
@@ -95,9 +111,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    isLoading(load, loaded)
 
     // Change `prop2` value
     loaded.setProps({ prop2: true })
@@ -105,9 +119,7 @@ describe('react-loader', () => {
     // Load function isn't called twice
     // Graphic component is printed
     // Loader shouldn't be printed
-    load.should.have.been.called.once
-    loaded.find(Component).node.should.exists
-    expect(loaded.find(Dots).node).to.be.undefined
+    isLoaded(load, loaded)
   })
 
   it('should handle `wait` parameter to be a function', () => {
@@ -118,9 +130,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't printed
     // Loader should be Dots
-    load.should.have.been.called.once
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    isLoading(load, loaded)
 
     // Mount (true case)
     loaded = getWrapped({ wait: () => true }, { load })
@@ -128,9 +138,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component is printed
     // Loader shouldn't be printed
-    load.should.have.been.called.twice()
-    loaded.find(Component).node.should.exists
-    expect(loaded.find(Dots).node).to.be.undefined
+    isLoadedTwice(load, loaded)
   })
 
   it('should handle `wait` parameter to be a boolean', () => {
@@ -141,9 +149,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    isLoading(load, loaded)
 
     // Mount (true case)
     loaded = getWrapped({ wait: true }, { load })
@@ -151,9 +157,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic is printed
     // Loader shouldn't be printed
-    load.should.have.been.called.twice()
-    loaded.find(Component).node.should.exists
-    expect(loaded.find(Dots).node).to.be.undefined
+    isLoadedTwice(load, loaded)
   })
 
   it('should print a different Loader component', () => {
@@ -164,10 +168,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should `Loader` and not `Dots`
-    load.should.have.been.called.once
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Loader).node.should.exists
-    expect(loaded.find(Dots).node).to.be.undefined
+    isLoadingCustomLoader(load, loaded)
 
     // Change `data` value
     loaded.setProps({ data: true })
@@ -175,10 +176,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component is called
     // Loader shouldn't be printed
-    load.should.have.been.called.once
-    loaded.find(Component).node.should.exists
-    expect(loaded.find(Dots).node).to.be.undefined
-    expect(loaded.find(Loader).node).to.be.undefined
+    isLoadedCustomLoader(load, loaded)
   })
 
   it('should call the `load` function parameter if present', () => {
