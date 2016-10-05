@@ -20,21 +20,25 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// http://stackoverflow.com/a/7356528
+var isFunction = function isFunction(functionToCheck) {
+  var getType = {};
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+};
 var getDisplayName = function getDisplayName(c) {
   return c.displayName || c.name || 'Component';
 };
 
-exports.default = function (ComposedComponent, config) {
+exports.default = function (ComposedComponent) {
   var _class, _temp2;
 
-  var _ref = config || {};
+  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
   var Loader = _ref.Loader;
-  var _ref$prop = _ref.prop;
-  var prop = _ref$prop === undefined ? 'loaded' : _ref$prop;
   var _ref$wait = _ref.wait;
-  var wait = _ref$wait === undefined ? true : _ref$wait;
-
+  var wait = _ref$wait === undefined ? ['loaded'] : _ref$wait;
+  var _ref$load = _ref.load;
+  var load = _ref$load === undefined ? undefined : _ref$load;
 
   return _temp2 = _class = function (_Component) {
     _inherits(_class, _Component);
@@ -53,11 +57,25 @@ exports.default = function (ComposedComponent, config) {
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
         props: {}
       }, _this.isLoaded = function () {
-        return Boolean(_this.props[prop]);
-      }, _this.isLoadAFunction = function () {
-        return typeof _this.props.load === 'function';
+        // Wait is an array
+        // Implicitly meaning that this is an array of props
+        if (Array.isArray(wait)) {
+          return wait.map(function (w) {
+            return Boolean(_this.props[w]);
+          }).reduce(function (allProps, currentProp) {
+            return allProps && currentProp;
+          });
+        }
+
+        // Wait is a function
+        if (isFunction(wait)) {
+          return wait(_this.props, _this.context);
+        }
+
+        // Anything else
+        return Boolean(wait);
       }, _this.omitLoadInProps = function (props) {
-        var isLoadAFunction = _this.isLoadAFunction();
+        var isLoadAFunction = isFunction(props.load);
 
         if (isLoadAFunction) {
           _this.setState({
@@ -78,19 +96,21 @@ exports.default = function (ComposedComponent, config) {
     _createClass(_class, [{
       key: 'componentWillMount',
       value: function componentWillMount() {
+        // Load from props
         if (this.omitLoadInProps(this.props)) {
           this.props.load();
+        }
+
+        // Load from hoc argument
+        if (isFunction(load)) {
+          load();
         }
       }
     }, {
       key: 'render',
       value: function render() {
-        if (wait && !this.isLoaded()) {
-          if (Loader) {
-            return _react2.default.createElement(Loader, this.state.props);
-          }
-
-          return null;
+        if (!this.isLoaded()) {
+          return _react2.default.createElement(Loader, this.state.props);
         }
 
         return _react2.default.createElement(ComposedComponent, this.state.props);

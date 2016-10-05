@@ -10,7 +10,9 @@ dependencies:
     - docker run --rm -v $(pwd)/examples:/usr/src/app zenika/alpine-node npm install
 
 test:
+  pre:
+    - ./misc/rebuild_refs.sh
   override:
-    - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node npm run test
     - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node npm run lint
+    - docker run --rm -e COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN} -v $(pwd):/usr/src/app zenika/alpine-node npm run coveralls
     - docker run --rm -v $(pwd)/examples:/usr/src/app zenika/alpine-node npm run lint
