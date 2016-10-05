@@ -26,8 +26,8 @@ const isLoading = (load, loaded, CustomLoader = undefined) => {
   loaded.find(CustomLoader || Dots).node.should.exists
 }
 
-const isLoadingCustomLoader = (load, loaded, ) => {
-  isLoading(Loader)
+const isLoadingCustomLoader = (load, loaded) => {
+  isLoading(load, loaded, Loader)
   expect(loaded.find(Dots).node).to.be.undefined
 }
 
@@ -37,8 +37,8 @@ const isLoaded = (load, loaded, CustomLoader = undefined) => {
   expect(loaded.find(CustomLoader || Dots).node).to.be.undefined
 }
 
-const isLoadedCustomLoader = (load, loaded, ) => {
-  isLoaded(Loader)
+const isLoadedCustomLoader = (load, loaded) => {
+  isLoaded(load, loaded, Loader)
   expect(loaded.find(Dots).node).to.be.undefined
 }
 
