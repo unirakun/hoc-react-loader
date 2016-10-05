@@ -30,7 +30,6 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once()
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
 
@@ -40,7 +39,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component is called
     // Loader shouldn't be printed
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     loaded.find(Component).node.should.exists
     expect(loaded.find(Dots).node).to.be.undefined
   })
@@ -53,7 +52,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
 
@@ -63,7 +62,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component is called
     // Loader shouldn't be printed
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     loaded.find(Component).node.should.exists
     expect(loaded.find(Dots).node).to.be.undefined
   })
@@ -76,7 +75,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
 
@@ -86,7 +85,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
 
@@ -96,7 +95,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
 
@@ -106,7 +105,7 @@ describe('react-loader', () => {
     // Load function isn't called twice
     // Graphic component is printed
     // Loader shouldn't be printed
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     loaded.find(Component).node.should.exists
     expect(loaded.find(Dots).node).to.be.undefined
   })
@@ -119,7 +118,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't printed
     // Loader should be Dots
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
 
@@ -142,7 +141,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
 
@@ -165,7 +164,7 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should `Loader` and not `Dots`
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Loader).node.should.exists
     expect(loaded.find(Dots).node).to.be.undefined
@@ -176,7 +175,7 @@ describe('react-loader', () => {
     // Load function is not called twice
     // Graphic component is called
     // Loader shouldn't be printed
-    load.should.have.been.called.once()
+    load.should.have.been.called.once
     loaded.find(Component).node.should.exists
     expect(loaded.find(Dots).node).to.be.undefined
     expect(loaded.find(Loader).node).to.be.undefined
@@ -191,8 +190,8 @@ describe('react-loader', () => {
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
-    loadProp.should.have.been.called.once()
-    loadParam.should.have.been.called.once()
+    loadProp.should.have.been.called.once
+    loadParam.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(Dots).node.should.exists
   })

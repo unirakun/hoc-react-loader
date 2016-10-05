@@ -31,7 +31,7 @@ export default (
       if (Array.isArray(wait)) {
         return wait
           .map(w => Boolean(this.props[w]))
-          .reduce((f, s) => f && s)
+          .reduce((allProps, currentProp) => allProps && currentProp)
       }
 
       // Wait is a function
