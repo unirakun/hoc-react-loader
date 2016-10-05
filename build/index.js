@@ -10,9 +10,9 @@ var _core = require('./core');
 
 var _core2 = _interopRequireDefault(_core);
 
-var _Dots = require('./Dots');
+var _TailSpin = require('./TailSpin');
 
-var _Dots2 = _interopRequireDefault(_Dots);
+var _TailSpin2 = _interopRequireDefault(_TailSpin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,7 +22,7 @@ exports.default = function (ComposedComponent) {
   var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
   var _ref$Loader = _ref.Loader;
-  var Loader = _ref$Loader === undefined ? _Dots2.default : _ref$Loader;
+  var Loader = _ref$Loader === undefined ? _TailSpin2.default : _ref$Loader;
 
   var rest = _objectWithoutProperties(_ref, ['Loader']);
 

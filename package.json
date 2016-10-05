@@ -1,11 +1,11 @@
 {
   "name": "hoc-react-loader",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "High order component to call a load function if present.",
   "main": "build/index.js",
-  "dependencies": {},
   "peerDependencies": {
-    "react": "^15.3.0"
+    "react": "^15.3.0",
+    "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
@@ -34,6 +34,7 @@
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.3.0",
     "react-dom": "^15.3.0",
+    "tinycolor2": "^1.4.1",
     "webpack": "^1.13.1"
   },
   "scripts": {

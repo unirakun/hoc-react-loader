@@ -1,10 +1,10 @@
 import core from './core'
-import Dots from './Dots'
+import TailSpin from './TailSpin'
 
 export default (
   ComposedComponent,
   {
-    Loader = Dots,
+    Loader = TailSpin,
     ...rest,
   } = {},
 ) => core(ComposedComponent, { ...rest, Loader })
