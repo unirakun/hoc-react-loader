@@ -30,14 +30,14 @@ const App = () => (
     </div>
 
     <p className={styles.description}>
-      {"hoc-react-loader is an higher order component calling a function "}
-      {"when a watched prop value is not defined, false or null. "}
-      {"It shows a loading component when it's waiting for the props to be defined. "}
-      {"This loading component can be changed easely."}
+      {'hoc-react-loader is an higher order component calling a function'}
+      {'when a watched prop value is not defined, false or null.'}
+      {'It shows a loading component when it\'s waiting for the props to be defined. '}
+      {'This loading component can be changed easely.'}
     </p>
 
     <p className={styles.description}>
-      {"Check out the examples below. Use the button to trigger stubed load."}
+      {'Check out the examples below. Use the button to trigger stubed load.'}
     </p>
 
     <Examples className={styles.app} />
