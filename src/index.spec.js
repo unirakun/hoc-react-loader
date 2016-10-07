@@ -10,7 +10,7 @@ import { mount } from 'enzyme'
 import { expect, spy } from 'chai'
 import blanket from 'blanket' // eslint-disable-line
 import loader from './index'
-import Dots from './Dots'
+import TailSpin from './TailSpin'
 
 
 const Component = () => <div />
@@ -23,18 +23,18 @@ const getWrapped = (config, props) => {
 const isLoading = (load, loaded, CustomLoader) => {
   // Load function is called
   // Graphic component isn't called
-  // Loader should be Dots
+  // Loader should be TailSpin
   load.should.have.been.called.once
   expect(loaded.find(Component).node).to.be.undefined
-  loaded.find(CustomLoader || Dots).node.should.exists
+  loaded.find(CustomLoader || TailSpin).node.should.exists
 }
 
 const isLoadingCustomLoader = (load, loaded) => {
   // Load function is called
   // Graphic component isn't called
-  // Loader should be `Loader` and not `Dots`
+  // Loader should be `Loader` and not `TailSpin`
   isLoading(load, loaded, Loader)
-  expect(loaded.find(Dots).node).to.be.undefined
+  expect(loaded.find(TailSpin).node).to.be.undefined
 }
 
 const isLoaded = (load, loaded, CustomLoader) => {
@@ -43,7 +43,7 @@ const isLoaded = (load, loaded, CustomLoader) => {
   // Loader shouldn't be printed
   load.should.have.been.called.once
   loaded.find(Component).node.should.exists
-  expect(loaded.find(CustomLoader || Dots).node).to.be.undefined
+  expect(loaded.find(CustomLoader || TailSpin).node).to.be.undefined
 }
 
 const isLoadedCustomLoader = (load, loaded) => {
@@ -51,7 +51,7 @@ const isLoadedCustomLoader = (load, loaded) => {
   // Graphic component is called
   // `Loader` shouldn't be printed
   isLoaded(load, loaded, Loader)
-  expect(loaded.find(Dots).node).to.be.undefined
+  expect(loaded.find(TailSpin).node).to.be.undefined
 }
 
 const isLoadedTwice = (load, loaded) => {
@@ -60,7 +60,7 @@ const isLoadedTwice = (load, loaded) => {
   // Loader shouldn't be printed
   load.should.have.been.called.twice
   loaded.find(Component).node.should.exists
-  expect(loaded.find(Dots).node).to.be.undefined
+  expect(loaded.find(TailSpin).node).to.be.undefined
 }
 
 describe('react-loader', () => {
@@ -164,7 +164,7 @@ describe('react-loader', () => {
     loadProp.should.have.been.called.once
     loadParam.should.have.been.called.once
     expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    loaded.find(TailSpin).node.should.exists
   })
 
   it('should handle a `null` `load` props/parameter', () => {
@@ -174,7 +174,7 @@ describe('react-loader', () => {
     // Graphic component isn't called
     // Dots should be printed
     expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(Dots).node.should.exists
+    loaded.find(TailSpin).node.should.exists
   })
 })
 

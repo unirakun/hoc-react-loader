@@ -7,7 +7,7 @@ dependencies:
     - examples/node_modules
   override:
     - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node npm install
-    - docker run --rm -v $(pwd)/examples:/usr/src/app zenika/alpine-node npm install
+    - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node sh -c "cd examples && npm install"
 
 test:
   pre:
@@ -15,4 +15,4 @@ test:
   override:
     - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node npm run lint
     - docker run --rm -e COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN} -v $(pwd):/usr/src/app zenika/alpine-node npm run coveralls
-    - docker run --rm -v $(pwd)/examples:/usr/src/app zenika/alpine-node npm run lint
+    - docker run --rm -v $(pwd):/usr/src/app zenika/alpine-node sh -c "cd examples && npm run lint"
