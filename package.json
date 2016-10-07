@@ -42,7 +42,7 @@
     "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
     "test": "mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" ",
     "coverage": "nyc --extension .jsx npm test",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc --extension .jsx npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
