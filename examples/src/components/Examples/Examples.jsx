@@ -27,10 +27,10 @@ const Examples = ({ style, className }) => (
           In this example, the loader wraps a Component with its default parameters.
           It means that the loader calls <pre>this.props.load</pre>
           &nbsp;if presents, then waits for <pre>this.props.loaded</pre>
-          &nbsp;to be truthy, and finally prints the wrapped components.
+        &nbsp;to be truthy, and finally displays the wrapped components.
           While waiting for <pre>this.props.loaded</pre>&nbsp;
-          to be truthy, hoc-react-loader takes care of printing
-          a loading spin based on the background color.
+          to be truthy, hoc-react-loader takes care of displaying
+          a spinner based on the background color.
         </p>
       </div>
     </Example>
@@ -45,7 +45,7 @@ const Examples = ({ style, className }) => (
       <div className={styles.doc}>
         <h3>OneParam: waiting for a given param</h3>
         <p className={styles.description}>
-          Like previous example, the default loader is used (Loading spin) and
+          Like in the previous example, the default loading indicator is used (the spinner) and
           &nbsp;<pre>this.props.load</pre> is called. But this time, the <pre>HOC</pre> waits for
           &nbsp;<pre>this.props.prop</pre> as specified in the <pre>wait</pre> param.
         </p>
@@ -62,7 +62,8 @@ const Examples = ({ style, className }) => (
       <div className={styles.doc}>
         <h3>TwoParams: wait for multiple props</h3>
         <p className={styles.description}>
-          Waiting for multiple props is easy, just give an array in the <pre>wait</pre> param.
+          Waiting for multiple props is almost the same of waiting for one. You just need
+          to add every props to wait for in the <pre>wait</pre> array param.
           Here, <pre>hoc-react-loader</pre> waits for <pre>prop</pre> and <pre>prop2</pre>
           &nbsp;to be truthy!
         </p>
@@ -80,8 +81,8 @@ const Examples = ({ style, className }) => (
         <h3>DontWait: don't show the placeholder</h3>
         <p className={styles.description}>
           If the <pre>wait</pre> param is set to <pre>false</pre> the <pre>hoc-react-loader</pre>
-          &nbsp;will not print the Loader (default or specified one). But <pre>this.props.load</pre>
-          &nbsp;is called if presents!
+          &nbsp;will not display the loading indicator (default or custom).
+          But <pre>this.props.load</pre> is still called if presents!
         </p>
       </div>
     </Example>
@@ -94,9 +95,9 @@ const Examples = ({ style, className }) => (
       example={<Loader />}
     >
       <div className={styles.doc}>
-        <h3>Loader: change the default loader</h3>
+        <h3>Loader: change the default loading indicator</h3>
         <p className={styles.description}>
-          In this example, the default loader is surcharged with a custom one.
+          In this example, the default loading indicator is replaced with a custom one.
           The component waits for the default prop (<pre>this.props.loaded</pre>).
         </p>
       </div>

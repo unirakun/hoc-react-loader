@@ -38,7 +38,7 @@ const App = () => (
     </p>
 
     <p className={styles.description}>
-      Check out the examples below. Use the button to trigger stubed load.
+      Check out the examples below. Use the button to trigger a stubbed loading.
     </p>
 
     <Examples className={styles.app} />
