@@ -49,10 +49,11 @@ var TailSpin = function (_Component) {
       }
 
       if (parentColor && parentColor !== '') {
-        var color = (0, _tinycolor2.default)(parentColor).saturate(20).toHexString();
+        var tinyC = (0, _tinycolor2.default)(parentColor);
+        var color = tinyC.isDark() ? tinyC.lighten(20) : tinyC.darken(20);
 
         _this.setState({
-          color: color
+          color: color.toHexString()
         });
       }
     };

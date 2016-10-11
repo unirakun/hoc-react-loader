@@ -30,10 +30,11 @@ class TailSpin extends Component {
     }
 
     if (parentColor && parentColor !== '') {
-      const color = tinycolor(parentColor).saturate(20).toHexString()
+      const tinyC = tinycolor(parentColor)
+      const color = tinyC.isDark() ? tinyC.lighten(20) : tinyC.darken(20)
 
       this.setState({
-        color,
+        color: color.toHexString(),
       })
     }
   }
