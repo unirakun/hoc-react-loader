@@ -34,7 +34,7 @@ exports.default = function (ComposedComponent) {
 
   var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  var Loader = _ref.Loader;
+  var LoadingIndicator = _ref.LoadingIndicator;
   var _ref$wait = _ref.wait;
   var wait = _ref$wait === undefined ? ['loaded'] : _ref$wait;
   var _ref$load = _ref.load;
@@ -110,7 +110,7 @@ exports.default = function (ComposedComponent) {
       key: 'render',
       value: function render() {
         if (!this.isLoaded()) {
-          return _react2.default.createElement(Loader, this.state.props);
+          return _react2.default.createElement(LoadingIndicator, this.state.props);
         }
 
         return _react2.default.createElement(ComposedComponent, this.state.props);

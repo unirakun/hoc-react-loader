@@ -10,7 +10,7 @@ const getDisplayName = (c) => c.displayName || c.name || 'Component'
 export default (
   ComposedComponent,
   {
-    Loader,
+    LoadingIndicator,
     wait = ['loaded'],
     load = undefined,
   } = {},
@@ -78,7 +78,7 @@ export default (
 
     render() {
       if (!this.isLoaded()) {
-        return <Loader {...this.state.props} />
+        return <LoadingIndicator {...this.state.props} />
       }
 
       return <ComposedComponent {...this.state.props} />

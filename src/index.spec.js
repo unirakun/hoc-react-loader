@@ -14,7 +14,7 @@ import TailSpin from './TailSpin'
 
 
 const Component = () => <div />
-const Loader = () => <div />
+const LoadingIndicator = () => <div />
 const getWrapped = (config, props) => {
   const Container = loader(Component, config)
   return mount(<Container {...props} />)
@@ -23,7 +23,7 @@ const getWrapped = (config, props) => {
 const isLoading = (load, loaded, CustomLoader) => {
   // Load function is called
   // Graphic component isn't called
-  // Loader should be TailSpin
+  // LoadingIndicator should be TailSpin
   load.should.have.been.called.once
   expect(loaded.find(Component).node).to.be.undefined
   loaded.find(CustomLoader || TailSpin).node.should.exists
@@ -32,15 +32,15 @@ const isLoading = (load, loaded, CustomLoader) => {
 const isLoadingCustomLoader = (load, loaded) => {
   // Load function is called
   // Graphic component isn't called
-  // Loader should be `Loader` and not `TailSpin`
-  isLoading(load, loaded, Loader)
+  // LoadingIndicator should be `LoadingIndicator` and not `TailSpin`
+  isLoading(load, loaded, LoadingIndicator)
   expect(loaded.find(TailSpin).node).to.be.undefined
 }
 
 const isLoaded = (load, loaded, CustomLoader) => {
   // Load function is not called twice
   // Graphic component is called
-  // Loader shouldn't be printed
+  // LoadingIndicator shouldn't be printed
   load.should.have.been.called.once
   loaded.find(Component).node.should.exists
   expect(loaded.find(CustomLoader || TailSpin).node).to.be.undefined
@@ -49,8 +49,8 @@ const isLoaded = (load, loaded, CustomLoader) => {
 const isLoadedCustomLoader = (load, loaded) => {
   // Load function is not called twice
   // Graphic component is called
-  // `Loader` shouldn't be printed
-  isLoaded(load, loaded, Loader)
+  // `LoadingIndicator` shouldn't be printed
+  isLoaded(load, loaded, LoadingIndicator)
   expect(loaded.find(TailSpin).node).to.be.undefined
 }
 
@@ -134,10 +134,10 @@ describe('react-loader', () => {
     isLoaded(load, loaded)
   })
 
-  it('should print a different Loader component', () => {
+  it('should print a different LoadingIndicator component', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ Loader, wait: ['data'] }, { load })
+    const loaded = getWrapped({ LoadingIndicator, wait: ['data'] }, { load })
 
     isLoadingCustomLoader(load, loaded)
 

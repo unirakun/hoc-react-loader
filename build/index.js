@@ -21,10 +21,10 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 exports.default = function (ComposedComponent) {
   var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-  var _ref$Loader = _ref.Loader;
-  var Loader = _ref$Loader === undefined ? _TailSpin2.default : _ref$Loader;
+  var _ref$LoadingIndicator = _ref.LoadingIndicator;
+  var LoadingIndicator = _ref$LoadingIndicator === undefined ? _TailSpin2.default : _ref$LoadingIndicator;
 
-  var rest = _objectWithoutProperties(_ref, ['Loader']);
+  var rest = _objectWithoutProperties(_ref, ['LoadingIndicator']);
 
-  return (0, _core2.default)(ComposedComponent, _extends({}, rest, { Loader: Loader }));
+  return (0, _core2.default)(ComposedComponent, _extends({}, rest, { LoadingIndicator: LoadingIndicator }));
 };

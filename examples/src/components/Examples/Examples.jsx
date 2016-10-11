@@ -10,7 +10,7 @@ import Base from './Base'
 import OneParam from './OneParam'
 import TwoParams from './TwoParams'
 import DontWait from './DontWait'
-import Loader from './Loader'
+import LoadingIndicator from './LoadingIndicator'
 
 const Examples = ({ style, className }) => (
   <div style={style} className={`${styles.examples} ${className}`}>
@@ -27,7 +27,7 @@ const Examples = ({ style, className }) => (
           In this example, the loader wraps a Component with its default parameters.
           It means that the loader calls <pre>this.props.load</pre>
           &nbsp;if presents, then waits for <pre>this.props.loaded</pre>
-        &nbsp;to be truthy, and finally displays the wrapped components.
+          &nbsp;to be truthy, and finally displays the wrapped components.
           While waiting for <pre>this.props.loaded</pre>&nbsp;
           to be truthy, hoc-react-loader takes care of displaying
           a spinner based on the background color.
@@ -90,12 +90,12 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="Base"
-      code="export&nbsp;default loader(Loader, { Loader: CustomLoader })"
+      code="export&nbsp;default loader(LoadingIndicator, { LoadingIndicator: CustomLoadingIndicator })" // eslint-disable-line
       buttons={{ 0: true }}
-      example={<Loader />}
+      example={<LoadingIndicator />}
     >
       <div className={styles.doc}>
-        <h3>Loader: change the default loading indicator</h3>
+        <h3>LoadingIndicator: change the default loading indicator</h3>
         <p className={styles.description}>
           In this example, the default loading indicator is replaced with a custom one.
           The component waits for the default prop (<pre>this.props.loaded</pre>).

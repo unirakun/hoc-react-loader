@@ -4,7 +4,7 @@ import TailSpin from './TailSpin'
 export default (
   ComposedComponent,
   {
-    Loader = TailSpin,
+    LoadingIndicator = TailSpin,
     ...rest,
   } = {},
-) => core(ComposedComponent, { ...rest, Loader })
+) => core(ComposedComponent, { ...rest, LoadingIndicator })
