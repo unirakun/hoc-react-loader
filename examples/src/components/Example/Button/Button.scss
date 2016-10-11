@@ -1,10 +1,8 @@
-@import '~styles/colors';
-
 .button {
-  background-color: #9577ba; //darken($primary, 20);
+  background-color: #9577ba;
   border: 0;
   box-shadow: none;
-  color: lighten($secondary, 20);
+  color: darken(#fff, 10);
   cursor: pointer;
   flex: 1;
   font-family: 'Roboto Condensed', sans-serif;

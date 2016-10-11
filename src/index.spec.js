@@ -129,14 +129,9 @@ describe('react-loader', () => {
   it('should handle `wait` parameter to be a boolean', () => {
     // Mount (false case)
     const load = spy(() => {})
-    let loaded = getWrapped({ wait: false }, { load })
+    const loaded = getWrapped({ wait: false }, { load })
 
-    isLoading(load, loaded)
-
-    // Mount (true case)
-    loaded = getWrapped({ wait: true }, { load })
-
-    isLoadedTwice(load, loaded)
+    isLoaded(load, loaded)
   })
 
   it('should print a different Loader component', () => {

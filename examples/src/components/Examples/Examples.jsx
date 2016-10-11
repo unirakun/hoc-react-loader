@@ -9,6 +9,8 @@ import styles from './Examples.scss'
 import Base from './Base'
 import OneParam from './OneParam'
 import TwoParams from './TwoParams'
+import DontWait from './DontWait'
+import Loader from './Loader'
 
 const Examples = ({ style, className }) => (
   <div style={style} className={`${styles.examples} ${className}`}>
@@ -41,7 +43,7 @@ const Examples = ({ style, className }) => (
       example={<OneParam />}
     >
       <div className={styles.doc}>
-        <h3>OneParam: Waiting for a given param</h3>
+        <h3>OneParam: waiting for a given param</h3>
         <p className={styles.description}>
           Like previous example, the default loader is used (Loading spin) and
           &nbsp;<pre>this.props.load</pre> is called. But this time, the <pre>HOC</pre> waits for
@@ -58,11 +60,44 @@ const Examples = ({ style, className }) => (
       example={<TwoParams />}
     >
       <div className={styles.doc}>
-        <h3>TwoParams: Wait for multiple props</h3>
+        <h3>TwoParams: wait for multiple props</h3>
         <p className={styles.description}>
           Waiting for multiple props is easy, just give an array in the <pre>wait</pre> param.
           Here, <pre>hoc-react-loader</pre> waits for <pre>prop</pre> and <pre>prop2</pre>
           &nbsp;to be truthy!
+        </p>
+      </div>
+    </Example>
+
+    <Example
+      className={styles.example}
+      link="DontWait"
+      code="export&nbsp;default loader(DontWait, { wait: false })"
+      buttons={{ 0: true }}
+      example={<DontWait />}
+    >
+      <div className={styles.doc}>
+        <h3>DontWait: don't show the placeholder</h3>
+        <p className={styles.description}>
+          If the <pre>wait</pre> param is set to <pre>false</pre> the <pre>hoc-react-loader</pre>
+          &nbsp;will not print the Loader (default or specified one). But <pre>this.props.load</pre>
+          &nbsp;is called if presents!
+        </p>
+      </div>
+    </Example>
+
+    <Example
+      className={styles.example}
+      link="Base"
+      code="export&nbsp;default loader(Loader, { Loader: CustomLoader })"
+      buttons={{ 0: true }}
+      example={<Loader />}
+    >
+      <div className={styles.doc}>
+        <h3>Loader: change the default loader</h3>
+        <p className={styles.description}>
+          In this example, the default loader is surcharged with a custom one.
+          The component waits for the default prop (<pre>this.props.loaded</pre>).
         </p>
       </div>
     </Example>

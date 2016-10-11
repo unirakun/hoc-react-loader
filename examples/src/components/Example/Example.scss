@@ -1,7 +1,5 @@
-@import '~styles/colors';
-
 .sample {
-  background-color: #ffffff;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
 
@@ -27,8 +25,8 @@
   }
 
   .debug {
-    background-color: #282828; // darken($primary, 15);
-    color: white;
+    background-color: #282828;
+    color: #fff;
     padding-left: 10px;
 
     .props {

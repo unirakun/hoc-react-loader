@@ -6,7 +6,7 @@ rules:
   indentation: 2
   property-sort-order: 2
   variable-for-property: 2
-  no-color-literals: 2
+  no-color-literals: 0
   clean-import-paths: 2
   hex-length: 2
   force-pseudo-nesting: 2

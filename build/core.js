@@ -73,7 +73,7 @@ exports.default = function (ComposedComponent) {
         }
 
         // Anything else
-        return Boolean(wait);
+        return !wait;
       }, _this.omitLoadInProps = function (props) {
         var isLoadAFunction = isFunction(props.load);
 

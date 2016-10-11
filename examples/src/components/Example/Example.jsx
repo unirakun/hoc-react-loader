@@ -49,7 +49,7 @@ class Example extends Component {
       <div>
         {children}
         <div style={style} className={`${styles.sample} ${className}`}>
-          <a href={`${BASE_URL}${link}/index.jsx`}>
+          <a href={`${BASE_URL}${link}.jsx`}>
             <Code className={styles.code}>{code}</Code>
             <Ink />
           </a>
@@ -63,9 +63,15 @@ class Example extends Component {
             </pre>
           </div>
           <div className={styles.buttons}>
-            {buttons['0'] && <Button onClick={this.onLoad} loaded={this.state.loaded} text="data" />}
-            {buttons['1'] && <Button onClick={this.onProp} loaded={this.state.prop} text="prop" />}
-            {buttons['2'] && <Button onClick={this.onProp2} loaded={this.state.prop2} text="prop2" />}
+            {buttons['0'] &&
+              <Button onClick={this.onLoad} loaded={this.state.loaded} text="data" />
+            }
+            {buttons['1'] &&
+              <Button onClick={this.onProp} loaded={this.state.prop} text="prop" />
+            }
+            {buttons['2'] &&
+              <Button onClick={this.onProp2} loaded={this.state.prop2} text="prop2" />
+            }
           </div>
         </div>
       </div>
@@ -78,9 +84,10 @@ Example.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   code: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
   link: PropTypes.string.isRequired,
   buttons: PropTypes.object.isRequired,
+  children: PropTypes.node,
+  example: PropTypes.node,
 }
 
 export default Example

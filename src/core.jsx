@@ -40,7 +40,7 @@ export default (
       }
 
       // Anything else
-      return Boolean(wait)
+      return !wait
     }
 
     omitLoadInProps = (props) => {

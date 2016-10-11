@@ -1,6 +1,6 @@
 {
   "name": "hoc-react-loader",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "High order component to call a load function if present.",
   "main": "build/index.js",
   "peerDependencies": {
