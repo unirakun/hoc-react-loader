@@ -62,10 +62,9 @@ const Examples = ({ style, className }) => (
       <div className={styles.doc}>
         <h3>TwoParams: wait for multiple props</h3>
         <p className={styles.description}>
-          Waiting for multiple props is almost the same of waiting for one. You just need
-          to add every props to wait for in the <pre>wait</pre> array param.
-          Here, <pre>hoc-react-loader</pre> waits for <pre>prop</pre> and <pre>prop2</pre>
-          &nbsp;to be truthy!
+          If the <pre>wait</pre> parameter is given an array of props instead of just one prop,
+          &nbsp;<pre>hoc-react-loader</pre> will wait for all of the specified props to be truthy.
+          In this example, these are <pre>prop</pre> and <pre>prop2</pre>.
         </p>
       </div>
     </Example>
@@ -89,7 +88,7 @@ const Examples = ({ style, className }) => (
 
     <Example
       className={styles.example}
-      link="Base"
+      link="LoadingIndicator"
       code="export&nbsp;default loader(LoadingIndicator, { LoadingIndicator: CustomLoadingIndicator })" // eslint-disable-line
       buttons={{ 0: true }}
       example={<LoadingIndicator />}
