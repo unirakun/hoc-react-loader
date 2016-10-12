@@ -1,24 +1,44 @@
-@import '~styles/colors';
-
 .sample {
-  background-color: $primary;
-  box-shadow: 0 2px 5px 0 $shadow-start, 0 2px 10px 0 $shadow-end;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
-
-
-  &:hover {
-    box-shadow: 0 4px 10px 0 $shadow-start, 0 4px 20px 0 $shadow-end;
-  }
 
   .render {
     display: flex;
   }
 
   .result {
+    align-items: center;
+    display: flex;
     height: 100px;
+    justify-content: center;
     margin: 10px 0;
     min-width: 900px;
+  }
+
+  .buttons {
+    display: flex;
+
+    div {
+      flex: 1;
+    }
+  }
+
+  .debug {
+    background-color: #282828;
+    color: #fff;
+    padding-left: 10px;
+
+    .props {
+      font-size: 80%;
+      padding-bottom: 10px;
+      padding-left: 10px;
+    }
+
+    h2 {
+      font-size: 90%;
+      margin-bottom: 5px;
+    }
   }
 
   a {

@@ -41,18 +41,19 @@ var TailSpin = function (_Component) {
 
     _this.setColor = function () {
       var parent = _this.svg.parentNode;
-      var parentColor = parent ? getBackgroundColor(parent) : '';
+      var parentColor = parent ? getBackgroundColor(parent) : undefined;
 
-      while (parent && parentColor && parentColor === '') {
+      while (parent && !parentColor) {
         parent = parent.parentNode;
-        parentColor = getBackgroundColor(parent);
+        if (parent) parentColor = getBackgroundColor(parent);
       }
 
-      if (parentColor && parentColor !== '') {
-        var color = (0, _tinycolor2.default)(parentColor).saturate(20).toHexString();
+      if (parentColor) {
+        var tinyC = (0, _tinycolor2.default)(parentColor);
+        var color = tinyC.isDark() ? tinyC.lighten(20) : tinyC.darken(20);
 
         _this.setState({
-          color: color
+          color: color.toHexString()
         });
       }
     };

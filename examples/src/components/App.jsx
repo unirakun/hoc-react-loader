@@ -30,14 +30,15 @@ const App = () => (
     </div>
 
     <p className={styles.description}>
-      {'hoc-react-loader is an higher order component calling a function'}
-      {'when a watched prop value is not defined, false or null.'}
-      {'It shows a loading component when it\'s waiting for the props to be defined. '}
-      {'This loading component can be changed easely.'}
+      This is a higher order component ("HOC").
+      Its purpose is to call a <pre>load</pre> callback passed through the <pre>props</pre> of
+      a component only once (at <pre>componentWillMount</pre>). This is convenient to load
+      data from a backend for instance. The component shows a loading indicator when it's
+      waiting for the props to be defined. The loading indicator can be changed easily.
     </p>
 
     <p className={styles.description}>
-      {'Check out the examples below. Use the button to trigger stubed load.'}
+      Check out the examples below. Use the button to trigger a stubbed loading.
     </p>
 
     <Examples className={styles.app} />

@@ -22,14 +22,14 @@ In this case, the loader waits for `this.props.data` to be truthy, then mounts i
 
 The `wait` parameter should be an array of props to waits. All these props should become truthy at some point.
 
-Since the `Loader` is not specified, the default `Loader` is displayed while waiting for all the props. Here's an exemple with a specified loader:
+Since the `LoadingIndicator` is not specified, the default `LoadingIndicator` is displayed while waiting for all the props. Here's an exemple with a specified loader:
 ```es6
 import loader from 'hoc-react-loader'
 
-const MyLoader = () => <div>Waiting...</div>
+const MyLoadingIndicator = () => <div>Waiting...</div>
 const Component = ({ data }) => <div>Component {data}</div>
 
-export default loader(Component, { wait: ['data'], Loader: MyLoader })
+export default loader(Component, { wait: ['data'], LoadingIndicator: MyLoadingIndicator })
 ```
 
 ### Don't wait
@@ -40,7 +40,7 @@ const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
 export default loader(Component, { wait: false })
 ```
-In this example, the loader component doesn't wait for props. `this.props.load` is called once, but the `Loader` component isn't displayed.
+In this example, the loader component doesn't wait for props. `this.props.load` is called once, but the `LoadingIndicator` component isn't displayed.
 
 ### Load as a parameter
 ```es6
@@ -52,7 +52,7 @@ export default loader(Component, { load: () => console.log('here') })
 ```
 In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter, resulting in `here` to be printed.
 
-The default `wait` parameter value is `false`. It means that in this example the `Loader` isn't displayed.
+The default `wait` parameter value is `false`. It means that in this example the `LoadingIndicator` isn't displayed.
 
 ### Wait as a function
 The `wait` parameter can also be a function. Then the `context` and `props` are given to it, and it should return the array of props to wait for.

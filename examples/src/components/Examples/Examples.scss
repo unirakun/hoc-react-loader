@@ -1,7 +1,8 @@
 .examples {
   .example {
+    border: 1px solid #bebebe;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
     min-width: 900px;
     position: relative;
     width: 40%;
@@ -9,5 +10,19 @@
 
   p {
     margin-top: 0;
+  }
+
+  .doc {
+    margin: 0 auto;
+    min-width: 950px;
+    width: 50%;
+
+    .description {
+      text-align: justify;
+
+      > pre {
+        display: inline;
+      }
+    }
   }
 }

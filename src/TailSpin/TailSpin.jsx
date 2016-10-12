@@ -22,18 +22,19 @@ class TailSpin extends Component {
 
   setColor = () => {
     let parent = this.svg.parentNode
-    let parentColor = parent ? getBackgroundColor(parent) : ''
+    let parentColor = parent ? getBackgroundColor(parent) : undefined
 
-    while (parent && (parentColor && parentColor === '')) {
+    while (parent && !parentColor) {
       parent = parent.parentNode
-      parentColor = getBackgroundColor(parent)
+      if (parent) parentColor = getBackgroundColor(parent)
     }
 
-    if (parentColor && parentColor !== '') {
-      const color = tinycolor(parentColor).saturate(20).toHexString()
+    if (parentColor) {
+      const tinyC = tinycolor(parentColor)
+      const color = tinyC.isDark() ? tinyC.lighten(20) : tinyC.darken(20)
 
       this.setState({
-        color,
+        color: color.toHexString(),
       })
     }
   }
