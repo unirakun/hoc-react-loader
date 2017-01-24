@@ -4,7 +4,7 @@
 This is a higher order component ("HOC"). Its purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
 
 ## Demos
-You can test some examples [here](https://zenika.github.io/react-loader/).
+You can test some examples [here](https://zenika.github.io/hoc-react-loader/).
 
 ## Installation
 `npm i --save hoc-react-loader`
