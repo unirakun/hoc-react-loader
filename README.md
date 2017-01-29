@@ -42,7 +42,7 @@ export default loader(Component, { wait: false })
 ```
 In this example, the loader component doesn't wait for props. `this.props.load` is called once, but the `LoadingIndicator` component isn't displayed.
 
-### Load as a parameter
+### Load as a function parameter
 ```es6
 import loader from 'hoc-react-loader'
 
@@ -51,6 +51,18 @@ const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 export default loader(Component, { load: () => console.log('here') })
 ```
 In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter, resulting in `here` to be printed.
+
+The default `wait` parameter value is `false`. It means that in this example the `LoadingIndicator` isn't displayed.
+
+### Load as a string parameter
+```es6
+import loader from 'hoc-react-loader'
+
+const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
+
+export default loader(Component, { load: 'myLoader' })
+```
+In this case, the loader calls `this.props.myLoader` if it exists.
 
 The default `wait` parameter value is `false`. It means that in this example the `LoadingIndicator` isn't displayed.
 
