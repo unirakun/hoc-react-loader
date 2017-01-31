@@ -19,12 +19,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 exports.default = function (ComposedComponent) {
-  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  var _ref$LoadingIndicator = _ref.LoadingIndicator;
-  var LoadingIndicator = _ref$LoadingIndicator === undefined ? _TailSpin2.default : _ref$LoadingIndicator;
-
-  var rest = _objectWithoutProperties(_ref, ['LoadingIndicator']);
+  var _ref$LoadingIndicator = _ref.LoadingIndicator,
+      LoadingIndicator = _ref$LoadingIndicator === undefined ? _TailSpin2.default : _ref$LoadingIndicator,
+      rest = _objectWithoutProperties(_ref, ['LoadingIndicator']);
 
   return (0, _core2.default)(ComposedComponent, _extends({}, rest, { LoadingIndicator: LoadingIndicator }));
 };
