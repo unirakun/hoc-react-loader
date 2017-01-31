@@ -1,10 +1,21 @@
 import React, { Component, PropTypes } from 'react'
 
+const getTypeOf = (something) => {
+  const getType = {}
+  return something && getType.toString.call(something)
+}
+
 // http://stackoverflow.com/a/7356528
 const isFunction = (functionToCheck) => {
-  const getType = {}
-  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]'
+  const type = getTypeOf(functionToCheck)
+  return type && type === '[object Function]'
 }
+
+const isString = (stringToCheck) => {
+  const type = getTypeOf(stringToCheck)
+  return type && type === '[object String]'
+}
+
 const getDisplayName = (c) => c.displayName || c.name || 'Component'
 
 export default (
@@ -15,6 +26,8 @@ export default (
     load = undefined,
   } = {},
 ) => {
+  const loadFunctionName = isString(load) ? load : 'load'
+
   return class extends Component {
     static displayName = `Loader(${getDisplayName(ComposedComponent)})`
     static propTypes = {
@@ -44,13 +57,13 @@ export default (
     }
 
     omitLoadInProps = (props) => {
-      const isLoadAFunction = isFunction(props.load)
+      const isLoadAFunction = isFunction(props[loadFunctionName])
 
       if (isLoadAFunction) {
         this.setState({
           props: {
             ...props,
-            load: undefined,
+            [loadFunctionName]: undefined,
           },
         })
       } else {
@@ -61,14 +74,14 @@ export default (
     }
 
     componentWillMount() {
-      // Load from props
-      if (this.omitLoadInProps(this.props)) {
-        this.props.load()
-      }
-
       // Load from hoc argument
       if (isFunction(load)) {
         load()
+      }
+
+      // Load from props
+      if (this.omitLoadInProps(this.props)) {
+        this.props[loadFunctionName]()
       }
     }
 

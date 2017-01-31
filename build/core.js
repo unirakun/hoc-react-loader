@@ -14,17 +14,30 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var getTypeOf = function getTypeOf(something) {
+  var getType = {};
+  return something && getType.toString.call(something);
+};
+
 // http://stackoverflow.com/a/7356528
 var isFunction = function isFunction(functionToCheck) {
-  var getType = {};
-  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+  var type = getTypeOf(functionToCheck);
+  return type && type === '[object Function]';
 };
+
+var isString = function isString(stringToCheck) {
+  var type = getTypeOf(stringToCheck);
+  return type && type === '[object String]';
+};
+
 var getDisplayName = function getDisplayName(c) {
   return c.displayName || c.name || 'Component';
 };
@@ -32,13 +45,14 @@ var getDisplayName = function getDisplayName(c) {
 exports.default = function (ComposedComponent) {
   var _class, _temp2;
 
-  var _ref = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      LoadingIndicator = _ref.LoadingIndicator,
+      _ref$wait = _ref.wait,
+      wait = _ref$wait === undefined ? ['loaded'] : _ref$wait,
+      _ref$load = _ref.load,
+      load = _ref$load === undefined ? undefined : _ref$load;
 
-  var LoadingIndicator = _ref.LoadingIndicator;
-  var _ref$wait = _ref.wait;
-  var wait = _ref$wait === undefined ? ['loaded'] : _ref$wait;
-  var _ref$load = _ref.load;
-  var load = _ref$load === undefined ? undefined : _ref$load;
+  var loadFunctionName = isString(load) ? load : 'load';
 
   return _temp2 = _class = function (_Component) {
     _inherits(_class, _Component);
@@ -75,13 +89,11 @@ exports.default = function (ComposedComponent) {
         // Anything else
         return !wait;
       }, _this.omitLoadInProps = function (props) {
-        var isLoadAFunction = isFunction(props.load);
+        var isLoadAFunction = isFunction(props[loadFunctionName]);
 
         if (isLoadAFunction) {
           _this.setState({
-            props: _extends({}, props, {
-              load: undefined
-            })
+            props: _extends({}, props, _defineProperty({}, loadFunctionName, undefined))
           });
         } else {
           _this.setState({ props: props });
@@ -96,14 +108,14 @@ exports.default = function (ComposedComponent) {
     _createClass(_class, [{
       key: 'componentWillMount',
       value: function componentWillMount() {
-        // Load from props
-        if (this.omitLoadInProps(this.props)) {
-          this.props.load();
-        }
-
         // Load from hoc argument
         if (isFunction(load)) {
           load();
+        }
+
+        // Load from props
+        if (this.omitLoadInProps(this.props)) {
+          this.props[loadFunctionName]();
         }
       }
     }, {

@@ -162,6 +162,20 @@ describe('react-loader', () => {
     loaded.find(TailSpin).node.should.exists
   })
 
+  it('should call matching props if the load parameter is a string', () => {
+    // Mount
+    const loadProp = spy(() => {})
+    const loadPropName = 'customLoadFunction'
+    const loaded = getWrapped({ load: loadPropName }, { [loadPropName]: loadProp })
+
+    // Load function is called
+    // Graphic component isn't called
+    // Loader should be Dots
+    loadProp.should.have.been.called.once
+    expect(loaded.find(Component).node).to.be.undefined
+    loaded.find(TailSpin).node.should.exists
+  })
+
   it('should handle a `null` `load` props/parameter', () => {
     // Mount
     const loaded = getWrapped()
