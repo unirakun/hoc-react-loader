@@ -22,6 +22,7 @@ export default (
   ComposedComponent,
   {
     LoadingIndicator,
+    renderLoadingIndicator,
     wait = ['loaded'],
     load = undefined,
   } = {},
@@ -91,7 +92,10 @@ export default (
 
     render() {
       if (!this.isLoaded()) {
-        return <LoadingIndicator {...this.state.props} />
+        if (LoadingIndicator) {
+          return <LoadingIndicator {...this.state.props} />
+        }
+        return renderLoadingIndicator(this.state.props)
       }
 
       return <ComposedComponent {...this.state.props} />
