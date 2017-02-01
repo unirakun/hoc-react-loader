@@ -9,7 +9,7 @@ You can test some examples [here](https://zenika.github.io/hoc-react-loader/).
 ## Installation
 `npm i --save tinycolor2 hoc-react-loader`
 
-`tinycolor2` is a peer dependency of `hoc-react-loader`, it handles color picking for the default loading indicator. You don't have to install it if you use your own loading indicator.
+`tinycolor2` is a peer dependency of `hoc-react-loader`. It handles color picking for the default loading indicator. You don't have to install it if you use your own loading indicator.
 
 ## Usage
 ### With `this.props`
