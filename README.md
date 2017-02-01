@@ -7,7 +7,9 @@ This is a higher order component ("HOC"). Its purpose is to call a `load` callba
 You can test some examples [here](https://zenika.github.io/hoc-react-loader/).
 
 ## Installation
-`npm i --save hoc-react-loader`
+`npm i --save tinycolor2 hoc-react-loader`
+
+`tinycolor2` is a peer dependency of `hoc-react-loader`. It handles color picking for the default loading indicator. You don't have to install it if you use your own loading indicator.
 
 ## Usage
 ### With `this.props`
