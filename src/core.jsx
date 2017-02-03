@@ -95,7 +95,10 @@ export default (
         if (LoadingIndicator) {
           return <LoadingIndicator {...this.state.props} />
         }
-        return renderLoadingIndicator(this.state.props)
+        if (isFunction(renderLoadingIndicator)) {
+          return renderLoadingIndicator(this.state.props)
+        }
+        return null
       }
 
       return <ComposedComponent {...this.state.props} />
