@@ -51,6 +51,14 @@ describe('TailSpin', () => {
 
     testColor(mounted, '#76692f')
   })
+
+  it('shouldnt print a warning', () => {
+    mount(
+      <div style={{ backgroundColor: '#2D2812' }}>
+        <TailSpin dispatch="a dispatch" />
+      </div>
+    )
+  })
 })
 
 /* eslint-enable no-unused-expressions */

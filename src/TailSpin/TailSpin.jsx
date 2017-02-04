@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import tinycolor from 'tinycolor2'
 
 /* global window */
@@ -41,9 +41,17 @@ class TailSpin extends Component {
 
   render() {
     const { color } = this.state
+    const { style, className } = this.props
 
     return (
-      <svg ref={(c) => { this.svg = c }} width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" {...this.props}>
+      <svg
+        ref={(c) => { this.svg = c }}
+        width="38" height="38"
+        viewBox="0 0 38 38"
+        xmlns="http://www.w3.org/2000/svg"
+        style={style}
+        className={className}
+      >
         <defs>
           <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
             <stop stopColor={color} stopOpacity=".2" offset="0%" />
@@ -78,6 +86,11 @@ class TailSpin extends Component {
       </svg>
     )
   }
+}
+
+TailSpin.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
 }
 
 export default TailSpin
