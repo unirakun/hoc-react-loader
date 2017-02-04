@@ -1,5 +1,5 @@
 # hoc-react-loader
-[![CircleCI](https://circleci.com/gh/Zenika/hoc-react-loader.svg?&style=shield&circle-token=07eae4d9bdbe138c04d32753312ba543a4e08f34)](https://circleci.com/gh/Zenika/hoc-react-loader/tree/master) [![NPM Version](https://badge.fury.io/js/hoc-react-loader.svg)](https://www.npmjs.com/package/hoc-react-loader) [![Coverage Status](https://coveralls.io/repos/github/Zenika/react-loader/badge.svg?branch=master)](https://coveralls.io/github/Zenika/react-loader?branch=master)
+[![CircleCI](https://circleci.com/gh/Zenika/hoc-react-loader.svg?&style=shield&circle-token=07eae4d9bdbe138c04d32753312ba543a4e08f34)](https://circleci.com/gh/Zenika/hoc-react-loader/tree/master) [![NPM Version](https://badge.fury.io/js/hoc-react-loader.svg)](https://www.npmjs.com/package/hoc-react-loader) [![Coverage Status](https://coveralls.io/repos/github/Zenika/hoc-react-loader/badge.svg?branch=master)](https://coveralls.io/github/Zenika/hoc-react-loader?branch=master)
 
 This is a higher order component ("HOC"). Its purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
 
