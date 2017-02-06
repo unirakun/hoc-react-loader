@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -75,13 +73,23 @@ var TailSpin = function (_Component) {
       var _this2 = this;
 
       var color = this.state.color;
+      var _props = this.props,
+          style = _props.style,
+          className = _props.className;
 
 
       return _react2.default.createElement(
         'svg',
-        _extends({ ref: function ref(c) {
+        {
+          ref: function ref(c) {
             _this2.svg = c;
-          }, width: '38', height: '38', viewBox: '0 0 38 38', xmlns: 'http://www.w3.org/2000/svg' }, this.props),
+          },
+          width: '38', height: '38',
+          viewBox: '0 0 38 38',
+          xmlns: 'http://www.w3.org/2000/svg',
+          style: style,
+          className: className
+        },
         _react2.default.createElement(
           'defs',
           null,
@@ -131,5 +139,10 @@ var TailSpin = function (_Component) {
 
   return TailSpin;
 }(_react.Component);
+
+TailSpin.propTypes = {
+  className: _react.PropTypes.string,
+  style: _react.PropTypes.object
+};
 
 exports.default = TailSpin;
