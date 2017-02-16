@@ -38,7 +38,7 @@ var TailSpin = function (_Component) {
     var _this = _possibleConstructorReturn(this, (TailSpin.__proto__ || Object.getPrototypeOf(TailSpin)).call(this, props));
 
     _this.setColor = function () {
-      var parent = _this.svg.parentNode;
+      var parent = _this.svg && _this.svg.parentNode;
       var parentColor = parent ? getBackgroundColor(parent) : undefined;
 
       while (parent && !parentColor) {
