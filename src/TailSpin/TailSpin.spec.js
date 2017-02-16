@@ -6,7 +6,7 @@
 */
 
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import blanket from 'blanket' // eslint-disable-line
 import TailSpin from './TailSpin'
 
@@ -57,12 +57,6 @@ describe('TailSpin', () => {
       <div style={{ backgroundColor: '#2D2812' }}>
         <TailSpin dispatch="a dispatch" />
       </div>
-    )
-  })
-
-  it('should not crash when no color is found', () => {
-    shallow(
-      <TailSpin />
     )
   })
 })
