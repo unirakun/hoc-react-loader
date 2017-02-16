@@ -21,7 +21,7 @@ class TailSpin extends Component {
   }
 
   setColor = () => {
-    let parent = this.svg.parentNode
+    let parent = this.svg && this.svg.parentNode
     let parentColor = parent ? getBackgroundColor(parent) : undefined
 
     while (parent && !parentColor) {
