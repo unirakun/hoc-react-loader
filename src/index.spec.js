@@ -12,7 +12,6 @@ import blanket from 'blanket' // eslint-disable-line
 import loader from './index'
 import TailSpin from './TailSpin'
 
-
 const Component = () => <div />
 const LoadingIndicator = () => <div />
 const getWrapped = (config, props) => {
@@ -151,13 +150,16 @@ describe('react-loader', () => {
     // Mount
     const loadProp = spy(() => {})
     const loadParam = spy(() => {})
-    const loaded = getWrapped({ load: loadParam }, { load: loadProp })
+    const props = { prop1: 'prop1', load: loadProp }
+    const loaded = getWrapped({ load: loadParam }, props)
 
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
     loadProp.should.have.been.called.once
+    loadProp.should.have.been.called.with(props)
     loadParam.should.have.been.called.once
+    loadParam.should.have.been.called.with(props)
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(TailSpin).node.should.exists
   })
@@ -166,12 +168,14 @@ describe('react-loader', () => {
     // Mount
     const loadProp = spy(() => {})
     const loadPropName = 'customLoadFunction'
-    const loaded = getWrapped({ load: loadPropName }, { [loadPropName]: loadProp })
+    const props = { prop1: 'prop1', [loadPropName]: loadProp }
+    const loaded = getWrapped({ load: loadPropName }, props)
 
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
     loadProp.should.have.been.called.once
+    loadProp.should.have.been.called.with(props)
     expect(loaded.find(Component).node).to.be.undefined
     loaded.find(TailSpin).node.should.exists
   })

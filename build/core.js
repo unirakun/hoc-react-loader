@@ -110,12 +110,12 @@ exports.default = function (ComposedComponent) {
       value: function componentWillMount() {
         // Load from hoc argument
         if (isFunction(load)) {
-          load();
+          load(this.props, this.context);
         }
 
         // Load from props
         if (this.omitLoadInProps(this.props)) {
-          this.props[loadFunctionName]();
+          this.props[loadFunctionName](this.props, this.context);
         }
       }
     }, {
