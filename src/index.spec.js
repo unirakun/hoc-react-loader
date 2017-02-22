@@ -136,7 +136,11 @@ describe('react-loader', () => {
   it('should print a different LoadingIndicator component', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ LoadingIndicator, wait: ['data'] }, { load })
+    const loaded = getWrapped({
+      renderLoadingIndicator: () => <LoadingIndicator />,
+      wait: ['data'] },
+      { load }
+    )
 
     isLoadingCustomLoader(load, loaded)
 

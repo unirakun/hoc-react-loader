@@ -1,10 +1,14 @@
+import React from 'react'
 import core from './core'
 import TailSpin from './TailSpin'
+
+const defaultLoadingIndicator = ({ className, style }) =>
+  <TailSpin className={className} style={style} />
 
 export default (
   ComposedComponent,
   {
-    LoadingIndicator = TailSpin,
-    ...rest,
+    renderLoadingIndicator = defaultLoadingIndicator,
+    ...rest
   } = {},
-) => core(ComposedComponent, { ...rest, LoadingIndicator })
+) => core(ComposedComponent, { ...rest, renderLoadingIndicator })
