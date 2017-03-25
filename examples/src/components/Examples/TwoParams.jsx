@@ -15,4 +15,4 @@ TwoParams.propTypes = {
   prop2: PropTypes.string.isRequired,
 }
 
-export default loader(TwoParams, { wait: ['prop', 'prop2'] })
+export default loader(TwoParams, { print: ['prop', 'prop2'] })
