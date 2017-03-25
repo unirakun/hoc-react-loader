@@ -47,8 +47,8 @@ exports.default = function (ComposedComponent) {
 
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       LoadingIndicator = _ref.LoadingIndicator,
-      _ref$wait = _ref.wait,
-      wait = _ref$wait === undefined ? ['loaded'] : _ref$wait,
+      _ref$print = _ref.print,
+      print = _ref$print === undefined ? ['loaded'] : _ref$print,
       _ref$load = _ref.load,
       load = _ref$load === undefined ? undefined : _ref$load;
 
@@ -71,23 +71,23 @@ exports.default = function (ComposedComponent) {
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
         props: {}
       }, _this.isLoaded = function () {
-        // Wait is an array
+        // Print is an array
         // Implicitly meaning that this is an array of props
-        if (Array.isArray(wait)) {
-          return wait.map(function (w) {
-            return Boolean(_this.props[w]);
+        if (Array.isArray(print)) {
+          return print.map(function (p) {
+            return Boolean(_this.props[p]);
           }).reduce(function (allProps, currentProp) {
             return allProps && currentProp;
           });
         }
 
-        // Wait is a function
-        if (isFunction(wait)) {
-          return wait(_this.props, _this.context);
+        // Print is a function
+        if (isFunction(print)) {
+          return print(_this.props, _this.context);
         }
 
         // Anything else
-        return !wait;
+        return print;
       }, _this.omitLoadInProps = function (props) {
         var isLoadAFunction = isFunction(props[loadFunctionName]);
 
@@ -110,12 +110,12 @@ exports.default = function (ComposedComponent) {
       value: function componentWillMount() {
         // Load from hoc argument
         if (isFunction(load)) {
-          load();
+          load(this.props, this.context);
         }
 
         // Load from props
         if (this.omitLoadInProps(this.props)) {
-          this.props[loadFunctionName]();
+          this.props[loadFunctionName](this.props, this.context);
         }
       }
     }, {

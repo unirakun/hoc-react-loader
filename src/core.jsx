@@ -22,7 +22,7 @@ export default (
   ComposedComponent,
   {
     LoadingIndicator,
-    wait = ['loaded'],
+    print = ['loaded'],
     load = undefined,
   } = {},
 ) => {
@@ -39,21 +39,21 @@ export default (
     }
 
     isLoaded = () => {
-      // Wait is an array
+      // Print is an array
       // Implicitly meaning that this is an array of props
-      if (Array.isArray(wait)) {
-        return wait
-          .map(w => Boolean(this.props[w]))
+      if (Array.isArray(print)) {
+        return print
+          .map(p => Boolean(this.props[p]))
           .reduce((allProps, currentProp) => allProps && currentProp)
       }
 
-      // Wait is a function
-      if (isFunction(wait)) {
-        return wait(this.props, this.context)
+      // Print is a function
+      if (isFunction(print)) {
+        return print(this.props, this.context)
       }
 
       // Anything else
-      return !wait
+      return print
     }
 
     omitLoadInProps = (props) => {
@@ -76,12 +76,12 @@ export default (
     componentWillMount() {
       // Load from hoc argument
       if (isFunction(load)) {
-        load()
+        load(this.props, this.context)
       }
 
       // Load from props
       if (this.omitLoadInProps(this.props)) {
-        this.props[loadFunctionName]()
+        this.props[loadFunctionName](this.props, this.context)
       }
     }
 
