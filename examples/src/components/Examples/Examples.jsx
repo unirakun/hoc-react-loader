@@ -38,7 +38,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="OneParam"
-      code="export&nbsp;default loader(OneParam, { wait: ['prop'] })"
+      code="export&nbsp;default loader(OneParam, { print: ['prop'] })"
       buttons={{ 1: true }}
       example={<OneParam />}
     >
@@ -47,7 +47,7 @@ const Examples = ({ style, className }) => (
         <p className={styles.description}>
           Like in the previous example, the default loading indicator is used (the spinner) and
           &nbsp;<pre>this.props.load</pre> is called. But this time, the <pre>HOC</pre> waits for
-          &nbsp;<pre>this.props.prop</pre> as specified in the <pre>wait</pre> param.
+          &nbsp;<pre>this.props.prop</pre> as specified in the <pre>print</pre> param.
         </p>
       </div>
     </Example>
@@ -62,7 +62,7 @@ const Examples = ({ style, className }) => (
       <div className={styles.doc}>
         <h3>TwoParams: wait for multiple props</h3>
         <p className={styles.description}>
-          If the <pre>wait</pre> parameter is given an array of props instead of just one prop,
+          If the <pre>print</pre> parameter is given an array of props instead of just one prop,
           &nbsp;<pre>hoc-react-loader</pre> will wait for all of the specified props to be truthy.
           In this example, these are <pre>prop</pre> and <pre>prop2</pre>.
         </p>
@@ -72,14 +72,14 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="DontWait"
-      code="export&nbsp;default loader(DontWait, { wait: false })"
+      code="export&nbsp;default loader(DontWait, { print: true })"
       buttons={{ 0: true }}
       example={<DontWait />}
     >
       <div className={styles.doc}>
         <h3>DontWait: don't show the placeholder</h3>
         <p className={styles.description}>
-          If the <pre>wait</pre> param is set to <pre>false</pre> the <pre>hoc-react-loader</pre>
+          If the <pre>print</pre> param is set to <pre>true</pre> the <pre>hoc-react-loader</pre>
           &nbsp;will not display the loading indicator (default or custom).
           But <pre>this.props.load</pre> is still called if presents!
         </p>

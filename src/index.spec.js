@@ -66,7 +66,7 @@ describe('react-loader', () => {
   it('should wait for a `data` props [readme]', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ wait: ['data'] }, { load })
+    const loaded = getWrapped({ print: ['data'] }, { load })
 
     isLoading(load, loaded)
 
@@ -92,7 +92,7 @@ describe('react-loader', () => {
   it('should wait for an array of props', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ wait: ['prop1', 'prop2'] }, { load })
+    const loaded = getWrapped({ print: ['prop1', 'prop2'] }, { load })
 
     isLoading(load, loaded)
 
@@ -112,23 +112,23 @@ describe('react-loader', () => {
     isLoaded(load, loaded)
   })
 
-  it('should handle `wait` parameter to be a function', () => {
+  it('should handle `print` parameter to be a function', () => {
     // Mount (false case)
     const load = spy(() => {})
-    let loaded = getWrapped({ wait: () => false }, { load })
+    let loaded = getWrapped({ print: () => false }, { load })
 
     isLoading(load, loaded)
 
     // Mount (true case)
-    loaded = getWrapped({ wait: () => true }, { load })
+    loaded = getWrapped({ print: () => true }, { load })
 
     isLoadedTwice(load, loaded)
   })
 
-  it('should handle `wait` parameter to be a boolean', () => {
+  it('should handle `print` parameter to be a boolean', () => {
     // Mount (false case)
     const load = spy(() => {})
-    const loaded = getWrapped({ wait: false }, { load })
+    const loaded = getWrapped({ print: true }, { load })
 
     isLoaded(load, loaded)
   })
@@ -136,7 +136,7 @@ describe('react-loader', () => {
   it('should print a different LoadingIndicator component', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ LoadingIndicator, wait: ['data'] }, { load })
+    const loaded = getWrapped({ LoadingIndicator, print: ['data'] }, { load })
 
     isLoadingCustomLoader(load, loaded)
 
