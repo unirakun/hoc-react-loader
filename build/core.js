@@ -50,7 +50,10 @@ exports.default = function (ComposedComponent) {
       _ref$print = _ref.print,
       print = _ref$print === undefined ? ['loaded'] : _ref$print,
       _ref$load = _ref.load,
-      load = _ref$load === undefined ? undefined : _ref$load;
+      load = _ref$load === undefined ? undefined : _ref$load,
+      _ref$error = _ref.error,
+      error = _ref$error === undefined ? ['error'] : _ref$error,
+      ErrorIndicator = _ref.ErrorIndicator;
 
   var loadFunctionName = isString(load) ? load : 'load';
 
@@ -70,24 +73,33 @@ exports.default = function (ComposedComponent) {
 
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
         props: {}
-      }, _this.isLoaded = function () {
-        // Print is an array
+      }, _this.isInState = function (prop, propProcessor) {
+        // Prop is an array
         // Implicitly meaning that this is an array of props
-        if (Array.isArray(print)) {
-          return print.map(function (p) {
+        if (Array.isArray(prop)) {
+          var boolProps = prop.map(function (p) {
             return Boolean(_this.props[p]);
-          }).reduce(function (allProps, currentProp) {
-            return allProps && currentProp;
           });
+          return propProcessor(boolProps);
         }
 
-        // Print is a function
-        if (isFunction(print)) {
-          return !!print(_this.props, _this.context);
+        // Prop is a function
+        if (isFunction(prop)) {
+          return !!prop(_this.props, _this.context);
         }
 
         // Anything else
-        return !!print;
+        return !!prop;
+      }, _this.isPrinted = function () {
+        return _this.isInState(print, function (boolProps) {
+          return boolProps.every(function (p) {
+            return !!p;
+          });
+        });
+      }, _this.isInError = function () {
+        return _this.isInState(error, function (boolProps) {
+          return boolProps.indexOf(true) !== -1;
+        });
       }, _this.omitLoadInProps = function (props) {
         var isLoadAFunction = isFunction(props[loadFunctionName]);
 
@@ -121,11 +133,13 @@ exports.default = function (ComposedComponent) {
     }, {
       key: 'render',
       value: function render() {
-        if (!this.isLoaded()) {
-          return _react2.default.createElement(LoadingIndicator, this.state.props);
+        if (this.isInError()) {
+          return _react2.default.createElement(ErrorIndicator, this.state.props);
+        } else if (this.isPrinted()) {
+          return _react2.default.createElement(ComposedComponent, this.state.props);
         }
 
-        return _react2.default.createElement(ComposedComponent, this.state.props);
+        return _react2.default.createElement(LoadingIndicator, this.state.props);
       }
     }]);
 
