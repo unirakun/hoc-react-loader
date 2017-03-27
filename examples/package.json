@@ -54,6 +54,7 @@
     "react": "15.3.0",
     "react-dom": "15.3.0",
     "react-highlight": "^0.8.0",
-    "react-ink": "^5.1.1"
+    "react-ink": "^5.1.1",
+    "tinycolor2": "^1.4.1"
   }
 }
