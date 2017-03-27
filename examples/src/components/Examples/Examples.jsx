@@ -55,7 +55,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="TwoParams"
-      code="export&nbsp;default loader(TwoParams, { wait: ['prop', 'prop2'] })"
+      code="export&nbsp;default loader(TwoParams, { print: ['prop', 'prop2'] })"
       buttons={{ 1: true, 2: true }}
       example={<TwoParams />}
     >
