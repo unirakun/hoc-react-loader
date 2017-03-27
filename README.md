@@ -40,7 +40,7 @@ import loader from 'hoc-react-loader'
 
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader(Component, { print: false })
+export default loader(Component, { print: true })
 ```
 In this example, the loader component doesn't wait for props. `this.props.load` is called once, but the `LoadingIndicator` component isn't displayed.
 
