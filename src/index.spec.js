@@ -81,12 +81,12 @@ describe('react-loader', () => {
     const load = spy(() => {})
     const loaded = getWrapped(undefined, { load })
 
-    isLoading(load, loaded)
+    isLoaded(load, loaded)
 
     // Change `loaded` value
-    loaded.setProps({ loaded: true })
+    loaded.setProps({ loaded: false })
 
-    isLoaded(load, loaded)
+    isLoading(load, loaded)
   })
 
   it('should wait for an array of props', () => {
@@ -160,8 +160,8 @@ describe('react-loader', () => {
     loadProp.should.have.been.called.with(props)
     loadParam.should.have.been.called.once
     loadParam.should.have.been.called.with(props)
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(TailSpin).node.should.exists
+    expect(loaded.find(TailSpin).node).to.be.undefined
+    loaded.find(Component).node.should.exists
   })
 
   it('should call matching props if the load parameter is a string', () => {
@@ -176,8 +176,8 @@ describe('react-loader', () => {
     // Loader should be Dots
     loadProp.should.have.been.called.once
     loadProp.should.have.been.called.with(props)
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(TailSpin).node.should.exists
+    expect(loaded.find(TailSpin).node).to.be.undefined
+    loaded.find(Component).node.should.exists
   })
 
   it('should handle a `null` `load` props/parameter', () => {
@@ -186,8 +186,8 @@ describe('react-loader', () => {
 
     // Graphic component isn't called
     // Dots should be printed
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(TailSpin).node.should.exists
+    expect(loaded.find(TailSpin).node).to.be.undefined
+    loaded.find(Component).node.should.exists
   })
 })
 

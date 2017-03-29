@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import React, { Component, PropTypes } from 'react'
 
 const getTypeOf = (something) => {
@@ -22,7 +23,7 @@ export default (
   ComposedComponent,
   {
     LoadingIndicator,
-    print = ['loaded'],
+    print = undefined,
     load = undefined,
   } = {},
 ) => {
@@ -50,6 +51,11 @@ export default (
       // Print is a function
       if (isFunction(print)) {
         return !!print(this.props, this.context)
+      }
+
+      if (print === undefined) {
+        const { loaded } = this.props
+        return loaded === undefined ? true : loaded
       }
 
       // Anything else
