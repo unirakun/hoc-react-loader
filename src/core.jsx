@@ -38,6 +38,14 @@ export default (
     }
 
     isLoaded = () => {
+      // Print is undefined,
+      // we rely on 'props.loaded' if present
+      // if not, we directly print the component
+       if (print === undefined) {
+        const { loaded } = this.props
+        return loaded === undefined ? true : loaded
+      }
+
       // Print is an array
       // Implicitly meaning that this is an array of props
       if (Array.isArray(print)) {
@@ -49,12 +57,7 @@ export default (
       // Print is a function
       if (isFunction(print)) {
         return !!print(this.props, this.context)
-      }
-
-      if (print === undefined) {
-        const { loaded } = this.props
-        return loaded === undefined ? true : loaded
-      }
+      }     
 
       // Anything else
       return !!print
