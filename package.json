@@ -31,7 +31,7 @@
     "mocha": "^3.2.0",
     "nyc": "^10.2.0",
     "react": "^15.3.0",
-    "react-addons-test-utils": "^15.3.0",
+    "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.3.0",
     "tinycolor2": "^1.4.1"
   },
