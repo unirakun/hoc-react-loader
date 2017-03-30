@@ -23,6 +23,8 @@ export default (
   ComposedComponent,
   {
     LoadingIndicator,
+    print,
+    load,
   } = {},
 ) => {
   const loadFunctionName = isString(load) ? load : 'load'
