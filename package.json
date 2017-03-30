@@ -34,8 +34,7 @@
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.3.0",
     "react-dom": "^15.3.0",
-    "tinycolor2": "^1.4.1",
-    "webpack": "^1.13.1"
+    "tinycolor2": "^1.4.1"
   },
   "scripts": {
     "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
@@ -65,13 +64,23 @@
   },
   "homepage": "https://github.com/Zenika/hoc-react-loader#readme",
   "babel": {
-    "presets": ["es2017", "es2015", "react", "stage-0"]
+    "presets": [
+      "es2017",
+      "es2015",
+      "react",
+      "stage-0"
+    ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": ["airbnb"],
+    "extends": [
+      "airbnb"
+    ],
     "rules": {
-      "semi": [2, "never"],
+      "semi": [
+        2,
+        "never"
+      ],
       "arrow-body-style": 0,
       "import/no-named-as-default": 0,
       "import/prefer-default-export": 0,
