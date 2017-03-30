@@ -24,7 +24,7 @@ describe('TailSpin', () => {
     const mounted = mount(
       <div style={{ backgroundColor: '#FFF9E5' }}>
         <TailSpin />
-      </div>
+      </div>,
     )
 
     testColor(mounted, '#ffe17f')
@@ -34,7 +34,7 @@ describe('TailSpin', () => {
     const mounted = mount(
       <div style={{ backgroundColor: '#2D2812' }}>
         <TailSpin />
-      </div>
+      </div>,
     )
 
     testColor(mounted, '#76692f')
@@ -46,7 +46,7 @@ describe('TailSpin', () => {
         <div style={{ color: 'red' }}>
           <TailSpin />
         </div>
-      </div>
+      </div>,
     )
 
     testColor(mounted, '#76692f')
@@ -56,7 +56,7 @@ describe('TailSpin', () => {
     mount(
       <div style={{ backgroundColor: '#2D2812' }}>
         <TailSpin dispatch="a dispatch" />
-      </div>
+      </div>,
     )
   })
 })
