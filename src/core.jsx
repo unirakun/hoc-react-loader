@@ -45,7 +45,7 @@ export default (
       // if not, we directly print the component
       if (print === undefined) {
         const { loaded } = this.props
-        return loaded === undefined ? true : loaded
+        return loaded === undefined ? true : !!loaded
       }
 
       // Print is an array
@@ -59,7 +59,7 @@ export default (
       // Print is a function
       if (isFunction(print)) {
         return !!print(this.props, this.context)
-      }     
+      }
 
       // Anything else
       return !!print
