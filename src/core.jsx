@@ -43,7 +43,7 @@ export default (
       // Print is undefined,
       // we rely on 'props.loaded' if present
       // if not, we directly print the component
-       if (print === undefined) {
+      if (print === undefined) {
         const { loaded } = this.props
         return loaded === undefined ? true : loaded
       }
