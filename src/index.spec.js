@@ -149,14 +149,25 @@ describe('react-loader', () => {
   })
 
   /*
-   * `print` value is harcoded.
+   * `print` value is harcoded (to true).
    */
-  it('should handle a hardcoded `print`', () => {
-    // Mount (false case)
+  it('should handle a hardcoded `print` value (truthy)', () => {
+    // Mount
     const load = spy(() => {})
     const wrappedComponent = getWrapped({ print: true }, { load })
 
     isLoaded(load, wrappedComponent)
+  })
+
+  /*
+   * `print` value is harcoded (to false).
+   */
+  it('should handle a hardcoded `print` value (falsey)', () => {
+    // Mount
+    const load = spy(() => {})
+    const wrappedComponent = getWrapped({ print: false }, { load })
+
+    isLoading(load, wrappedComponent)
   })
 
   it('should print a different LoadingIndicator component', () => {
