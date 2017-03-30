@@ -48,10 +48,8 @@ exports.default = function (ComposedComponent) {
 
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       LoadingIndicator = _ref.LoadingIndicator,
-      _ref$print = _ref.print,
-      print = _ref$print === undefined ? undefined : _ref$print,
-      _ref$load = _ref.load,
-      load = _ref$load === undefined ? undefined : _ref$load;
+      print = _ref.print,
+      load = _ref.load;
 
   var loadFunctionName = isString(load) ? load : 'load';
 
@@ -72,6 +70,15 @@ exports.default = function (ComposedComponent) {
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
         props: {}
       }, _this.isLoaded = function () {
+        // Print is undefined,
+        // we rely on 'props.loaded' if present
+        // if not, we directly print the component
+        if (print === undefined) {
+          var loaded = _this.props.loaded;
+
+          return loaded === undefined ? true : loaded;
+        }
+
         // Print is an array
         // Implicitly meaning that this is an array of props
         if (Array.isArray(print)) {
@@ -85,12 +92,6 @@ exports.default = function (ComposedComponent) {
         // Print is a function
         if (isFunction(print)) {
           return !!print(_this.props, _this.context);
-        }
-
-        if (print === undefined) {
-          var loaded = _this.props.loaded;
-
-          return loaded === undefined ? true : loaded;
         }
 
         // Anything else
