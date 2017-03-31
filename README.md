@@ -54,7 +54,7 @@ export default loader(Component, { load: () => console.log('here') })
 ```
 In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter, resulting in `here` to be printed.
 
-The default `print` parameter value is `false`. It means that in this example the `LoadingIndicator` isn't displayed.
+The default `print` parameter value is `true`. It means that in this example the `LoadingIndicator` isn't displayed.
 
 ### Load as a string parameter
 ```es6
@@ -66,7 +66,7 @@ export default loader(Component, { load: 'myLoader' })
 ```
 In this case, the loader calls `this.props.myLoader` if it exists.
 
-The default `print` parameter value is `false`. It means that in this example the `LoadingIndicator` isn't displayed.
+The default `print` parameter value is `true`. It means that in this example the `LoadingIndicator` isn't displayed.
 
-### Wait as a function
+### Print as a function
 The `print` parameter can also be a function. Then the `props` and `context` are given to it (in this order), and it should return a boolean indicating wether or not the actual component should be displayed.
