@@ -93,4 +93,9 @@ TailSpin.propTypes = {
   style: PropTypes.object,
 }
 
+TailSpin.defaultProps = {
+  className: '',
+  style: undefined,
+}
+
 export default TailSpin
