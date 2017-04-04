@@ -58,14 +58,14 @@ const isInError = (loaded, CustomErrorComponent) => {
 const isNotInError = (loaded, CustomErrorComponent) => {
   // Either TailSpin or GraphicComponent are printed
   // Error component should ne be printed
-  const isPrinted = Comp => {
+  const isPrinted = (Comp) => {
     return loaded.find(Comp).exists()
   }
   expect(isPrinted(Component) || isPrinted(TailSpin)).to.be.true
   expect(loaded.find(CustomErrorComponent || ErrorCross).node).to.be.undefined
 }
 
-const isInErrorCustomErrorComponent = Comp => {
+const isInErrorCustomErrorComponent = (Comp) => {
   isInError(Comp, ErrorComponent)
   expect(Comp.find(ErrorCross).node).to.be.undefined
 }

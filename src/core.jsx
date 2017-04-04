@@ -104,7 +104,6 @@ export default (
         return <ErrorIndicator {...this.state.props} />
       } else if (this.isPrinted()) {
         return <ComposedComponent {...this.state.props} />
-
       }
 
       return <LoadingIndicator {...this.state.props} />

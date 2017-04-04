@@ -7,6 +7,6 @@ export default (
   {
     LoadingIndicator = TailSpin,
     ErrorIndicator = ErrorCross,
-    ...rest,
+    ...rest
   } = {},
 ) => core(ComposedComponent, { ...rest, ErrorIndicator, LoadingIndicator })

@@ -69,15 +69,17 @@ class Cross extends Component {
   }
 }
 
-const { string } = PropTypes
+const { string, object } = PropTypes
 Cross.propTypes = {
   message: string,
   className: string,
-  style: string,
+  style: object,
 }
 
 Cross.defaultProps = {
   message: 'An error occured',
+  className: '',
+  style: {},
 }
 
 export default Cross

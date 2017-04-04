@@ -41,7 +41,7 @@ describe('ErrorCross', () => {
     const mounted = mount(
       <div style={{ backgroundColor: '#FFF9E5' }}>
         <ErrorCross />
-      </div>
+      </div>,
     )
 
     testColor(mounted, '#ffe17f')
@@ -53,7 +53,7 @@ describe('ErrorCross', () => {
         <div style={{ color: 'red' }}>
           <ErrorCross />
         </div>
-      </div>
+      </div>,
     )
 
     testColor(mounted, '#76692f')
@@ -63,7 +63,7 @@ describe('ErrorCross', () => {
     mount(
       <div style={{ backgroundColor: '#2D2812' }}>
         <ErrorCross dispatch="a dispatch" />
-      </div>
+      </div>,
     )
   })
 })
