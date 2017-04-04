@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+/* eslint react/prop-types: 0 */
+import React, { Component } from 'react'
 
 const getTypeOf = (something) => {
   const getType = {}
@@ -16,32 +17,37 @@ const isString = (stringToCheck) => {
   return type && type === '[object String]'
 }
 
-const getDisplayName = (c) => c.displayName || c.name || 'Component'
+const getDisplayName = c => c.displayName || c.name || 'Component'
 
 export default (
   ComposedComponent,
   {
     LoadingIndicator,
-    print = ['loaded'],
-    load = undefined,
-    error = ['error'],
     ErrorIndicator,
+    print,
+    load,
+    error,
   } = {},
 ) => {
   const loadFunctionName = isString(load) ? load : 'load'
 
   return class extends Component {
     static displayName = `Loader(${getDisplayName(ComposedComponent)})`
-    static propTypes = {
-      load: PropTypes.func,
-    }
 
     state = {
       props: {},
     }
 
-    isInState = (prop, propProcessor) => {
-      // Prop is an array
+    isInState = (prop, propProcessor, substitutionProp, defaultValue) => {
+      // Print is undefined,
+      // we rely on 'props[substitutionProp' if present
+      // if not, we directly print the component
+      if (prop === undefined) {
+        const inState = this.props[substitutionProp]
+        return inState === undefined ? defaultValue : !!inState
+      }
+
+      // prop is an array
       // Implicitly meaning that this is an array of props
       if (Array.isArray(prop)) {
         const boolProps = prop.map(p => Boolean(this.props[p]))
@@ -57,8 +63,8 @@ export default (
       return !!prop
     }
 
-    isPrinted = () => this.isInState(print, boolProps => boolProps.every(p => !!p))
-    isInError = () => this.isInState(error, boolProps => boolProps.includes(true))
+    isPrinted = () => this.isInState(print, boolProps => boolProps.every(p => !!p), 'loaded', true)
+    isInError = () => this.isInState(error, boolProps => boolProps.includes(true), 'error', false)
 
     omitLoadInProps = (props) => {
       const isLoadAFunction = isFunction(props[loadFunctionName])

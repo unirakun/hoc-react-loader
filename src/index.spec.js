@@ -88,87 +88,124 @@ const isLoadedTwice = (load, loaded) => {
 }
 
 describe('react-loader', () => {
-  it('should wait for a `data` props [readme]', () => {
+  /*
+   * The `loaded` default props is not set.
+   * There is not `print` option.
+   */
+  it('should print the wrapped component by default', () => {
+    const load = spy(() => {})
+    const wrappedComponent = getWrapped(undefined, { load })
+
+    isLoaded(load, wrappedComponent)
+  })
+
+  /*
+   * `print` option is set as an array of one element.
+   */
+  it('should wait for `data` in props to be truthy', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ print: ['data'] }, { load })
+    const wrappedComponent = getWrapped({ print: ['data'] }, { load })
 
-    isLoading(load, loaded)
+    isLoading(load, wrappedComponent)
 
     // Change `data` value
-    loaded.setProps({ data: true })
+    wrappedComponent.setProps({ data: true })
 
-    isLoaded(load, loaded)
+    isLoaded(load, wrappedComponent)
   })
 
-  it('should wait for a `loaded` props [default]', () => {
+  /*
+   * `print` option is not set, but the `loaded` parameter is.
+   */
+  it('should wait for the default props (`loaded`) to be truthy', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped(undefined, { load })
+    const wrappedComponent = getWrapped(undefined, { loaded: false, load })
 
-    isLoading(load, loaded)
+    isLoading(load, wrappedComponent)
 
     // Change `loaded` value
-    loaded.setProps({ loaded: true })
+    wrappedComponent.setProps({ loaded: true })
 
-    isLoaded(load, loaded)
+    isLoaded(load, wrappedComponent)
   })
 
-  it('should wait for an array of props', () => {
+  /*
+   * `print` option is set to an array of two elements.
+   */
+  it('should wait for all props defined in an array of props', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ print: ['prop1', 'prop2'] }, { load })
+    const wrappedComponent = getWrapped({ print: ['prop1', 'prop2'] }, { load })
 
-    isLoading(load, loaded)
+    isLoading(load, wrappedComponent)
 
     // Change `prop1` value
-    loaded.setProps({ prop1: true })
+    wrappedComponent.setProps({ prop1: true })
 
-    isLoading(load, loaded)
+    isLoading(load, wrappedComponent)
 
     // Change `prop3` value
-    loaded.setProps({ prop3: true })
+    wrappedComponent.setProps({ prop3: true })
 
-    isLoading(load, loaded)
+    isLoading(load, wrappedComponent)
 
     // Change `prop2` value
-    loaded.setProps({ prop2: true })
+    wrappedComponent.setProps({ prop2: true })
 
-    isLoaded(load, loaded)
+    isLoaded(load, wrappedComponent)
   })
 
-  it('should handle `print` parameter to be a function', () => {
+  /*
+   * `print` option is a function.
+   */
+  it('should wait `print` to return a truthy value', () => {
     // Mount (false case)
     const load = spy(() => {})
-    let loaded = getWrapped({ print: () => false }, { load })
+    let wrappedComponent = getWrapped({ print: () => false }, { load })
 
-    isLoading(load, loaded)
+    isLoading(load, wrappedComponent)
 
     // Mount (true case)
-    loaded = getWrapped({ print: () => true }, { load })
+    wrappedComponent = getWrapped({ print: () => true }, { load })
 
-    isLoadedTwice(load, loaded)
+    isLoadedTwice(load, wrappedComponent)
   })
 
-  it('should handle `print` parameter to be a boolean', () => {
-    // Mount (false case)
+  /*
+   * `print` value is harcoded (to true).
+   */
+  it('should handle a hardcoded `print` value (truthy)', () => {
+    // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ print: true }, { load })
+    const wrappedComponent = getWrapped({ print: true }, { load })
 
-    isLoaded(load, loaded)
+    isLoaded(load, wrappedComponent)
+  })
+
+  /*
+   * `print` value is harcoded (to false).
+   */
+  it('should handle a hardcoded `print` value (falsey)', () => {
+    // Mount
+    const load = spy(() => {})
+    const wrappedComponent = getWrapped({ print: false }, { load })
+
+    isLoading(load, wrappedComponent)
   })
 
   it('should print a different LoadingIndicator component', () => {
     // Mount
     const load = spy(() => {})
-    const loaded = getWrapped({ LoadingIndicator, print: ['data'] }, { load })
+    const wrappedComponent = getWrapped({ LoadingIndicator, print: ['data'] }, { load })
 
-    isLoadingCustomLoader(load, loaded)
+    isLoadingCustomLoader(load, wrappedComponent)
 
     // Change `data` value
-    loaded.setProps({ data: true })
+    wrappedComponent.setProps({ data: true })
 
-    isLoadedCustomLoader(load, loaded)
+    isLoadedCustomLoader(load, wrappedComponent)
   })
 
   it('should call the `load` function parameter if present', () => {
@@ -176,7 +213,7 @@ describe('react-loader', () => {
     const loadProp = spy(() => {})
     const loadParam = spy(() => {})
     const props = { prop1: 'prop1', load: loadProp }
-    const loaded = getWrapped({ load: loadParam }, props)
+    const wrappedComponent = getWrapped({ load: loadParam }, props)
 
     // Load function is called
     // Graphic component isn't called
@@ -185,8 +222,8 @@ describe('react-loader', () => {
     loadProp.should.have.been.called.with(props)
     loadParam.should.have.been.called.once
     loadParam.should.have.been.called.with(props)
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(TailSpin).node.should.exists
+    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
+    wrappedComponent.find(Component).node.should.exists
   })
 
   it('should call matching props if the load parameter is a string', () => {
@@ -194,25 +231,25 @@ describe('react-loader', () => {
     const loadProp = spy(() => {})
     const loadPropName = 'customLoadFunction'
     const props = { prop1: 'prop1', [loadPropName]: loadProp }
-    const loaded = getWrapped({ load: loadPropName }, props)
+    const wrappedComponent = getWrapped({ load: loadPropName }, props)
 
     // Load function is called
     // Graphic component isn't called
     // Loader should be Dots
     loadProp.should.have.been.called.once
     loadProp.should.have.been.called.with(props)
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(TailSpin).node.should.exists
+    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
+    wrappedComponent.find(Component).node.should.exists
   })
 
   it('should handle a `null` `load` props/parameter', () => {
     // Mount
-    const loaded = getWrapped()
+    const wrappedComponent = getWrapped()
 
     // Graphic component isn't called
     // Dots should be printed
-    expect(loaded.find(Component).node).to.be.undefined
-    loaded.find(TailSpin).node.should.exists
+    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
+    wrappedComponent.find(Component).node.should.exists
   })
 
   it('should display error component when in error state', () => {

@@ -23,9 +23,10 @@ const Examples = ({ style, className }) => (
       example={<Base />}
     >
       <div className={styles.doc}>
-        <h3>Base: defaults parameters</h3>
+        <h3>Base: `this.props.loaded` is defined</h3>
         <p className={styles.description}>
-          In this example, the loader wraps a Component with its default parameters.
+          In this example, the loader wraps a Component with
+          &nbsp;<pre>this.props.loaded</pre>&nbsp;defined.
           It means that the loader calls <pre>this.props.load</pre>
           &nbsp;if presents, then waits for <pre>this.props.loaded</pre>
           &nbsp;to be truthy, and finally displays the wrapped components.
@@ -56,7 +57,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="TwoParams"
-      code="export&nbsp;default loader(TwoParams, { wait: ['prop', 'prop2'] })"
+      code="export&nbsp;default loader(TwoParams, { print: ['prop', 'prop2'] })"
       buttons={{ 1: true, 2: true }}
       example={<TwoParams />}
     >
