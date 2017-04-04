@@ -76,7 +76,7 @@ exports.default = function (ComposedComponent) {
         if (print === undefined) {
           var loaded = _this.props.loaded;
 
-          return loaded === undefined ? true : loaded;
+          return loaded === undefined ? true : !!loaded;
         }
 
         // Print is an array

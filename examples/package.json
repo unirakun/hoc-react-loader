@@ -48,7 +48,7 @@
     "webpack-dev-server": "~1.12.1"
   },
   "dependencies": {
-    "hoc-react-loader": "../",
+    "hoc-react-loader": "file:../",
     "lodash": "^4.15.0",
     "normalize.css": "~4.2.0",
     "react": "15.3.0",
