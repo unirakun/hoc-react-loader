@@ -20,7 +20,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint react/prop-types: 0 */
+
 
 var getTypeOf = function getTypeOf(something) {
   var getType = {};
@@ -47,10 +48,8 @@ exports.default = function (ComposedComponent) {
 
   var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
       LoadingIndicator = _ref.LoadingIndicator,
-      _ref$print = _ref.print,
-      print = _ref$print === undefined ? ['loaded'] : _ref$print,
-      _ref$load = _ref.load,
-      load = _ref$load === undefined ? undefined : _ref$load;
+      print = _ref.print,
+      load = _ref.load;
 
   var loadFunctionName = isString(load) ? load : 'load';
 
@@ -71,6 +70,15 @@ exports.default = function (ComposedComponent) {
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
         props: {}
       }, _this.isLoaded = function () {
+        // Print is undefined,
+        // we rely on 'props.loaded' if present
+        // if not, we directly print the component
+        if (print === undefined) {
+          var loaded = _this.props.loaded;
+
+          return loaded === undefined ? true : !!loaded;
+        }
+
         // Print is an array
         // Implicitly meaning that this is an array of props
         if (Array.isArray(print)) {

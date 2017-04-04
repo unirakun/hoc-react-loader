@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import React, { Component } from 'react'
 
 const getTypeOf = (something) => {
@@ -22,8 +23,8 @@ export default (
   ComposedComponent,
   {
     LoadingIndicator,
-    print = ['loaded'],
-    load = undefined,
+    print,
+    load,
   } = {},
 ) => {
   const loadFunctionName = isString(load) ? load : 'load'
@@ -36,6 +37,14 @@ export default (
     }
 
     isLoaded = () => {
+      // Print is undefined,
+      // we rely on 'props.loaded' if present
+      // if not, we directly print the component
+      if (print === undefined) {
+        const { loaded } = this.props
+        return loaded === undefined ? true : !!loaded
+      }
+
       // Print is an array
       // Implicitly meaning that this is an array of props
       if (Array.isArray(print)) {
