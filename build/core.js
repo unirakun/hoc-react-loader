@@ -138,7 +138,5 @@ exports.default = function (ComposedComponent) {
     }]);
 
     return _class;
-  }(_react.Component), _class.displayName = 'Loader(' + getDisplayName(ComposedComponent) + ')', _class.propTypes = {
-    load: _react.PropTypes.func
-  }, _temp2;
+  }(_react.Component), _class.displayName = 'Loader(' + getDisplayName(ComposedComponent) + ')', _temp2;
 };

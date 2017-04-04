@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 
 const getTypeOf = (something) => {
   const getType = {}
@@ -17,7 +17,7 @@ const isString = (stringToCheck) => {
   return type && type === '[object String]'
 }
 
-const getDisplayName = (c) => c.displayName || c.name || 'Component'
+const getDisplayName = c => c.displayName || c.name || 'Component'
 
 export default (
   ComposedComponent,
@@ -31,9 +31,6 @@ export default (
 
   return class extends Component {
     static displayName = `Loader(${getDisplayName(ComposedComponent)})`
-    static propTypes = {
-      load: PropTypes.func,
-    }
 
     state = {
       props: {},

@@ -5,6 +5,6 @@ export default (
   ComposedComponent,
   {
     LoadingIndicator = TailSpin,
-    ...rest,
+    ...rest
   } = {},
 ) => core(ComposedComponent, { ...rest, LoadingIndicator })

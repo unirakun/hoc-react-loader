@@ -145,4 +145,9 @@ TailSpin.propTypes = {
   style: _react.PropTypes.object
 };
 
+TailSpin.defaultProps = {
+  className: '',
+  style: undefined
+};
+
 exports.default = TailSpin;
