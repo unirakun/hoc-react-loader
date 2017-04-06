@@ -13,7 +13,6 @@ import loader from './index'
 import TailSpin from './TailSpin'
 import ErrorCross from './ErrorCross'
 
-
 const Component = () => <div />
 const LoadingIndicator = () => <div />
 const ErrorComponent = () => <div />
