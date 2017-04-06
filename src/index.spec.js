@@ -290,7 +290,7 @@ describe('react-loader', () => {
   })
 
   it('should prioritize error state over loaded state', () => {
-    const loaded = getWrapped({ error: true, wait: false })
+    const loaded = getWrapped({ error: true, print: true })
 
     isInError(loaded)
   })
