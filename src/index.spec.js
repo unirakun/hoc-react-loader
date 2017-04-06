@@ -252,47 +252,58 @@ describe('react-loader', () => {
   })
 
   it('should display error component when in error state', () => {
-    const loaded = getWrapped({ error: ['errorMessage'] })
-    isNotInError(loaded)
+    const wrappedComponent = getWrapped({ error: ['errorMessage'] })
+    isNotInError(wrappedComponent)
 
     // Change `error` value
-    loaded.setProps({ errorMessage: 'some error message' })
+    wrappedComponent.setProps({ errorMessage: 'some error message' })
 
-    isInError(loaded)
+    isInError(wrappedComponent)
+  })
+
+  it('should display error component if error prop is set after loading', () => {
+    const load = spy(() => {})
+    const wrappedComponent = getWrapped({ print: false }, { load })
+    isLoading(load, wrappedComponent)
+
+    // Change `error` value
+    wrappedComponent.setProps({ error: true })
+
+    isInError(wrappedComponent)
   })
 
   it('should display error component as soon as one error prop is present', () => {
-    const loaded = getWrapped({ error: ['errorMessage1', 'errorMessage2'] })
-    isNotInError(loaded)
+    const wrappedComponent = getWrapped({ error: ['errorMessage1', 'errorMessage2'] })
+    isNotInError(wrappedComponent)
 
     // Change `error` value
-    loaded.setProps({ errorMessage1: 'some error message' })
-    isInError(loaded)
+    wrappedComponent.setProps({ errorMessage1: 'some error message' })
+    isInError(wrappedComponent)
 
-    loaded.setProps({ errorMessage2: 'some error message' })
-    isInError(loaded)
+    wrappedComponent.setProps({ errorMessage2: 'some error message' })
+    isInError(wrappedComponent)
   })
 
   it('should handle error parameter to be a boolean', () => {
-    let loaded = getWrapped({ error: false })
-    isNotInError(loaded)
+    let wrappedComponent = getWrapped({ error: false })
+    isNotInError(wrappedComponent)
 
     // Change `error` value
-    loaded = getWrapped({ error: true })
-    isInError(loaded)
+    wrappedComponent = getWrapped({ error: true })
+    isInError(wrappedComponent)
   })
 
   it('should print a different error component', () => {
     // Mount
-    const loaded = getWrapped({ ErrorIndicator: ErrorComponent, error: true })
+    const wrappedComponent = getWrapped({ ErrorIndicator: ErrorComponent, error: true })
 
-    isInErrorCustomErrorComponent(loaded)
+    isInErrorCustomErrorComponent(wrappedComponent)
   })
 
   it('should prioritize error state over loaded state', () => {
-    const loaded = getWrapped({ error: true, print: true })
+    const wrappedComponent = getWrapped({ error: true, print: true })
 
-    isInError(loaded)
+    isInError(wrappedComponent)
   })
 })
 
