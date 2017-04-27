@@ -1,6 +1,6 @@
 {
   "name": "hoc-react-loader",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Higher order component to call a load function from props at mount.",
   "main": "build/index.js",
   "peerDependencies": {
@@ -33,6 +33,7 @@
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.3.0",
+    "react-test-renderer": "^15.5.4",
     "tinycolor2": "^1.4.1"
   },
   "scripts": {
@@ -86,5 +87,8 @@
       "import/no-unresolved": 0,
       "react/forbid-prop-types": 0
     }
+  },
+  "dependencies": {
+    "prop-types": "^15.5.8"
   }
 }

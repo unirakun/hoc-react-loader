@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _tinycolor = require('tinycolor2');
 
 var _tinycolor2 = _interopRequireDefault(_tinycolor);
@@ -141,8 +145,8 @@ var TailSpin = function (_Component) {
 }(_react.Component);
 
 TailSpin.propTypes = {
-  className: _react.PropTypes.string,
-  style: _react.PropTypes.object
+  className: _propTypes2.default.string,
+  style: _propTypes2.default.object
 };
 
 TailSpin.defaultProps = {
