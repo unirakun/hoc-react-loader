@@ -4,6 +4,7 @@
   "description": "Higher order component to call a load function from props at mount.",
   "main": "build/index.js",
   "peerDependencies": {
+    "prop-types": "^15.5.8",
     "react": "^15.3.0",
     "tinycolor2": "^1.4.1"
   },
@@ -30,6 +31,7 @@
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
     "nyc": "^10.2.0",
+    "prop-types": "^15.5.8",
     "react": "^15.3.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.3.0",
@@ -87,8 +89,5 @@
       "import/no-unresolved": 0,
       "react/forbid-prop-types": 0
     }
-  },
-  "dependencies": {
-    "prop-types": "^15.5.8"
   }
 }
