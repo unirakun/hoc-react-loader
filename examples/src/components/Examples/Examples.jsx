@@ -17,7 +17,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="Base"
-      code="export&nbsp;default loader(Base)"
+      code="export&nbsp;default loader()(Base)"
       buttons={{ 0: true }}
       example={<Base />}
     >
@@ -39,7 +39,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="OneParam"
-      code="export&nbsp;default loader(OneParam, { print: ['prop'] })"
+      code="export&nbsp;default loader({ print: ['prop'] })(OneParam)"
       buttons={{ 1: true }}
       example={<OneParam />}
     >
@@ -56,7 +56,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="TwoParams"
-      code="export&nbsp;default loader(TwoParams, { print: ['prop', 'prop2'] })"
+      code="export&nbsp;default loader({ print: ['prop', 'prop2'] })(TwoParams)"
       buttons={{ 1: true, 2: true }}
       example={<TwoParams />}
     >
@@ -73,7 +73,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="DontWait"
-      code="export&nbsp;default loader(DontWait, { print: true })"
+      code="export&nbsp;default loader({ print: true })(DontWait)"
       buttons={{ 0: true }}
       example={<DontWait />}
     >
@@ -90,7 +90,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="LoadingIndicator"
-      code="export&nbsp;default loader(LoadingIndicator, { LoadingIndicator: CustomLoadingIndicator })" // eslint-disable-line
+      code="export&nbsp;default loader({ LoadingIndicator: CustomLoadingIndicator })(LoadingIndicator)" // eslint-disable-line
       buttons={{ 0: true }}
       example={<LoadingIndicator />}
     >

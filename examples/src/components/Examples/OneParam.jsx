@@ -14,4 +14,4 @@ OneParam.propTypes = {
   prop: PropTypes.string.isRequired,
 }
 
-export default loader(OneParam, { print: ['prop'] })
+export default loader({ print: ['prop'] })(OneParam)
