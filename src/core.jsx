@@ -20,7 +20,6 @@ const isString = (stringToCheck) => {
 const getDisplayName = c => c.displayName || c.name || 'Component'
 
 export default (
-  ComposedComponent,
   {
     LoadingIndicator,
     print,
@@ -28,79 +27,86 @@ export default (
   } = {},
 ) => {
   const loadFunctionName = isString(load) ? load : 'load'
+  const isPrintArray = Array.isArray(print)
+  const isPrintFunction = isFunction(print)
+  const isLoadFunction = isFunction(load)
 
-  return class extends Component {
-    static displayName = `Loader(${getDisplayName(ComposedComponent)})`
-
-    state = {
-      props: {},
+  const isLoaded = (props, context) => {
+    // Print is undefined,
+    // we rely on 'props.loaded' if present
+    // if not, we directly print the component
+    if (print === undefined) {
+      const { loaded } = props
+      return loaded === undefined ? true : !!loaded
     }
 
-    isLoaded = () => {
-      // Print is undefined,
-      // we rely on 'props.loaded' if present
-      // if not, we directly print the component
-      if (print === undefined) {
-        const { loaded } = this.props
-        return loaded === undefined ? true : !!loaded
-      }
-
-      // Print is an array
-      // Implicitly meaning that this is an array of props
-      if (Array.isArray(print)) {
-        return print
-          .map(p => Boolean(this.props[p]))
-          .reduce((allProps, currentProp) => allProps && currentProp)
-      }
-
-      // Print is a function
-      if (isFunction(print)) {
-        return !!print(this.props, this.context)
-      }
-
-      // Anything else
-      return !!print
+    // Print is an array
+    // Implicitly meaning that this is an array of props
+    if (isPrintArray) {
+      return print
+        .map(p => Boolean(props[p]))
+        .reduce((allProps, currentProp) => allProps && currentProp)
     }
 
-    omitLoadInProps = (props) => {
-      const isLoadAFunction = isFunction(props[loadFunctionName])
-
-      if (isLoadAFunction) {
-        this.setState({
-          props: {
-            ...props,
-            [loadFunctionName]: undefined,
-          },
-        })
-      } else {
-        this.setState({ props })
-      }
-
-      return isLoadAFunction
+    // Print is a function
+    if (isPrintFunction) {
+      return !!print(props, context)
     }
 
-    componentWillMount() {
-      // Load from hoc argument
-      if (isFunction(load)) {
-        load(this.props, this.context)
+    // Anything else
+    return !!print
+  }
+
+  return (ComposedComponent) => {
+    const displayName = `Loader(${getDisplayName(ComposedComponent)})`
+
+    return class extends Component {
+      static displayName = displayName
+
+      state = {
+        props: {},
       }
 
-      // Load from props
-      if (this.omitLoadInProps(this.props)) {
-        this.props[loadFunctionName](this.props, this.context)
+      omitLoadInProps = (props) => {
+        const isLoadAFunction = isFunction(props[loadFunctionName])
+
+        if (isLoadAFunction) {
+          this.setState({
+            props: {
+              ...props,
+              [loadFunctionName]: undefined,
+            },
+          })
+        } else {
+          this.setState({ props })
+        }
+
+        return isLoadAFunction
       }
-    }
 
-    componentWillReceiveProps = (nextProps) => {
-      this.omitLoadInProps(nextProps)
-    }
+      componentWillMount() {
+        // Load from hoc argument
+        if (isLoadFunction) {
+          load(this.props, this.context)
+        }
 
-    render() {
-      if (!this.isLoaded()) {
-        return <LoadingIndicator {...this.state.props} />
+        // Load from props
+        if (this.omitLoadInProps(this.props)) {
+          this.props[loadFunctionName](this.props, this.context)
+        }
       }
 
-      return <ComposedComponent {...this.state.props} />
+      componentWillReceiveProps = (nextProps) => {
+        this.omitLoadInProps(nextProps)
+      }
+
+      render() {
+        if (!isLoaded(this.props, this.context)) {
+          return <LoadingIndicator {...this.state.props} />
+        }
+
+        return <ComposedComponent {...this.state.props} />
+      }
     }
   }
 }

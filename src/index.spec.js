@@ -15,7 +15,7 @@ import TailSpin from './TailSpin'
 const Component = () => <div />
 const LoadingIndicator = () => <div />
 const getWrapped = (config, props) => {
-  const Container = loader(Component, config)
+  const Container = loader(config)(Component)
   return mount(<Container {...props} />)
 }
 
@@ -192,7 +192,7 @@ describe('react-loader', () => {
 
     // Load function is called
     // Graphic component isn't called
-    // Loader should be Dots
+    // Loader should be TailSpin
     loadProp.should.have.been.called.once
     loadProp.should.have.been.called.with(props)
     loadParam.should.have.been.called.once
@@ -210,7 +210,7 @@ describe('react-loader', () => {
 
     // Load function is called
     // Graphic component isn't called
-    // Loader should be Dots
+    // Loader should be TailSpin
     loadProp.should.have.been.called.once
     loadProp.should.have.been.called.with(props)
     expect(wrappedComponent.find(TailSpin).node).to.be.undefined
@@ -222,7 +222,7 @@ describe('react-loader', () => {
     const wrappedComponent = getWrapped()
 
     // Graphic component isn't called
-    // Dots should be printed
+    // TailSpin should be printed
     expect(wrappedComponent.find(TailSpin).node).to.be.undefined
     wrappedComponent.find(Component).node.should.exists
   })

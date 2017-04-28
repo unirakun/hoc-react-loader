@@ -43,100 +43,109 @@ var getDisplayName = function getDisplayName(c) {
   return c.displayName || c.name || 'Component';
 };
 
-exports.default = function (ComposedComponent) {
-  var _class, _temp2;
-
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+exports.default = function () {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       LoadingIndicator = _ref.LoadingIndicator,
       print = _ref.print,
       load = _ref.load;
 
   var loadFunctionName = isString(load) ? load : 'load';
+  var isPrintArray = Array.isArray(print);
+  var isPrintFunction = isFunction(print);
+  var isLoadFunction = isFunction(load);
 
-  return _temp2 = _class = function (_Component) {
-    _inherits(_class, _Component);
+  var isLoaded = function isLoaded(props, context) {
+    // Print is undefined,
+    // we rely on 'props.loaded' if present
+    // if not, we directly print the component
+    if (print === undefined) {
+      var loaded = props.loaded;
 
-    function _class() {
-      var _ref2;
-
-      var _temp, _this, _ret;
-
-      _classCallCheck(this, _class);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
-        props: {}
-      }, _this.isLoaded = function () {
-        // Print is undefined,
-        // we rely on 'props.loaded' if present
-        // if not, we directly print the component
-        if (print === undefined) {
-          var loaded = _this.props.loaded;
-
-          return loaded === undefined ? true : !!loaded;
-        }
-
-        // Print is an array
-        // Implicitly meaning that this is an array of props
-        if (Array.isArray(print)) {
-          return print.map(function (p) {
-            return Boolean(_this.props[p]);
-          }).reduce(function (allProps, currentProp) {
-            return allProps && currentProp;
-          });
-        }
-
-        // Print is a function
-        if (isFunction(print)) {
-          return !!print(_this.props, _this.context);
-        }
-
-        // Anything else
-        return !!print;
-      }, _this.omitLoadInProps = function (props) {
-        var isLoadAFunction = isFunction(props[loadFunctionName]);
-
-        if (isLoadAFunction) {
-          _this.setState({
-            props: _extends({}, props, _defineProperty({}, loadFunctionName, undefined))
-          });
-        } else {
-          _this.setState({ props: props });
-        }
-
-        return isLoadAFunction;
-      }, _this.componentWillReceiveProps = function (nextProps) {
-        _this.omitLoadInProps(nextProps);
-      }, _temp), _possibleConstructorReturn(_this, _ret);
+      return loaded === undefined ? true : !!loaded;
     }
 
-    _createClass(_class, [{
-      key: 'componentWillMount',
-      value: function componentWillMount() {
-        // Load from hoc argument
-        if (isFunction(load)) {
-          load(this.props, this.context);
+    // Print is an array
+    // Implicitly meaning that this is an array of props
+    if (isPrintArray) {
+      return print.map(function (p) {
+        return Boolean(props[p]);
+      }).reduce(function (allProps, currentProp) {
+        return allProps && currentProp;
+      });
+    }
+
+    // Print is a function
+    if (isPrintFunction) {
+      return !!print(props, context);
+    }
+
+    // Anything else
+    return !!print;
+  };
+
+  return function (ComposedComponent) {
+    var _class, _temp2;
+
+    var displayName = 'Loader(' + getDisplayName(ComposedComponent) + ')';
+
+    return _temp2 = _class = function (_Component) {
+      _inherits(_class, _Component);
+
+      function _class() {
+        var _ref2;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, _class);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
         }
 
-        // Load from props
-        if (this.omitLoadInProps(this.props)) {
-          this.props[loadFunctionName](this.props, this.context);
-        }
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
+          props: {}
+        }, _this.omitLoadInProps = function (props) {
+          var isLoadAFunction = isFunction(props[loadFunctionName]);
+
+          if (isLoadAFunction) {
+            _this.setState({
+              props: _extends({}, props, _defineProperty({}, loadFunctionName, undefined))
+            });
+          } else {
+            _this.setState({ props: props });
+          }
+
+          return isLoadAFunction;
+        }, _this.componentWillReceiveProps = function (nextProps) {
+          _this.omitLoadInProps(nextProps);
+        }, _temp), _possibleConstructorReturn(_this, _ret);
       }
-    }, {
-      key: 'render',
-      value: function render() {
-        if (!this.isLoaded()) {
-          return _react2.default.createElement(LoadingIndicator, this.state.props);
+
+      _createClass(_class, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+          // Load from hoc argument
+          if (isLoadFunction) {
+            load(this.props, this.context);
+          }
+
+          // Load from props
+          if (this.omitLoadInProps(this.props)) {
+            this.props[loadFunctionName](this.props, this.context);
+          }
         }
+      }, {
+        key: 'render',
+        value: function render() {
+          if (!isLoaded(this.props, this.context)) {
+            return _react2.default.createElement(LoadingIndicator, this.state.props);
+          }
 
-        return _react2.default.createElement(ComposedComponent, this.state.props);
-      }
-    }]);
+          return _react2.default.createElement(ComposedComponent, this.state.props);
+        }
+      }]);
 
-    return _class;
-  }(_react.Component), _class.displayName = 'Loader(' + getDisplayName(ComposedComponent) + ')', _temp2;
+      return _class;
+    }(_react.Component), _class.displayName = displayName, _temp2;
+  };
 };
