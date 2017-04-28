@@ -23,8 +23,10 @@ export default (
   ComposedComponent,
   {
     LoadingIndicator,
+    ErrorIndicator,
     print,
     load,
+    error,
   } = {},
 ) => {
   const loadFunctionName = isString(load) ? load : 'load'
@@ -36,31 +38,33 @@ export default (
       props: {},
     }
 
-    isLoaded = () => {
+    isInState = (prop, propProcessor, substitutionProp, defaultValue) => {
       // Print is undefined,
-      // we rely on 'props.loaded' if present
+      // we rely on 'props[substitutionProp' if present
       // if not, we directly print the component
-      if (print === undefined) {
-        const { loaded } = this.props
-        return loaded === undefined ? true : !!loaded
+      if (prop === undefined) {
+        const inState = this.props[substitutionProp]
+        return inState === undefined ? defaultValue : !!inState
       }
 
-      // Print is an array
+      // prop is an array
       // Implicitly meaning that this is an array of props
-      if (Array.isArray(print)) {
-        return print
-          .map(p => Boolean(this.props[p]))
-          .reduce((allProps, currentProp) => allProps && currentProp)
+      if (Array.isArray(prop)) {
+        const boolProps = prop.map(p => Boolean(this.props[p]))
+        return propProcessor(boolProps)
       }
 
-      // Print is a function
-      if (isFunction(print)) {
-        return !!print(this.props, this.context)
+      // Prop is a function
+      if (isFunction(prop)) {
+        return !!prop(this.props, this.context)
       }
 
       // Anything else
-      return !!print
+      return !!prop
     }
+
+    isPrinted = () => this.isInState(print, boolProps => boolProps.every(p => !!p), 'loaded', true)
+    isInError = () => this.isInState(error, boolProps => boolProps.includes(true), 'error', false)
 
     omitLoadInProps = (props) => {
       const isLoadAFunction = isFunction(props[loadFunctionName])
@@ -96,11 +100,13 @@ export default (
     }
 
     render() {
-      if (!this.isLoaded()) {
-        return <LoadingIndicator {...this.state.props} />
+      if (this.isInError()) {
+        return <ErrorIndicator {...this.state.props} />
+      } else if (this.isPrinted()) {
+        return <ComposedComponent {...this.state.props} />
       }
 
-      return <ComposedComponent {...this.state.props} />
+      return <LoadingIndicator {...this.state.props} />
     }
   }
 }
