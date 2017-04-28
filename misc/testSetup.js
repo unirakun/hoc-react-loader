@@ -11,3 +11,8 @@ chai.should()
 chai.config.includeStack = true
 chai.config.truncateThreshold = 0
 chai.use(spies)
+
+// Make console.error a real failure
+console.error = (message) => { // eslint-disable-line no-console
+  throw new Error(message)
+}
