@@ -9,4 +9,4 @@ Base.propTypes = {
   className: PropTypes.string,
 }
 
-export default loader(Base)
+export default loader()(Base)

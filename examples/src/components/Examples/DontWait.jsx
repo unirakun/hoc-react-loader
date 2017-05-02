@@ -14,4 +14,4 @@ DontWait.propTypes = {
   prop: PropTypes.string.isRequired,
 }
 
-export default loader(DontWait, { print: true })
+export default loader({ print: true })(DontWait)

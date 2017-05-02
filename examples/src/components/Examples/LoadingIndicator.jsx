@@ -11,4 +11,4 @@ LoadingIndicator.propTypes = {
   className: PropTypes.string,
 }
 
-export default loader(LoadingIndicator, { LoadingIndicator: CustomLoadingIndicator })
+export default loader({ LoadingIndicator: CustomLoadingIndicator })(LoadingIndicator)

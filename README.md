@@ -20,7 +20,7 @@ import loader from 'hoc-react-loader'
 
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader(Component, { print: ['data'] })
+export default loader({ print: ['data'] })(Component)
 ```
 In this case, the loader waits for `this.props.data` to be truthy, then mounts its child component and calls `this.props.load` if it exists. This is useful when the parent has control over the injected data, or when the `Component` is connected with `redux`. `this.props.load` should be injected by the parent component or injected by a `Container` (redux).
 
@@ -33,7 +33,7 @@ import loader from 'hoc-react-loader'
 const MyLoadingIndicator = () => <div>Waiting...</div>
 const Component = ({ data }) => <div>Component {data}</div>
 
-export default loader(Component, { print: ['data'], LoadingIndicator: MyLoadingIndicator })
+export default loader({ print: ['data'], LoadingIndicator: MyLoadingIndicator })(Component)
 ```
 
 ### Don't wait
@@ -42,7 +42,7 @@ import loader from 'hoc-react-loader'
 
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader(Component)
+export default loader()(Component)
 ```
 In this example, the loader component doesn't wait for props. `this.props.load` is called once, but the `LoadingIndicator` component isn't displayed.
 
@@ -52,7 +52,7 @@ import loader from 'hoc-react-loader'
 
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader(Component, { load: () => console.log('here') })
+export default loader({ load: () => console.log('here') })(Component)
 ```
 In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter, resulting in `here` to be printed.
 
@@ -64,7 +64,7 @@ import loader from 'hoc-react-loader'
 
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader(Component, { load: 'myLoader' })
+export default loader({ load: 'myLoader' })(Component)
 ```
 In this case, the loader calls `this.props.myLoader` if it exists.
 
