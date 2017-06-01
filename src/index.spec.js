@@ -62,6 +62,29 @@ const isLoadedTwice = (load, loaded) => {
   expect(loaded.find(TailSpin).node).to.be.undefined
 }
 
+const testWithPromise = (promise) => {
+  const wrappedComponent = getWrapped({ print: promise })
+
+  // check status before promise resolution
+  expect(wrappedComponent.find(TailSpin).node).to.be.defined
+  expect(wrappedComponent.find(Component).node).to.be.undefined
+
+  const checkComponentIsDisplay = () => {
+    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
+    wrappedComponent.find(Component).node.should.exists
+  }
+
+  return promise
+    .then((val) => {
+      checkComponentIsDisplay()
+      return val
+    })
+    .catch((error) => {
+      checkComponentIsDisplay()
+      throw error
+    })
+}
+
 describe('react-loader', () => {
   /*
    * The `loaded` default props is not set.
@@ -225,6 +248,21 @@ describe('react-loader', () => {
     // TailSpin should be printed
     expect(wrappedComponent.find(TailSpin).node).to.be.undefined
     wrappedComponent.find(Component).node.should.exists
+  })
+
+  it('should handle a Promise `print` props/parameter', () => {
+    // with mocha, promise is resolve at the end of function
+    return testWithPromise(new Promise((res) => { res() }))
+  })
+
+  it('should handle an already resolved Promise', () => {
+    return testWithPromise(Promise.resolve('test'))
+      .then(val => expect(val).to.equal('test'))
+  })
+
+  it('should handle a rejected Promise', (done) => {
+    testWithPromise(Promise.reject('🤘'))
+      .catch(() => done())
   })
 })
 
