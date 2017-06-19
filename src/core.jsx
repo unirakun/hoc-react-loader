@@ -17,6 +17,11 @@ const isString = (stringToCheck) => {
   return type && type === '[object String]'
 }
 
+// https://github.com/then/is-promise/blob/master/index.js
+const isPromise = (promise) => {
+  return !!promise && (typeof promise === 'object' || typeof promise === 'function') && typeof promise.then === 'function';
+}
+
 const getDisplayName = c => c.displayName || c.name || 'Component'
 
 export default (
@@ -29,9 +34,10 @@ export default (
   const loadFunctionName = isString(load) ? load : 'load'
   const isPrintArray = Array.isArray(print)
   const isPrintFunction = isFunction(print)
+  const isPrintPromise = isPromise(print)
   const isLoadFunction = isFunction(load)
 
-  const isLoaded = (props, context) => {
+  const isLoaded = (props, state, context) => {
     // Print is undefined,
     // we rely on 'props.loaded' if present
     // if not, we directly print the component
@@ -53,6 +59,10 @@ export default (
       return !!print(props, context)
     }
 
+    if (isPrintPromise) {
+      return state.promiseLoaded
+    }
+
     // Anything else
     return !!print
   }
@@ -65,7 +75,10 @@ export default (
 
       state = {
         props: {},
+        promiseLoaded: false,
       }
+
+      promiseResolved = () => { this.setState({ promiseLoaded: true }) }
 
       omitLoadInProps = (props) => {
         const isLoadAFunction = isFunction(props[loadFunctionName])
@@ -90,6 +103,18 @@ export default (
           load(this.props, this.context)
         }
 
+        if (isPrintPromise) {
+          print
+            .then((value) => {
+              this.promiseResolved()
+              return value
+            })
+            .catch((error) => {
+              this.promiseResolved()
+              throw error
+            })
+        }
+
         // Load from props
         if (this.omitLoadInProps(this.props)) {
           this.props[loadFunctionName](this.props, this.context)
@@ -101,10 +126,9 @@ export default (
       }
 
       render() {
-        if (!isLoaded(this.props, this.context)) {
+        if (!isLoaded(this.props, this.state, this.context)) {
           return <LoadingIndicator {...this.state.props} />
         }
-
         return <ComposedComponent {...this.state.props} />
       }
     }

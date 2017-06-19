@@ -36,6 +36,8 @@ const Component = ({ data }) => <div>Component {data}</div>
 export default loader({ print: ['data'], LoadingIndicator: MyLoadingIndicator })(Component)
 ```
 
+The `print` parameter can also be a Promise. The loading indicator is displayed until `print` Promise is resolved or rejected.
+
 ### Don't wait
 ```es6
 import loader from 'hoc-react-loader'

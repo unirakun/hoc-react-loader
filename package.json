@@ -1,6 +1,6 @@
 {
   "name": "hoc-react-loader",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Higher order component to call a load function from props at mount.",
   "main": "build/index.js",
   "peerDependencies": {
@@ -52,6 +52,7 @@
   "author": "Fabien JUIF <fabien.juif@zenika.com>",
   "contributors": [
     "Yvonnick FRIN <yvonnick.frin@zenika.com>",
+    "Yoann Prot <yoann.prot@gmail.com>",
     "Benjamin CAVY <benjamin.cavy@gmail.com>"
   ],
   "license": "MIT",
