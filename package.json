@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
     "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
-    "test": "jest",
+    "test": "jest --collectCoverageFrom=src/**/*.js --collectCoverageFrom=src/**/*.jsx",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "ci": "npm-run-all --parallel lint coveralls"
 

@@ -90,5 +90,39 @@ describe('hoc-react-loader', () => {
       mounted.setProps({ first: 'truthy', second: 1 })
       expect(mounted.html()).toMatchSnapshot()
     })
+
+    it('should print Component -print as function-', () => {
+      const print = jest.fn(() => true)
+
+      const Wrapped = loader({ print })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+      expect(print.mock.calls).toMatchSnapshot()
+    })
+
+    it('should not print Component -print as function-', () => {
+      const print = jest.fn(() => false)
+
+      const Wrapped = loader({ print })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+      expect(print.mock.calls).toMatchSnapshot()
+    })
+
+    it('should print Component -print as a value-', () => {
+      const Wrapped = loader({ print: 'truthy' })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+    })
+
+    it('should not print Component -print as a value-', () => {
+      const Wrapped = loader({ print: 0 })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+    })
   })
 })
