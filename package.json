@@ -30,6 +30,7 @@
     "jsdom": "^9.12.0",
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
+    "npm-run-all": "^4.1.1",
     "nyc": "^10.2.0",
     "prop-types": "^15.5.8",
     "react": "^15.3.0",
@@ -43,7 +44,8 @@
     "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
     "test": "mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" ",
     "coverage": "nyc --extension .jsx npm test",
-    "coveralls": "nyc --extension .jsx npm test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc --extension .jsx npm test && nyc report --reporter=text-lcov | coveralls",
+    "ci": "npm-run-all --parallel lint coveralls"
   },
   "repository": {
     "type": "git",

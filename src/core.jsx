@@ -19,7 +19,7 @@ const isString = (stringToCheck) => {
 
 // https://github.com/then/is-promise/blob/master/index.js
 const isPromise = (promise) => {
-  return !!promise && (typeof promise === 'object' || typeof promise === 'function') && typeof promise.then === 'function';
+  return !!promise && (typeof promise === 'object' || typeof promise === 'function') && typeof promise.then === 'function'
 }
 
 const getDisplayName = c => c.displayName || c.name || 'Component'
