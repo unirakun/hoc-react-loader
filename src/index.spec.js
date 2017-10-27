@@ -73,5 +73,22 @@ describe('hoc-react-loader', () => {
       mounted.setProps({ loaded: 0 })
       expect(mounted.html()).toMatchSnapshot()
     })
+
+    it('should print Component -print as an array-', () => {
+      const print = ['first', 'second']
+      const Wrapped = loader({ print })(Component)
+
+      const mounted = mount(<Wrapped first second={false} />)
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: false, second: true })
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: 'truthy', second: 0 })
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: 'truthy', second: 1 })
+      expect(mounted.html()).toMatchSnapshot()
+    })
   })
 })

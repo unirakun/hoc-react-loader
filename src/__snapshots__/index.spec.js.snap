@@ -10,4 +10,12 @@ exports[`hoc-react-loader print parameter should print Component -loaded props- 
 
 exports[`hoc-react-loader print parameter should print Component -loaded props- 2`] = `"<div class=\\"component\\">Component</div>"`;
 
+exports[`hoc-react-loader print parameter should print Component -print as an array- 1`] = `"<div class=\\"tailspin\\">TailSpin</div>"`;
+
+exports[`hoc-react-loader print parameter should print Component -print as an array- 2`] = `"<div class=\\"tailspin\\">TailSpin</div>"`;
+
+exports[`hoc-react-loader print parameter should print Component -print as an array- 3`] = `"<div class=\\"tailspin\\">TailSpin</div>"`;
+
+exports[`hoc-react-loader print parameter should print Component -print as an array- 4`] = `"<div class=\\"component\\">Component</div>"`;
+
 exports[`hoc-react-loader print parameter should print Component -undefined parameters- 1`] = `"<div class=\\"component\\">Component</div>"`;
