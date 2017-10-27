@@ -8,7 +8,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import { expect, spy } from 'chai'
-import blanket from 'blanket' // eslint-disable-line
 import loader from './index'
 import TailSpin from './TailSpin'
 

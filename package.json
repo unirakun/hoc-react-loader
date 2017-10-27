@@ -94,5 +94,10 @@
       "import/no-unresolved": 0,
       "react/forbid-prop-types": 0
     }
+  },
+  "jest": {
+    "setupFiles": [
+      "./misc/testSetup.js"
+    ]
   }
 }
