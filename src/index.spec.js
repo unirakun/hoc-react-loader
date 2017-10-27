@@ -1,268 +1,77 @@
-/* eslint-env mocha */
+/* eslint-env jest */
 /* eslint-disable
-  no-unused-expressions,
   react/jsx-filename-extension,
-  import/no-extraneous-dependencies
+  import/first
 */
+
+jest.mock('./TailSpin', () => () => <div className="tailspin">TailSpin</div>)
 
 import React from 'react'
 import { mount } from 'enzyme'
-import { expect, spy } from 'chai'
 import loader from './index'
-import TailSpin from './TailSpin'
 
-const Component = () => <div />
-const LoadingIndicator = () => <div />
-const getWrapped = (config, props) => {
-  const Container = loader(config)(Component)
-  return mount(<Container {...props} />)
-}
+const Component = () => <div className="component">Component</div>
 
-const isLoading = (load, loaded, CustomLoader) => {
-  // Load function is called
-  // Graphic component isn't called
-  // LoadingIndicator should be TailSpin
-  load.should.have.been.called.once
-  expect(loaded.find(Component).getElement()).to.be.undefined
-  loaded.find(CustomLoader || TailSpin).getElement().should.exists
-}
+describe('hoc-react-loader', () => {
+  describe('load parameter', () => {
+    it('should be called at mount', () => {
+      const load = jest.fn()
+      const Wrapped = loader({ load })(Component)
 
-const isLoadingCustomLoader = (load, loaded) => {
-  // Load function is called
-  // Graphic component isn't called
-  // LoadingIndicator should be `LoadingIndicator` and not `TailSpin`
-  isLoading(load, loaded, LoadingIndicator)
-  expect(loaded.find(TailSpin).getElement()).to.be.undefined
-}
+      const mounted = mount(<Wrapped some="props" />)
+      mounted.setProps({ some: 'other props' })
 
-const isLoaded = (load, loaded, CustomLoader) => {
-  // Load function is not called twice
-  // Graphic component is called
-  // LoadingIndicator shouldn't be printed
-  load.should.have.been.called.once
-  loaded.find(Component).getElement().should.exists
-  expect(loaded.find(CustomLoader || TailSpin).getElement()).to.be.undefined
-}
-
-const isLoadedCustomLoader = (load, loaded) => {
-  // Load function is not called twice
-  // Graphic component is called
-  // `LoadingIndicator` shouldn't be printed
-  isLoaded(load, loaded, LoadingIndicator)
-  expect(loaded.find(TailSpin).getElement()).to.be.undefined
-}
-
-const isLoadedTwice = (load, loaded) => {
-  // Load function is called twice
-  // Graphic is printed
-  // Loader shouldn't be printed
-  load.should.have.been.called.twice
-  loaded.find(Component).getElement().should.exists
-  expect(loaded.find(TailSpin).getElement()).to.be.undefined
-}
-
-const testWithPromise = (promise) => {
-  const wrappedComponent = getWrapped({ print: promise })
-
-  // check status before promise resolution
-  expect(wrappedComponent.find(TailSpin).getElement()).to.be.defined
-  expect(wrappedComponent.find(Component).getElement()).to.be.undefined
-
-  const checkComponentIsDisplay = () => {
-    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
-    wrappedComponent.find(Component).getElement().should.exists
-  }
-
-  return promise
-    .then((val) => {
-      checkComponentIsDisplay()
-      return val
+      expect(load).toHaveBeenCalledTimes(1)
     })
-    .catch((error) => {
-      checkComponentIsDisplay()
-      throw error
+
+    it('should call the given prop name', () => {
+      const load = jest.fn()
+      const call = jest.fn()
+      const Wrapped = loader({ load: 'call' })(Component)
+
+      const mounted = mount(<Wrapped some="props" call={call} />)
+      mounted.setProps({ some: 'other props' })
+
+      expect(load).toHaveBeenCalledTimes(0)
+      expect(call).toHaveBeenCalledTimes(1)
     })
-}
-
-describe('react-loader', () => {
-  /*
-   * The `loaded` default props is not set.
-   * There is not `print` option.
-   */
-  it('should print the wrapped component by default', () => {
-    const load = spy(() => {})
-    const wrappedComponent = getWrapped(undefined, { load })
-
-    isLoaded(load, wrappedComponent)
   })
 
-  /*
-   * `print` option is set as an array of one element.
-   */
-  it('should wait for `data` in props to be truthy', () => {
-    // Mount
-    const load = spy(() => {})
-    const wrappedComponent = getWrapped({ print: ['data'] }, { load })
+  describe('print parameter', () => {
+    it('should print Component -empty parameters-', () => {
+      const Wrapped = loader({ })(Component)
 
-    isLoading(load, wrappedComponent)
+      const mounted = mount(<Wrapped some="props" />)
 
-    // Change `data` value
-    wrappedComponent.setProps({ data: true })
+      expect(mounted.html()).toMatchSnapshot()
+    })
 
-    isLoaded(load, wrappedComponent)
-  })
+    it('should print Component -undefined parameters-', () => {
+      const Wrapped = loader()(Component)
 
-  /*
-   * `print` option is not set, but the `loaded` parameter is.
-   */
-  it('should wait for the default props (`loaded`) to be truthy', () => {
-    // Mount
-    const load = spy(() => {})
-    const wrappedComponent = getWrapped(undefined, { loaded: false, load })
+      const mounted = mount(<Wrapped some="props" />)
 
-    isLoading(load, wrappedComponent)
+      expect(mounted.html()).toMatchSnapshot()
+    })
 
-    // Change `loaded` value
-    wrappedComponent.setProps({ loaded: true })
+    it('should print Component -loaded props-', () => {
+      const Wrapped = loader()(Component)
 
-    isLoaded(load, wrappedComponent)
-  })
+      const mounted = mount(<Wrapped loaded />)
+      expect(mounted.html()).toMatchSnapshot()
 
-  /*
-   * `print` option is set to an array of two elements.
-   */
-  it('should wait for all props defined in an array of props', () => {
-    // Mount
-    const load = spy(() => {})
-    const wrappedComponent = getWrapped({ print: ['prop1', 'prop2'] }, { load })
+      mounted.setProps({ loaded: 'value is truthy' })
+      expect(mounted.html()).toMatchSnapshot()
+    })
 
-    isLoading(load, wrappedComponent)
+    it('should not print Component -loaded props-', () => {
+      const Wrapped = loader()(Component)
 
-    // Change `prop1` value
-    wrappedComponent.setProps({ prop1: true })
+      const mounted = mount(<Wrapped loaded={false} />)
+      expect(mounted.html()).toMatchSnapshot()
 
-    isLoading(load, wrappedComponent)
-
-    // Change `prop3` value
-    wrappedComponent.setProps({ prop3: true })
-
-    isLoading(load, wrappedComponent)
-
-    // Change `prop2` value
-    wrappedComponent.setProps({ prop2: true })
-
-    isLoaded(load, wrappedComponent)
-  })
-
-  /*
-   * `print` option is a function.
-   */
-  it('should wait `print` to return a truthy value', () => {
-    // Mount (false case)
-    const load = spy(() => {})
-    let wrappedComponent = getWrapped({ print: () => false }, { load })
-
-    isLoading(load, wrappedComponent)
-
-    // Mount (true case)
-    wrappedComponent = getWrapped({ print: () => true }, { load })
-
-    isLoadedTwice(load, wrappedComponent)
-  })
-
-  /*
-   * `print` value is harcoded (to true).
-   */
-  it('should handle a hardcoded `print` value (truthy)', () => {
-    // Mount
-    const load = spy(() => {})
-    const wrappedComponent = getWrapped({ print: true }, { load })
-
-    isLoaded(load, wrappedComponent)
-  })
-
-  /*
-   * `print` value is harcoded (to false).
-   */
-  it('should handle a hardcoded `print` value (falsey)', () => {
-    // Mount
-    const load = spy(() => {})
-    const wrappedComponent = getWrapped({ print: false }, { load })
-
-    isLoading(load, wrappedComponent)
-  })
-
-  it('should print a different LoadingIndicator component', () => {
-    // Mount
-    const load = spy(() => {})
-    const wrappedComponent = getWrapped({ LoadingIndicator, print: ['data'] }, { load })
-
-    isLoadingCustomLoader(load, wrappedComponent)
-
-    // Change `data` value
-    wrappedComponent.setProps({ data: true })
-
-    isLoadedCustomLoader(load, wrappedComponent)
-  })
-
-  it('should call the `load` function parameter if present', () => {
-    // Mount
-    const loadProp = spy(() => {})
-    const loadParam = spy(() => {})
-    const props = { prop1: 'prop1', load: loadProp }
-    const wrappedComponent = getWrapped({ load: loadParam }, props)
-
-    // Load function is called
-    // Graphic component isn't called
-    // Loader should be TailSpin
-    loadProp.should.have.been.called.once
-    loadProp.should.have.been.called.with(props)
-    loadParam.should.have.been.called.once
-    loadParam.should.have.been.called.with(props)
-    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
-    wrappedComponent.find(Component).getElement().should.exists
-  })
-
-  it('should call matching props if the load parameter is a string', () => {
-    // Mount
-    const loadProp = spy(() => {})
-    const loadPropName = 'customLoadFunction'
-    const props = { prop1: 'prop1', [loadPropName]: loadProp }
-    const wrappedComponent = getWrapped({ load: loadPropName }, props)
-
-    // Load function is called
-    // Graphic component isn't called
-    // Loader should be TailSpin
-    loadProp.should.have.been.called.once
-    loadProp.should.have.been.called.with(props)
-    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
-    wrappedComponent.find(Component).getElement().should.exists
-  })
-
-  it('should handle a `null` `load` props/parameter', () => {
-    // Mount
-    const wrappedComponent = getWrapped()
-
-    // Graphic component isn't called
-    // TailSpin should be printed
-    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
-    wrappedComponent.find(Component).getElement().should.exists
-  })
-
-  it('should handle a Promise `print` props/parameter', () => {
-    // with mocha, promise is resolve at the end of function
-    return testWithPromise(new Promise((res) => { res() }))
-  })
-
-  it('should handle an already resolved Promise', () => {
-    return testWithPromise(Promise.resolve('test'))
-      .then(val => expect(val).to.equal('test'))
-  })
-
-  it('should handle a rejected Promise', (done) => {
-    testWithPromise(Promise.reject('🤘'))
-      .catch(() => done())
+      mounted.setProps({ loaded: 0 })
+      expect(mounted.html()).toMatchSnapshot()
+    })
   })
 })
-
-/* eslint-enable no-unused-expressions */
