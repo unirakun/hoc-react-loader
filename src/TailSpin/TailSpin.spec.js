@@ -6,7 +6,7 @@
 
 import React from 'react'
 import { mount } from 'enzyme'
-import TailSpin from './TailSpin'
+import TailSpin from './index'
 
 const testColor = (component, color) => {
   expect(component.find('circle').props().fill).toEqual(color)
