@@ -24,8 +24,8 @@ const isLoading = (load, loaded, CustomLoader) => {
   // Graphic component isn't called
   // LoadingIndicator should be TailSpin
   load.should.have.been.called.once
-  expect(loaded.find(Component).node).to.be.undefined
-  loaded.find(CustomLoader || TailSpin).node.should.exists
+  expect(loaded.find(Component).getElement()).to.be.undefined
+  loaded.find(CustomLoader || TailSpin).getElement().should.exists
 }
 
 const isLoadingCustomLoader = (load, loaded) => {
@@ -33,7 +33,7 @@ const isLoadingCustomLoader = (load, loaded) => {
   // Graphic component isn't called
   // LoadingIndicator should be `LoadingIndicator` and not `TailSpin`
   isLoading(load, loaded, LoadingIndicator)
-  expect(loaded.find(TailSpin).node).to.be.undefined
+  expect(loaded.find(TailSpin).getElement()).to.be.undefined
 }
 
 const isLoaded = (load, loaded, CustomLoader) => {
@@ -41,8 +41,8 @@ const isLoaded = (load, loaded, CustomLoader) => {
   // Graphic component is called
   // LoadingIndicator shouldn't be printed
   load.should.have.been.called.once
-  loaded.find(Component).node.should.exists
-  expect(loaded.find(CustomLoader || TailSpin).node).to.be.undefined
+  loaded.find(Component).getElement().should.exists
+  expect(loaded.find(CustomLoader || TailSpin).getElement()).to.be.undefined
 }
 
 const isLoadedCustomLoader = (load, loaded) => {
@@ -50,7 +50,7 @@ const isLoadedCustomLoader = (load, loaded) => {
   // Graphic component is called
   // `LoadingIndicator` shouldn't be printed
   isLoaded(load, loaded, LoadingIndicator)
-  expect(loaded.find(TailSpin).node).to.be.undefined
+  expect(loaded.find(TailSpin).getElement()).to.be.undefined
 }
 
 const isLoadedTwice = (load, loaded) => {
@@ -58,20 +58,20 @@ const isLoadedTwice = (load, loaded) => {
   // Graphic is printed
   // Loader shouldn't be printed
   load.should.have.been.called.twice
-  loaded.find(Component).node.should.exists
-  expect(loaded.find(TailSpin).node).to.be.undefined
+  loaded.find(Component).getElement().should.exists
+  expect(loaded.find(TailSpin).getElement()).to.be.undefined
 }
 
 const testWithPromise = (promise) => {
   const wrappedComponent = getWrapped({ print: promise })
 
   // check status before promise resolution
-  expect(wrappedComponent.find(TailSpin).node).to.be.defined
-  expect(wrappedComponent.find(Component).node).to.be.undefined
+  expect(wrappedComponent.find(TailSpin).getElement()).to.be.defined
+  expect(wrappedComponent.find(Component).getElement()).to.be.undefined
 
   const checkComponentIsDisplay = () => {
-    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
-    wrappedComponent.find(Component).node.should.exists
+    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
+    wrappedComponent.find(Component).getElement().should.exists
   }
 
   return promise
@@ -220,8 +220,8 @@ describe('react-loader', () => {
     loadProp.should.have.been.called.with(props)
     loadParam.should.have.been.called.once
     loadParam.should.have.been.called.with(props)
-    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
-    wrappedComponent.find(Component).node.should.exists
+    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
+    wrappedComponent.find(Component).getElement().should.exists
   })
 
   it('should call matching props if the load parameter is a string', () => {
@@ -236,8 +236,8 @@ describe('react-loader', () => {
     // Loader should be TailSpin
     loadProp.should.have.been.called.once
     loadProp.should.have.been.called.with(props)
-    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
-    wrappedComponent.find(Component).node.should.exists
+    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
+    wrappedComponent.find(Component).getElement().should.exists
   })
 
   it('should handle a `null` `load` props/parameter', () => {
@@ -246,8 +246,8 @@ describe('react-loader', () => {
 
     // Graphic component isn't called
     // TailSpin should be printed
-    expect(wrappedComponent.find(TailSpin).node).to.be.undefined
-    wrappedComponent.find(Component).node.should.exists
+    expect(wrappedComponent.find(TailSpin).getElement()).to.be.undefined
+    wrappedComponent.find(Component).getElement().should.exists
   })
 
   it('should handle a Promise `print` props/parameter', () => {
