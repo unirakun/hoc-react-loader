@@ -65,7 +65,6 @@ export default (
 
       state = {
         props: {},
-        promiseLoaded: false,
       }
 
       omitLoadInProps = (props) => {
