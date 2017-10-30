@@ -103,8 +103,7 @@ exports.default = function () {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
-          props: {},
-          promiseLoaded: false
+          props: {}
         }, _this.omitLoadInProps = function (props) {
           var isLoadAFunction = isFunction(props[loadFunctionName]);
 
