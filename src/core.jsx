@@ -17,11 +17,6 @@ const isString = (stringToCheck) => {
   return type && type === '[object String]'
 }
 
-// https://github.com/then/is-promise/blob/master/index.js
-const isPromise = (promise) => {
-  return !!promise && (typeof promise === 'object' || typeof promise === 'function') && typeof promise.then === 'function'
-}
-
 const getDisplayName = c => c.displayName || c.name || 'Component'
 
 export default (
@@ -34,7 +29,6 @@ export default (
   const loadFunctionName = isString(load) ? load : 'load'
   const isPrintArray = Array.isArray(print)
   const isPrintFunction = isFunction(print)
-  const isPrintPromise = isPromise(print)
   const isLoadFunction = isFunction(load)
 
   const isLoaded = (props, state, context) => {
@@ -59,10 +53,6 @@ export default (
       return !!print(props, context)
     }
 
-    if (isPrintPromise) {
-      return state.promiseLoaded
-    }
-
     // Anything else
     return !!print
   }
@@ -75,10 +65,7 @@ export default (
 
       state = {
         props: {},
-        promiseLoaded: false,
       }
-
-      promiseResolved = () => { this.setState({ promiseLoaded: true }) }
 
       omitLoadInProps = (props) => {
         const isLoadAFunction = isFunction(props[loadFunctionName])
@@ -101,18 +88,6 @@ export default (
         // Load from hoc argument
         if (isLoadFunction) {
           load(this.props, this.context)
-        }
-
-        if (isPrintPromise) {
-          print
-            .then((value) => {
-              this.promiseResolved()
-              return value
-            })
-            .catch((error) => {
-              this.promiseResolved()
-              throw error
-            })
         }
 
         // Load from props

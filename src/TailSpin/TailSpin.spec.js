@@ -1,17 +1,15 @@
-/* eslint-env mocha */
+/* eslint-env jest */
+
 /* eslint-disable
-  no-unused-expressions,
-  react/jsx-filename-extension,
-  import/no-extraneous-dependencies
+  react/jsx-filename-extension
 */
 
 import React from 'react'
 import { mount } from 'enzyme'
-import blanket from 'blanket' // eslint-disable-line
-import TailSpin from './TailSpin'
+import TailSpin from './index'
 
 const testColor = (component, color) => {
-  component.find('circle').props().fill.should.be.deep.equals(color)
+  expect(component.find('circle').props().fill).toEqual(color)
 }
 
 describe('TailSpin', () => {
@@ -60,5 +58,3 @@ describe('TailSpin', () => {
     )
   })
 })
-
-/* eslint-enable no-unused-expressions */

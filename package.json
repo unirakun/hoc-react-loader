@@ -1,17 +1,26 @@
 {
   "name": "hoc-react-loader",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Higher order component to call a load function from props at mount.",
   "main": "build/index.js",
   "peerDependencies": {
-    "prop-types": "^15.5.8",
-    "react": "^15.3.0",
-    "tinycolor2": "^1.4.1"
+    "prop-types": "^15.x",
+    "react": "^15.x || ^16.x",
+    "tinycolor2": "^1.x"
+  },
+  "scripts": {
+    "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
+    "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
+    "test": "jest --collectCoverageFrom=src/**/*.js --collectCoverageFrom=src/**/*.jsx",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "ci": "npm-run-all --parallel lint coveralls"
+
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.2.1",
+    "babel-jest": "^21.2.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-es2017": "^6.22.0",
     "babel-preset-react": "^6.23.0",
@@ -21,31 +30,24 @@
     "chai-spies": "^0.7.1",
     "coveralls": "^2.12.0",
     "cross-env": "^3.2.4",
-    "enzyme": "^2.8.0",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "jest": "^21.2.1",
     "jsdom": "^9.12.0",
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
     "npm-run-all": "^4.1.1",
     "nyc": "^10.2.0",
-    "prop-types": "^15.5.8",
-    "react": "^15.3.0",
-    "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15.3.0",
-    "react-test-renderer": "^15.5.4",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
     "tinycolor2": "^1.4.1"
-  },
-  "scripts": {
-    "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
-    "build": "cross-env BABEL_ENV=cjs babel --ignore \"*.spec.js\" ./src/ --out-dir build",
-    "test": "mocha --recursive --compilers js:babel-register --require ./misc/testSetup.js \"src/**/*.spec.js\" ",
-    "coverage": "nyc --extension .jsx npm test",
-    "coveralls": "nyc --extension .jsx npm test && nyc report --reporter=text-lcov | coveralls",
-    "ci": "npm-run-all --parallel lint coveralls"
   },
   "repository": {
     "type": "git",
@@ -92,5 +94,10 @@
       "import/no-unresolved": 0,
       "react/forbid-prop-types": 0
     }
+  },
+  "jest": {
+    "setupFiles": [
+      "./misc/testSetup.js"
+    ]
   }
 }

@@ -8,9 +8,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /* eslint react/prop-types: 0 */
-
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -23,7 +20,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint react/prop-types: 0 */
+
 
 var getTypeOf = function getTypeOf(something) {
   var getType = {};
@@ -41,11 +39,6 @@ var isString = function isString(stringToCheck) {
   return type && type === '[object String]';
 };
 
-// https://github.com/then/is-promise/blob/master/index.js
-var isPromise = function isPromise(promise) {
-  return !!promise && ((typeof promise === 'undefined' ? 'undefined' : _typeof(promise)) === 'object' || typeof promise === 'function') && typeof promise.then === 'function';
-};
-
 var getDisplayName = function getDisplayName(c) {
   return c.displayName || c.name || 'Component';
 };
@@ -59,7 +52,6 @@ exports.default = function () {
   var loadFunctionName = isString(load) ? load : 'load';
   var isPrintArray = Array.isArray(print);
   var isPrintFunction = isFunction(print);
-  var isPrintPromise = isPromise(print);
   var isLoadFunction = isFunction(load);
 
   var isLoaded = function isLoaded(props, state, context) {
@@ -87,10 +79,6 @@ exports.default = function () {
       return !!print(props, context);
     }
 
-    if (isPrintPromise) {
-      return state.promiseLoaded;
-    }
-
     // Anything else
     return !!print;
   };
@@ -115,10 +103,7 @@ exports.default = function () {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
-          props: {},
-          promiseLoaded: false
-        }, _this.promiseResolved = function () {
-          _this.setState({ promiseLoaded: true });
+          props: {}
         }, _this.omitLoadInProps = function (props) {
           var isLoadAFunction = isFunction(props[loadFunctionName]);
 
@@ -139,21 +124,9 @@ exports.default = function () {
       _createClass(_class, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
-          var _this2 = this;
-
           // Load from hoc argument
           if (isLoadFunction) {
             load(this.props, this.context);
-          }
-
-          if (isPrintPromise) {
-            print.then(function (value) {
-              _this2.promiseResolved();
-              return value;
-            }).catch(function (error) {
-              _this2.promiseResolved();
-              throw error;
-            });
           }
 
           // Load from props
