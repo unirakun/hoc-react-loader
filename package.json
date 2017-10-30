@@ -4,9 +4,9 @@
   "description": "Higher order component to call a load function from props at mount.",
   "main": "build/index.js",
   "peerDependencies": {
-    "prop-types": "^15.5.8",
-    "react": "^15.3.0 || ^16.0.0",
-    "tinycolor2": "^1.4.1"
+    "prop-types": "^15.x",
+    "react": "^15.x || ^16.x",
+    "tinycolor2": "^1.x"
   },
   "scripts": {
     "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
