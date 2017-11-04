@@ -11,6 +11,7 @@ import OneParam from './OneParam'
 import TwoParams from './TwoParams'
 import DontWait from './DontWait'
 import LoadingIndicator from './LoadingIndicator'
+import ErrorIndicator from './ErrorIndicator'
 
 const Examples = ({ style, className }) => (
   <div style={style} className={`${styles.examples} ${className}`}>
@@ -99,6 +100,38 @@ const Examples = ({ style, className }) => (
         <p className={styles.description}>
           In this example, the default loading indicator is replaced with a custom one.
           The component waits for the default prop (<pre>this.props.loaded</pre>).
+        </p>
+      </div>
+    </Example>
+    <Example
+      className={styles.example}
+      link="ErrorIndicator"
+      code="export&nbsp;default loader(Base)"
+      buttons={{ 3: true }}
+      example={<Base />}
+    >
+      <div className={styles.doc}>
+        <h3>Error: defaults parameters</h3>
+        <p className={styles.description}>
+          In this example, the loader wraps a Component with its default parameters.
+          The loader will wait fo <pre>this.props.error</pre> to bre truthy
+          &nbsp;and will then display the default error component.
+        </p>
+      </div>
+    </Example>
+    <Example
+      className={styles.example}
+      link="ErrorCustomIndicator"
+      code="export&nbsp;default loader({ ErrorIndicator: CustomErrorIndicator })(ErrorIndicator)" // eslint-disable-line
+      buttons={{ 3: true }}
+      example={<ErrorIndicator />}
+    >
+      <div className={styles.doc}>
+        <h3>ErrorIndicator: change the default error indicator</h3>
+        <p className={styles.description}>
+        In this example, the default error indicator is replaced with a custom one.
+        The component waits for the default prop (<pre>this.props.error</pre>)
+        &nbsp;before displaying it.
         </p>
       </div>
     </Example>

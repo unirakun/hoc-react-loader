@@ -25,6 +25,14 @@ class Example extends Component {
     })
   }
 
+  onError = () => {
+    let { error } = this.state
+    error = error ? undefined : 'A (fake) error occured !'
+    this.setState({
+      error,
+    })
+  }
+
   onProp = () => {
     let { prop } = this.state
     prop = prop ? undefined : 'Yeah it works !'
@@ -43,7 +51,7 @@ class Example extends Component {
 
   render() {
     const { style, className, code, children, example, link, buttons = {} } = this.props
-    const { loaded, prop, prop2 } = this.state
+    const { loaded, prop, prop2, error } = this.state
 
     return (
       <div>
@@ -60,17 +68,27 @@ class Example extends Component {
               {buttons['0'] && `loaded: ${loaded ? 'true' : 'false'}\n`}
               {buttons['1'] && `prop: ${prop || 'undefined'}\n`}
               {buttons['2'] && `prop2: ${prop2 || 'undefined'}\n`}
+              {buttons['3'] && `error: ${error || 'undefined'}\n`}
             </pre>
           </div>
           <div className={styles.buttons}>
             {buttons['0'] &&
-              <Button onClick={this.onLoad} loaded={this.state.loaded} text="data" />
+              <Button onClick={this.onLoad} toggled={this.state.loaded} text="data" />
             }
             {buttons['1'] &&
-              <Button onClick={this.onProp} loaded={this.state.prop} text="prop" />
+              <Button onClick={this.onProp} toggled={this.state.prop} text="prop" />
             }
             {buttons['2'] &&
-              <Button onClick={this.onProp2} loaded={this.state.prop2} text="prop2" />
+              <Button onClick={this.onProp2} toggled={this.state.prop2} text="prop2" />
+            }
+            {buttons['3'] &&
+              <Button
+                onClick={this.onError}
+                toggled={!!this.state.error}
+                toggleText="Trigger"
+                untoggleText="Clear"
+                text="error"
+              />
             }
           </div>
         </div>

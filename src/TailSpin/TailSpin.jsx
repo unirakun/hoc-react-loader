@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import tinycolor from 'tinycolor2'
-
-/* global window */
-const getBackgroundColor = (node) => {
-  return window.getComputedStyle(node, null).getPropertyValue('background-color')
-}
+import { findCorrectColor, initialColor } from '../utils'
 
 // from https://github.com/SamHerbert/SVG-Loaders
 class TailSpin extends Component {
@@ -13,30 +8,14 @@ class TailSpin extends Component {
     super(props)
 
     this.state = {
-      color: '#cecece',
+      color: initialColor,
     }
   }
 
   componentDidMount() {
-    this.setColor()
-  }
-
-  setColor = () => {
-    let parent = this.svg && this.svg.parentNode
-    let parentColor = parent ? getBackgroundColor(parent) : undefined
-
-    while (parent && !parentColor) {
-      parent = parent.parentNode
-      if (parent) parentColor = getBackgroundColor(parent)
-    }
-
-    if (parentColor) {
-      const tinyC = tinycolor(parentColor)
-      const color = tinyC.isDark() ? tinyC.lighten(20) : tinyC.darken(20)
-
-      this.setState({
-        color: color.toHexString(),
-      })
+    const newColor = findCorrectColor(this.svg)
+    if (this.state.color !== newColor) {
+      this.setState({ color: newColor })
     }
   }
 

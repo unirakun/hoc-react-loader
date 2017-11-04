@@ -46,42 +46,42 @@ var getDisplayName = function getDisplayName(c) {
 exports.default = function () {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       LoadingIndicator = _ref.LoadingIndicator,
+      ErrorIndicator = _ref.ErrorIndicator,
       print = _ref.print,
-      load = _ref.load;
+      load = _ref.load,
+      error = _ref.error;
 
   var loadFunctionName = isString(load) ? load : 'load';
-  var isPrintArray = Array.isArray(print);
-  var isPrintFunction = isFunction(print);
   var isLoadFunction = isFunction(load);
 
-  var isLoaded = function isLoaded(props, state, context) {
-    // Print is undefined,
-    // we rely on 'props.loaded' if present
-    // if not, we directly print the component
-    if (print === undefined) {
-      var loaded = props.loaded;
+  var hasStatus = function hasStatus(prop, propProcessor, defaultProp, defaultValue) {
+    return function (props, state, context) {
+      if (prop === undefined) {
+        var status = props[defaultProp];
+        return status === undefined ? defaultValue : !!status;
+      }
 
-      return loaded === undefined ? true : !!loaded;
-    }
+      if (Array.isArray(prop)) {
+        var boolProps = prop.map(function (p) {
+          return Boolean(props[p]);
+        });
+        return propProcessor(boolProps);
+      }
 
-    // Print is an array
-    // Implicitly meaning that this is an array of props
-    if (isPrintArray) {
-      return print.map(function (p) {
-        return Boolean(props[p]);
-      }).reduce(function (allProps, currentProp) {
-        return allProps && currentProp;
-      });
-    }
+      if (isFunction(prop)) {
+        return !!prop(props, context);
+      }
 
-    // Print is a function
-    if (isPrintFunction) {
-      return !!print(props, context);
-    }
-
-    // Anything else
-    return !!print;
+      return !!prop;
+    };
   };
+
+  var isLoaded = hasStatus(print, function (bs) {
+    return !bs.includes(false);
+  }, 'loaded', true);
+  var isInError = hasStatus(error, function (bs) {
+    return bs.includes(true);
+  }, 'error', false);
 
   return function (ComposedComponent) {
     var _class, _temp2;
@@ -137,7 +137,9 @@ exports.default = function () {
       }, {
         key: 'render',
         value: function render() {
-          if (!isLoaded(this.props, this.state, this.context)) {
+          if (isInError(this.props, this.state, this.context)) {
+            return _react2.default.createElement(ErrorIndicator, this.state.props);
+          } else if (!isLoaded(this.props, this.state, this.context)) {
             return _react2.default.createElement(LoadingIndicator, this.state.props);
           }
           return _react2.default.createElement(ComposedComponent, this.state.props);

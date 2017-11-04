@@ -14,6 +14,10 @@ var _TailSpin = require('./TailSpin');
 
 var _TailSpin2 = _interopRequireDefault(_TailSpin);
 
+var _ErrorCross = require('./ErrorCross');
+
+var _ErrorCross2 = _interopRequireDefault(_ErrorCross);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -23,7 +27,9 @@ exports.default = function () {
 
   var _ref$LoadingIndicator = _ref.LoadingIndicator,
       LoadingIndicator = _ref$LoadingIndicator === undefined ? _TailSpin2.default : _ref$LoadingIndicator,
-      rest = _objectWithoutProperties(_ref, ['LoadingIndicator']);
+      _ref$ErrorIndicator = _ref.ErrorIndicator,
+      ErrorIndicator = _ref$ErrorIndicator === undefined ? _ErrorCross2.default : _ref$ErrorIndicator,
+      rest = _objectWithoutProperties(_ref, ['LoadingIndicator', 'ErrorIndicator']);
 
-  return (0, _core2.default)(_extends({}, rest, { LoadingIndicator: LoadingIndicator }));
+  return (0, _core2.default)(_extends({}, rest, { LoadingIndicator: LoadingIndicator, ErrorIndicator: ErrorIndicator }));
 };
