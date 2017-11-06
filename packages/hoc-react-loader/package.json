@@ -14,7 +14,6 @@
     "test": "jest --collectCoverageFrom=src/**/*.js --collectCoverageFrom=src/**/*.jsx",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "ci": "npm-run-all --parallel lint coveralls"
-
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
