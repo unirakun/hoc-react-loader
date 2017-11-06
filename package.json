@@ -5,6 +5,7 @@
 	],
 	"scripts": {
 		"bootstrap": "lerna bootstrap --no-hoist",
+		"ci": "lerna run ci --stream --parallel",
 		"lint": "lerna run lint --stream --parallel",
 		"build": "lerna run build --stream --parallel"
 	},
