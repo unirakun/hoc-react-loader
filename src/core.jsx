@@ -17,6 +17,24 @@ const isString = (stringToCheck) => {
   return type && type === '[object String]'
 }
 
+const hasStatus = (prop, propProcessor, defaultProp, defaultValue) => (props, state, context) => {
+  if (prop === undefined) {
+    const status = props[defaultProp]
+    return status === undefined ? defaultValue : !!status
+  }
+
+  if (Array.isArray(prop)) {
+    const boolProps = prop.map(p => !!props[p])
+    return propProcessor(boolProps)
+  }
+
+  if (isFunction(prop)) {
+    return !!prop(props, context)
+  }
+
+  return !!prop
+}
+
 const getDisplayName = c => c.displayName || c.name || 'Component'
 
 export default (
@@ -30,24 +48,6 @@ export default (
 ) => {
   const loadFunctionName = isString(load) ? load : 'load'
   const isLoadFunction = isFunction(load)
-
-  const hasStatus = (prop, propProcessor, defaultProp, defaultValue) => (props, state, context) => {
-    if (prop === undefined) {
-      const status = props[defaultProp]
-      return status === undefined ? defaultValue : !!status
-    }
-
-    if (Array.isArray(prop)) {
-      const boolProps = prop.map(p => Boolean(props[p]))
-      return propProcessor(boolProps)
-    }
-
-    if (isFunction(prop)) {
-      return !!prop(props, context)
-    }
-
-    return !!prop
-  }
 
   const isLoaded = hasStatus(print, bs => !bs.includes(false), 'loaded', true)
   const isInError = hasStatus(error, bs => bs.includes(true), 'error', false)
@@ -98,10 +98,13 @@ export default (
       render() {
         if (isInError(this.props, this.state, this.context)) {
           return <ErrorIndicator {...this.state.props} />
-        } else if (!isLoaded(this.props, this.state, this.context)) {
-          return <LoadingIndicator {...this.state.props} />
         }
-        return <ComposedComponent {...this.state.props} />
+
+        if (isLoaded(this.props, this.state, this.context)) {
+          return <ComposedComponent {...this.state.props} />
+        }
+
+        return <LoadingIndicator {...this.state.props} />
       }
     }
   }

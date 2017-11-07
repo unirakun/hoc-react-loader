@@ -33,25 +33,22 @@ var TailSpin = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (TailSpin.__proto__ || Object.getPrototypeOf(TailSpin)).call(this, props));
 
+    _this.attach = function (svg) {
+      var newColor = (0, _utils.findCorrectColor)(svg);
+      if (_this.state.color !== newColor) {
+        _this.setState({ color: newColor });
+      }
+    };
+
     _this.state = {
-      color: _utils.initialColor
+      color: _utils.INITIAL_COLOR
     };
     return _this;
   }
 
   _createClass(TailSpin, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var newColor = (0, _utils.findCorrectColor)(this.svg);
-      if (this.state.color !== newColor) {
-        this.setState({ color: newColor });
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var color = this.state.color;
       var _props = this.props,
           style = _props.style,
@@ -61,9 +58,7 @@ var TailSpin = function (_Component) {
       return _react2.default.createElement(
         'svg',
         {
-          ref: function ref(c) {
-            _this2.svg = c;
-          },
+          ref: this.attach,
           width: '38', height: '38',
           viewBox: '0 0 38 38',
           xmlns: 'http://www.w3.org/2000/svg',

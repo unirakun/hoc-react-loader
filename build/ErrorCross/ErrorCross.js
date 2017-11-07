@@ -32,25 +32,22 @@ var Cross = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Cross.__proto__ || Object.getPrototypeOf(Cross)).call(this, props));
 
+    _this.attach = function (div) {
+      var newColor = (0, _utils.findCorrectColor)(div);
+      if (_this.state.color !== newColor) {
+        _this.setState({ color: newColor });
+      }
+    };
+
     _this.state = {
-      color: _utils.initialColor
+      color: _utils.INITIAL_COLOR
     };
     return _this;
   }
 
   _createClass(Cross, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var newColor = (0, _utils.findCorrectColor)(this.div);
-      if (this.state.color !== newColor) {
-        this.setState({ color: newColor });
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var color = this.state.color;
       var _props = this.props,
           style = _props.style,
@@ -62,9 +59,7 @@ var Cross = function (_Component) {
         'div',
         {
           title: message,
-          ref: function ref(c) {
-            _this2.div = c;
-          }
+          ref: this.attach
         },
         _react2.default.createElement(
           'svg',
@@ -78,7 +73,7 @@ var Cross = function (_Component) {
           },
           _react2.default.createElement('path', {
             stroke: color,
-            strokeWidth: '3.03754568',
+            strokeWidth: '3',
             strokeLinecap: 'round',
             id: 'path3728',
             d: 'M 1.5341128,1.5341128 36.465887,36.465887 m 0,-34.9317742 L 1.5341128,36.465887'

@@ -39,6 +39,28 @@ var isString = function isString(stringToCheck) {
   return type && type === '[object String]';
 };
 
+var hasStatus = function hasStatus(prop, propProcessor, defaultProp, defaultValue) {
+  return function (props, state, context) {
+    if (prop === undefined) {
+      var status = props[defaultProp];
+      return status === undefined ? defaultValue : !!status;
+    }
+
+    if (Array.isArray(prop)) {
+      var boolProps = prop.map(function (p) {
+        return !!props[p];
+      });
+      return propProcessor(boolProps);
+    }
+
+    if (isFunction(prop)) {
+      return !!prop(props, context);
+    }
+
+    return !!prop;
+  };
+};
+
 var getDisplayName = function getDisplayName(c) {
   return c.displayName || c.name || 'Component';
 };
@@ -53,28 +75,6 @@ exports.default = function () {
 
   var loadFunctionName = isString(load) ? load : 'load';
   var isLoadFunction = isFunction(load);
-
-  var hasStatus = function hasStatus(prop, propProcessor, defaultProp, defaultValue) {
-    return function (props, state, context) {
-      if (prop === undefined) {
-        var status = props[defaultProp];
-        return status === undefined ? defaultValue : !!status;
-      }
-
-      if (Array.isArray(prop)) {
-        var boolProps = prop.map(function (p) {
-          return Boolean(props[p]);
-        });
-        return propProcessor(boolProps);
-      }
-
-      if (isFunction(prop)) {
-        return !!prop(props, context);
-      }
-
-      return !!prop;
-    };
-  };
 
   var isLoaded = hasStatus(print, function (bs) {
     return !bs.includes(false);
@@ -139,10 +139,13 @@ exports.default = function () {
         value: function render() {
           if (isInError(this.props, this.state, this.context)) {
             return _react2.default.createElement(ErrorIndicator, this.state.props);
-          } else if (!isLoaded(this.props, this.state, this.context)) {
-            return _react2.default.createElement(LoadingIndicator, this.state.props);
           }
-          return _react2.default.createElement(ComposedComponent, this.state.props);
+
+          if (isLoaded(this.props, this.state, this.context)) {
+            return _react2.default.createElement(ComposedComponent, this.state.props);
+          }
+
+          return _react2.default.createElement(LoadingIndicator, this.state.props);
         }
       }]);
 

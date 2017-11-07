@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { findCorrectColor, initialColor } from '../utils'
+import { findCorrectColor, INITIAL_COLOR } from '../utils'
 
 class Cross extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      color: initialColor,
+      color: INITIAL_COLOR,
     }
   }
 
-  componentDidMount() {
-    const newColor = findCorrectColor(this.div)
+  attach = (div) => {
+    const newColor = findCorrectColor(div)
     if (this.state.color !== newColor) {
       this.setState({ color: newColor })
     }
@@ -25,7 +25,7 @@ class Cross extends Component {
     return (
       <div
         title={message}
-        ref={(c) => { this.div = c }}
+        ref={this.attach}
       >
         <svg
           height="38"
@@ -37,7 +37,7 @@ class Cross extends Component {
         >
           <path
             stroke={color}
-            strokeWidth="3.03754568"
+            strokeWidth="3"
             strokeLinecap="round"
             id="path3728"
             d="M 1.5341128,1.5341128 36.465887,36.465887 m 0,-34.9317742 L 1.5341128,36.465887"

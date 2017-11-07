@@ -5,7 +5,7 @@ const getBackgroundColor = (node) => {
   return window.getComputedStyle(node, null).getPropertyValue('background-color')
 }
 
-export const initialColor = '#cecece'
+export const INITIAL_COLOR = '#cecece'
 
 export const findCorrectColor = (svg) => {
   let parent = svg && svg.parentNode
@@ -23,5 +23,5 @@ export const findCorrectColor = (svg) => {
     return color.toHexString()
   }
 
-  return initialColor
+  return INITIAL_COLOR
 }

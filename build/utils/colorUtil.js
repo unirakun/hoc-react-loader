@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.findCorrectColor = exports.initialColor = undefined;
+exports.findCorrectColor = exports.INITIAL_COLOR = undefined;
 
 var _tinycolor = require('tinycolor2');
 
@@ -16,7 +16,7 @@ var getBackgroundColor = function getBackgroundColor(node) {
   return window.getComputedStyle(node, null).getPropertyValue('background-color');
 };
 
-var initialColor = exports.initialColor = '#cecece';
+var INITIAL_COLOR = exports.INITIAL_COLOR = '#cecece';
 
 var findCorrectColor = exports.findCorrectColor = function findCorrectColor(svg) {
   var parent = svg && svg.parentNode;
@@ -34,5 +34,5 @@ var findCorrectColor = exports.findCorrectColor = function findCorrectColor(svg)
     return color.toHexString();
   }
 
-  return initialColor;
+  return INITIAL_COLOR;
 };

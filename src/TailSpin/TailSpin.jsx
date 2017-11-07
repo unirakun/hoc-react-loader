@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { findCorrectColor, initialColor } from '../utils'
+import { findCorrectColor, INITIAL_COLOR } from '../utils'
 
 // from https://github.com/SamHerbert/SVG-Loaders
 class TailSpin extends Component {
@@ -8,12 +8,12 @@ class TailSpin extends Component {
     super(props)
 
     this.state = {
-      color: initialColor,
+      color: INITIAL_COLOR,
     }
   }
 
-  componentDidMount() {
-    const newColor = findCorrectColor(this.svg)
+  attach = (svg) => {
+    const newColor = findCorrectColor(svg)
     if (this.state.color !== newColor) {
       this.setState({ color: newColor })
     }
@@ -25,7 +25,7 @@ class TailSpin extends Component {
 
     return (
       <svg
-        ref={(c) => { this.svg = c }}
+        ref={this.attach}
         width="38" height="38"
         viewBox="0 0 38 38"
         xmlns="http://www.w3.org/2000/svg"
