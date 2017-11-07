@@ -1,6 +1,6 @@
 {
-  "name": "test-react-app",
-  "version": "0.1.0",
+  "name": "hoc-react-loader-examples",
+  "version": "4.0.0",
   "private": true,
   "dependencies": {
     "npm-run-all": "^4.1.1",
