@@ -4,6 +4,7 @@
 		"packages/*"
 	],
 	"scripts": {
+		"start": "lerna run start --stream --ignore hoc-react-loader",
 		"bootstrap": "lerna bootstrap",
 		"ci": "lerna run ci --stream --parallel",
 		"lint": "lerna run lint --stream --parallel",
