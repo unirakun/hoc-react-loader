@@ -106,7 +106,7 @@ const Examples = ({ style, className }) => (
     <Example
       className={styles.example}
       link="ErrorIndicator"
-      code="export&nbsp;default loader(Base)"
+      code="export&nbsp;default loader()(Base)"
       buttons={{ 3: true }}
       example={<Base />}
     >
@@ -129,7 +129,7 @@ const Examples = ({ style, className }) => (
       <div className={styles.doc}>
         <h3>ErrorIndicator: change the default error indicator</h3>
         <p className={styles.description}>
-        In this example, the default error indicator is replaced with a custom one.
+          In this example, the default error indicator is replaced with a custom one.
         The component waits for the default prop (<pre>this.props.error</pre>)
         &nbsp;before displaying it.
         </p>
