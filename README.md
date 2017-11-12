@@ -76,8 +76,8 @@ The default `print` parameter value is `true`. It means that in this example the
 The `print` parameter can also be a function. Then the `props` and `context` are given to it (in this order), and it should return a boolean indicating wether or not the actual component should be displayed.
 
 ### Error handling
-The `error` parameter allow to specify a prop that indicates wether or not a placeholder error component should be displayed in replacement of the real component.
-It's usefull when data that are mandatory for the correct display of a component are missing.
+The `error` parameter allows to specify a prop that indicates wether or not a placeholder error component should be displayed in replacement of the real component.
+It's usefull when data that are required for the correct display of a component are missing.
 
 Like for the `print` prop, `error` can be a `boolean`, a `string` (referencing a prop name), an array of `string` (an array of prop names) or a `function` (whose result will be converted to `boolean`).
 
