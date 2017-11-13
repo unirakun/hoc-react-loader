@@ -14,9 +14,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tinycolor = require('tinycolor2');
-
-var _tinycolor2 = _interopRequireDefault(_tinycolor);
+var _utils = require('../utils');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,13 +24,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/* global window */
-var getBackgroundColor = function getBackgroundColor(node) {
-  return window.getComputedStyle(node, null).getPropertyValue('background-color');
-};
-
 // from https://github.com/SamHerbert/SVG-Loaders
-
 var TailSpin = function (_Component) {
   _inherits(TailSpin, _Component);
 
@@ -41,41 +33,22 @@ var TailSpin = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (TailSpin.__proto__ || Object.getPrototypeOf(TailSpin)).call(this, props));
 
-    _this.setColor = function () {
-      var parent = _this.svg && _this.svg.parentNode;
-      var parentColor = parent ? getBackgroundColor(parent) : undefined;
-
-      while (parent && !parentColor) {
-        parent = parent.parentNode;
-        if (parent) parentColor = getBackgroundColor(parent);
-      }
-
-      if (parentColor) {
-        var tinyC = (0, _tinycolor2.default)(parentColor);
-        var color = tinyC.isDark() ? tinyC.lighten(20) : tinyC.darken(20);
-
-        _this.setState({
-          color: color.toHexString()
-        });
+    _this.attach = function (svg) {
+      var newColor = (0, _utils.findCorrectColor)(svg);
+      if (_this.state.color !== newColor) {
+        _this.setState({ color: newColor });
       }
     };
 
     _this.state = {
-      color: '#cecece'
+      color: _utils.INITIAL_COLOR
     };
     return _this;
   }
 
   _createClass(TailSpin, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setColor();
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var color = this.state.color;
       var _props = this.props,
           style = _props.style,
@@ -85,9 +58,7 @@ var TailSpin = function (_Component) {
       return _react2.default.createElement(
         'svg',
         {
-          ref: function ref(c) {
-            _this2.svg = c;
-          },
+          ref: this.attach,
           width: '38', height: '38',
           viewBox: '0 0 38 38',
           xmlns: 'http://www.w3.org/2000/svg',

@@ -74,3 +74,23 @@ The default `print` parameter value is `true`. It means that in this example the
 
 ### Print as a function
 The `print` parameter can also be a function. Then the `props` and `context` are given to it (in this order), and it should return a boolean indicating wether or not the actual component should be displayed.
+
+### Error handling
+The `error` parameter allows to specify a prop that indicates wether or not a placeholder error component should be displayed in replacement of the real component.
+It's usefull when data that are required for the correct display of a component are missing.
+
+Like for the `print` prop, `error` can be a `boolean`, a `string` (referencing a prop name), an array of `string` (an array of prop names) or a `function` (whose result will be converted to `boolean`).
+
+```js
+// default error component will be displayed if 'error' prop is truthy
+export default loader()(MyComponent)
+
+// default error component will be displayed
+export default loader({ error: true })(MyComponent)
+
+// default error component will be displayed if 'errorMessage' prop is truthy
+export default loader({ error: 'errorMessage' })(MyComponent)
+
+// CustomErrorComponent will be displayed if 'error' prop is truthy
+export default loader({ ErrorIndicator: CustomErrorComponent })(MyComponent)
+```

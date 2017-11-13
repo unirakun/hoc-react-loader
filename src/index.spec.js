@@ -5,6 +5,7 @@
 */
 
 jest.mock('./TailSpin', () => () => <div className="tailspin">TailSpin</div>)
+jest.mock('./ErrorCross', () => () => <div className="errorcross">ErrorCross</div>)
 
 import React from 'react'
 import { mount } from 'enzyme'
@@ -122,6 +123,77 @@ describe('hoc-react-loader', () => {
       const Wrapped = loader({ print: 0 })(Component)
       const mounted = mount(<Wrapped some="props" />)
 
+      expect(mounted.html()).toMatchSnapshot()
+    })
+  })
+
+  describe('error parameter', () => {
+    it('should print Component -error as a value-', () => {
+      const error = false
+
+      const Wrapped = loader({ error })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+    })
+
+    it('should print error Component -error as a value-', () => {
+      const error = true
+
+      const Wrapped = loader({ error })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+    })
+
+    it('should print Component -error as function-', () => {
+      const error = jest.fn(() => false)
+
+      const Wrapped = loader({ error })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+      expect(error.mock.calls).toMatchSnapshot()
+    })
+
+    it('should print error Component -error as function-', () => {
+      const error = jest.fn(() => true)
+
+      const Wrapped = loader({ error })(Component)
+      const mounted = mount(<Wrapped some="props" />)
+
+      expect(mounted.html()).toMatchSnapshot()
+      expect(error.mock.calls).toMatchSnapshot()
+    })
+
+    it('should print Component -error as an array-', () => {
+      const error = ['first', 'second']
+      const Wrapped = loader({ error })(Component)
+
+      const mounted = mount(<Wrapped first={false} second={false} />)
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: 0, second: false })
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: false, second: '' })
+      expect(mounted.html()).toMatchSnapshot()
+    })
+
+    it('should print error Component -error as an array-', () => {
+      const error = ['first', 'second']
+      const Wrapped = loader({ error })(Component)
+
+      const mounted = mount(<Wrapped first second={false} />)
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: false, second: true })
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: false, second: 'An error has occured' })
+      expect(mounted.html()).toMatchSnapshot()
+
+      mounted.setProps({ first: 1, second: false })
       expect(mounted.html()).toMatchSnapshot()
     })
   })
