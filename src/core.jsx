@@ -44,6 +44,7 @@ export default (
     print,
     load,
     error,
+    delay,
   } = {},
 ) => {
   const loadFunctionName = isString(load) ? load : 'load'
@@ -60,6 +61,7 @@ export default (
 
       state = {
         props: {},
+        pastDelay: false,
       }
 
       omitLoadInProps = (props) => {
@@ -91,11 +93,22 @@ export default (
         }
       }
 
+      componentDidMount() {
+         // set delay
+        if (delay) {
+          setTimeout(() => this.setState(state => ({ ...state, pastDelay: true })), delay)
+        }
+      }
+
       componentWillReceiveProps = (nextProps) => {
         this.omitLoadInProps(nextProps)
       }
 
       render() {
+        if (delay && !this.state.pastDelay) {
+          return null
+        }
+
         if (isInError(this.props, this.state, this.context)) {
           return <ErrorIndicator {...this.state.props} />
         }

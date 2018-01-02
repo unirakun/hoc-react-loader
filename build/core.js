@@ -71,7 +71,8 @@ exports.default = function () {
       ErrorIndicator = _ref.ErrorIndicator,
       print = _ref.print,
       load = _ref.load,
-      error = _ref.error;
+      error = _ref.error,
+      delay = _ref.delay;
 
   var loadFunctionName = isString(load) ? load : 'load';
   var isLoadFunction = isFunction(load);
@@ -103,7 +104,8 @@ exports.default = function () {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
-          props: {}
+          props: {},
+          pastDelay: false
         }, _this.omitLoadInProps = function (props) {
           var isLoadAFunction = isFunction(props[loadFunctionName]);
 
@@ -135,8 +137,26 @@ exports.default = function () {
           }
         }
       }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+          var _this2 = this;
+
+          // set delay
+          if (delay) {
+            setTimeout(function () {
+              return _this2.setState(function (state) {
+                return _extends({}, state, { pastDelay: true });
+              });
+            }, delay);
+          }
+        }
+      }, {
         key: 'render',
         value: function render() {
+          if (delay && !this.state.pastDelay) {
+            return null;
+          }
+
           if (isInError(this.props, this.state, this.context)) {
             return _react2.default.createElement(ErrorIndicator, this.state.props);
           }
