@@ -197,4 +197,13 @@ describe('hoc-react-loader', () => {
       expect(mounted.html()).toMatchSnapshot()
     })
   })
+
+  describe('delay parameter', () => {
+    it('should render nothing before delay', () => {
+      // TODO
+    })
+    it('should render after delay past', () => {
+      // TODO
+    })
+  })
 })
