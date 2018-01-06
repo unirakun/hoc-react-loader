@@ -1,5 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`hoc-react-loader delay parameter should render component after delay 1`] = `"<div class=\\"component\\">Component</div>"`;
+
+exports[`hoc-react-loader delay parameter should render nothing before delay 1`] = `null`;
+
 exports[`hoc-react-loader error parameter should print Component -error as a value- 1`] = `"<div class=\\"component\\">Component</div>"`;
 
 exports[`hoc-react-loader error parameter should print Component -error as an array- 1`] = `"<div class=\\"component\\">Component</div>"`;

@@ -61,7 +61,7 @@ export default (
 
       state = {
         props: {},
-        pastDelay: false,
+        print: true,
       }
 
       omitLoadInProps = (props) => {
@@ -91,12 +91,17 @@ export default (
         if (this.omitLoadInProps(this.props)) {
           this.props[loadFunctionName](this.props, this.context)
         }
+
+        // set delay
+        if (delay) {
+          this.setState(state => ({ ...state, print: false }))
+          this.timer = setTimeout(() => this.setState(state => ({ ...state, print: true })), delay)
+        }
       }
 
-      componentDidMount() {
-         // set delay
-        if (delay) {
-          setTimeout(() => this.setState(state => ({ ...state, pastDelay: true })), delay)
+      componentWillUnmount() {
+        if (this.timer) {
+          clearTimeout(this.timer)
         }
       }
 
@@ -105,7 +110,7 @@ export default (
       }
 
       render() {
-        if (delay && !this.state.pastDelay) {
+        if (!this.state.print) {
           return null
         }
 

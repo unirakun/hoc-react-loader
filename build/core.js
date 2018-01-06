@@ -105,7 +105,7 @@ exports.default = function () {
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
           props: {},
-          pastDelay: false
+          print: true
         }, _this.omitLoadInProps = function (props) {
           var isLoadAFunction = isFunction(props[loadFunctionName]);
 
@@ -126,6 +126,8 @@ exports.default = function () {
       _createClass(_class, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+          var _this2 = this;
+
           // Load from hoc argument
           if (isLoadFunction) {
             load(this.props, this.context);
@@ -135,25 +137,30 @@ exports.default = function () {
           if (this.omitLoadInProps(this.props)) {
             this.props[loadFunctionName](this.props, this.context);
           }
-        }
-      }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-          var _this2 = this;
 
           // set delay
           if (delay) {
-            setTimeout(function () {
+            this.setState(function (state) {
+              return _extends({}, state, { print: false });
+            });
+            this.timer = setTimeout(function () {
               return _this2.setState(function (state) {
-                return _extends({}, state, { pastDelay: true });
+                return _extends({}, state, { print: true });
               });
             }, delay);
           }
         }
       }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+          if (this.timer) {
+            clearTimeout(this.timer);
+          }
+        }
+      }, {
         key: 'render',
         value: function render() {
-          if (delay && !this.state.pastDelay) {
+          if (!this.state.print) {
             return null;
           }
 

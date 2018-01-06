@@ -199,11 +199,37 @@ describe('hoc-react-loader', () => {
   })
 
   describe('delay parameter', () => {
+    jest.useFakeTimers()
+
     it('should render nothing before delay', () => {
-      // TODO
+      const Wrapped = loader({ delay: 10000 })(Component)
+
+      const mounted = mount(<Wrapped some="props" />)
+      expect(mounted.html()).toMatchSnapshot()
     })
-    it('should render after delay past', () => {
-      // TODO
+
+    it('should render component after delay', () => {
+      const Wrapped = loader({ delay: 10000 })(Component)
+
+      const mounted = mount(<Wrapped some="props" />)
+      jest.runAllTimers()
+      expect(mounted.html()).toMatchSnapshot()
+    })
+
+    it('should unregister the timer when component unmounted', () => {
+      const Wrapped = loader({ delay: 10000 })(Component)
+
+      const mounted = mount(<Wrapped some="props" />)
+      mounted.unmount()
+      expect(clearTimeout).toHaveBeenCalledTimes(1)
+    })
+
+    it('should unmount correctly when no delay defined', () => {
+      const Wrapped = loader()(Component)
+
+      const mounted = mount(<Wrapped some="props" />)
+      mounted.unmount()
+      expect(mounted.html()).toBe(null)
     })
   })
 })
