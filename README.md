@@ -1,7 +1,7 @@
 # hoc-react-loader
 [![CircleCI](https://circleci.com/gh/Zenika/hoc-react-loader.svg?&style=shield&circle-token=07eae4d9bdbe138c04d32753312ba543a4e08f34)](https://circleci.com/gh/Zenika/hoc-react-loader/tree/master) [![NPM Version](https://badge.fury.io/js/hoc-react-loader.svg)](https://www.npmjs.com/package/hoc-react-loader) [![Coverage Status](https://coveralls.io/repos/github/Zenika/hoc-react-loader/badge.svg?branch=master)](https://coveralls.io/github/Zenika/hoc-react-loader?branch=master)
 
-This is a [higher order component](https://facebook.github.io/react/docs/higher-order-components.html) ("HOC"). It's an advanced pattern used in React that let you reuse code logic, it can be summarized as a component factory. It improves isolation, interoperability and maintainability of your code base.   
+This is a [higher order component](https://facebook.github.io/react/docs/higher-order-components.html) ("HOC"). It's an advanced pattern used in React that let you reuse code logic, it can be summarized as a component factory. It improves isolation, interoperability and maintainability of your code base.
 
 **hoc-react-loader**'s purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
 
@@ -94,3 +94,16 @@ export default loader({ error: 'errorMessage' })(MyComponent)
 // CustomErrorComponent will be displayed if 'error' prop is truthy
 export default loader({ ErrorIndicator: CustomErrorComponent })(MyComponent)
 ```
+
+### Delay parameter
+
+When a component loads very quickly, you will see a flash of the loading component.
+To avoid this behaviour, you can add a `delay` parameter to the loader with a time in milliseconds.
+Then, the loading indicator will be rendered, only after this delay (of course, if the component is loaded before, then it will be rendered)
+
+```js
+// loading indicator will be displayed only after 200ms
+export default loader({ print: ['data'], delay: 200 })(MyComponent)
+```
+
+By default, the no delay is defined.
