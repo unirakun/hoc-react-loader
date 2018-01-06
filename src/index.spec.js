@@ -201,14 +201,30 @@ describe('hoc-react-loader', () => {
   describe('delay parameter', () => {
     jest.useFakeTimers()
 
-    it('should render nothing before delay', () => {
+    it('should render nothing before delay and component not still loaded', () => {
+      const Wrapped = loader({ delay: 10000 })(Component)
+
+      const mounted = mount(<Wrapped loaded={false} />)
+      expect(mounted.html()).toMatchSnapshot()
+    })
+
+    it('should render loading indicator after delay and component not still loaded', () => {
+      const LoadingIndicator = () => <div>load</div>
+      const Wrapped = loader({ delay: 10000, LoadingIndicator })(Component)
+
+      const mounted = mount(<Wrapped loaded={false} />)
+      jest.runAllTimers()
+      expect(mounted.html()).toMatchSnapshot()
+    })
+
+    it('should render component when loaded when delay not past', () => {
       const Wrapped = loader({ delay: 10000 })(Component)
 
       const mounted = mount(<Wrapped some="props" />)
       expect(mounted.html()).toMatchSnapshot()
     })
 
-    it('should render component after delay', () => {
+    it('should render component when loaded when delay past', () => {
       const Wrapped = loader({ delay: 10000 })(Component)
 
       const mounted = mount(<Wrapped some="props" />)

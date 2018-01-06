@@ -160,16 +160,16 @@ exports.default = function () {
       }, {
         key: 'render',
         value: function render() {
-          if (!this.state.print) {
-            return null;
-          }
-
           if (isInError(this.props, this.state, this.context)) {
             return _react2.default.createElement(ErrorIndicator, this.state.props);
           }
 
           if (isLoaded(this.props, this.state, this.context)) {
             return _react2.default.createElement(ComposedComponent, this.state.props);
+          }
+
+          if (!this.state.print) {
+            return null;
           }
 
           return _react2.default.createElement(LoadingIndicator, this.state.props);

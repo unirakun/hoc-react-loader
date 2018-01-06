@@ -110,16 +110,16 @@ export default (
       }
 
       render() {
-        if (!this.state.print) {
-          return null
-        }
-
         if (isInError(this.props, this.state, this.context)) {
           return <ErrorIndicator {...this.state.props} />
         }
 
         if (isLoaded(this.props, this.state, this.context)) {
           return <ComposedComponent {...this.state.props} />
+        }
+
+        if (!this.state.print) {
+          return null
         }
 
         return <LoadingIndicator {...this.state.props} />
