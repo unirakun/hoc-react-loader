@@ -95,6 +95,19 @@ export default loader({ error: 'errorMessage' })(MyComponent)
 export default loader({ ErrorIndicator: CustomErrorComponent })(MyComponent)
 ```
 
+### Delay parameter
+
+When a component loads very quickly, you will see a flash of the loading component.
+To avoid this behaviour, you can add a `delay` parameter to the loader with a time in milliseconds.
+Then, the loading indicator will be rendered after the delay if the Component can't be rendered before that.
+
+```js
+// loading indicator will be displayed only after 200ms
+export default loader({ print: ['data'], delay: 200 })(MyComponent)
+```
+
+By default, no delay is defined.
+
 # About ![alakarte](https://i.imgur.com/PKlqzvj.png)
 **alakarte** is created by two passionate french developers.
 

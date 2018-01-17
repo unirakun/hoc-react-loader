@@ -71,7 +71,8 @@ exports.default = function () {
       ErrorIndicator = _ref.ErrorIndicator,
       print = _ref.print,
       load = _ref.load,
-      error = _ref.error;
+      error = _ref.error,
+      delay = _ref.delay;
 
   var loadFunctionName = isString(load) ? load : 'load';
   var isLoadFunction = isFunction(load);
@@ -103,7 +104,8 @@ exports.default = function () {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
-          props: {}
+          props: {},
+          print: true
         }, _this.omitLoadInProps = function (props) {
           var isLoadAFunction = isFunction(props[loadFunctionName]);
 
@@ -124,6 +126,8 @@ exports.default = function () {
       _createClass(_class, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+          var _this2 = this;
+
           // Load from hoc argument
           if (isLoadFunction) {
             load(this.props, this.context);
@@ -132,6 +136,25 @@ exports.default = function () {
           // Load from props
           if (this.omitLoadInProps(this.props)) {
             this.props[loadFunctionName](this.props, this.context);
+          }
+
+          // set delay
+          if (delay) {
+            this.setState(function (state) {
+              return _extends({}, state, { print: false });
+            });
+            this.timer = setTimeout(function () {
+              return _this2.setState(function (state) {
+                return _extends({}, state, { print: true });
+              });
+            }, delay);
+          }
+        }
+      }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+          if (this.timer) {
+            clearTimeout(this.timer);
           }
         }
       }, {
@@ -143,6 +166,10 @@ exports.default = function () {
 
           if (isLoaded(this.props, this.state, this.context)) {
             return _react2.default.createElement(ComposedComponent, this.state.props);
+          }
+
+          if (!this.state.print) {
+            return null;
           }
 
           return _react2.default.createElement(LoadingIndicator, this.state.props);
