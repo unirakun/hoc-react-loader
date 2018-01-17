@@ -109,3 +109,8 @@ Do you want to contact them ? Go to their [website](http://alakarte.io)
   <td align="center"><a href="https://github.com/guillaumecrespel">Guillaume CRESPEL</a></td>
   <td align="center"><a href="https://github.com/fabienjuif">Fabien JUIF</a></td>
 </table>
+
+# Zenika
+This library with initiated thanks to [Zenika](https://www.zenika.com/).
+
+<img src="./misc/zenika.png" width="200" />
