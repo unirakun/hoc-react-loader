@@ -51,9 +51,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zenika/hoc-react-loader.git"
+    "url": "git+https://github.com/alakarteio/hoc-react-loader.git"
   },
-  "author": "Fabien JUIF <fabien.juif@zenika.com>",
+  "author": "Fabien JUIF <fabien.juif@gmail.com>",
   "contributors": [
     "Yvonnick FRIN <yvonnick.frin@zenika.com>",
     "Yoann Prot <yoann.prot@gmail.com>",
@@ -67,9 +67,9 @@
     "placeholder"
   ],
   "bugs": {
-    "url": "https://github.com/Zenika/hoc-react-loader/issues"
+    "url": "https://github.com/alakarteio/hoc-react-loader/issues"
   },
-  "homepage": "https://github.com/Zenika/hoc-react-loader#readme",
+  "homepage": "https://github.com/alakarteio/hoc-react-loader#readme",
   "babel": {
     "presets": [
       "es2017",

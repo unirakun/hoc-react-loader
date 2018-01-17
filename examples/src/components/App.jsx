@@ -18,12 +18,12 @@ const App = () => (
     <div className={styles.github}>
       <a
         className="github-button"
-        href="https://github.com/zenika/react-loader"
+        href="https://github.com/alakarteio/hoc-react-loader"
         data-style="mega"
-        data-count-href="/zenika/react-loader/stargazers"
-        data-count-api="/repos/zenika/react-loader#stargazers_count"
+        data-count-href="/alakarteio/hoc-react-loader/stargazers"
+        data-count-api="/repos/alakarteio/hoc-react-loader#stargazers_count"
         data-count-aria-label="# stargazers on GitHub"
-        aria-label="Star zenika/react-loader on GitHub"
+        aria-label="Star alakarteio/hoc-react-loader on GitHub"
       >
         Star it on github
       </a>
