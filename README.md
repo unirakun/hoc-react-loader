@@ -124,6 +124,6 @@ Do you want to contact them ? Go to their [website](http://alakarte.io)
 </table>
 
 # Zenika
-This library with initiated thanks to [Zenika](https://www.zenika.com/).
+This library was initiated thanks to [Zenika](https://www.zenika.com/).
 
 <img src="./misc/zenika.png" width="200" />
