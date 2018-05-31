@@ -108,8 +108,8 @@ export default loader({ print: ['data'], delay: 200 })(MyComponent)
 
 By default, no delay is defined.
 
-# About ![alakarte](https://i.imgur.com/PKlqzvj.png)
-**alakarte** is created by two passionate french developers.
+# About ![alakarteio](http://alakarte.io/assets/img/logo.markdown.png)
+**alakarteio** is created by two passionate french developers.
 
 Do you want to contact them ? Go to their [website](http://alakarte.io)
 
@@ -122,8 +122,3 @@ Do you want to contact them ? Go to their [website](http://alakarte.io)
   <td align="center"><a href="https://github.com/guillaumecrespel">Guillaume CRESPEL</a></td>
   <td align="center"><a href="https://github.com/fabienjuif">Fabien JUIF</a></td>
 </table>
-
-# Zenika
-This library was initiated thanks to [Zenika](https://www.zenika.com/).
-
-<img src="./misc/zenika.png" width="200" />
