@@ -1,1 +1,1 @@
-export default from './ErrorCross'
+export { default } from './ErrorCross'

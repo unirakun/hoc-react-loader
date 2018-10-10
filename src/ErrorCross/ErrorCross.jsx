@@ -13,7 +13,9 @@ class Cross extends Component {
 
   attach = (div) => {
     const newColor = findCorrectColor(div)
-    if (this.state.color !== newColor) {
+    const { color } = this.state
+
+    if (color !== newColor) {
       this.setState({ color: newColor })
     }
   }

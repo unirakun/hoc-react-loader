@@ -1,14 +1,15 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
+Object.defineProperty(exports, "default", {
+  enumerable: true,
+  get: function get() {
+    return _ErrorCross.default;
+  }
+});
 
-var _ErrorCross = require('./ErrorCross');
-
-var _ErrorCross2 = _interopRequireDefault(_ErrorCross);
+var _ErrorCross = _interopRequireDefault(require("./ErrorCross"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _ErrorCross2.default;

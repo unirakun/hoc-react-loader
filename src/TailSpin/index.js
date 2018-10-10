@@ -1,1 +1,1 @@
-export default from './TailSpin'
+export { default } from './TailSpin'
