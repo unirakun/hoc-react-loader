@@ -108,7 +108,7 @@ export default loader({ print: ['data'], delay: 200 })(MyComponent)
 
 By default, no delay is defined.
 
-# About [![alakarteio](http://alakarte.io/assets/img/logo.markdown.png)](http://alakarte.io)
+# About [![alakarteio](https://alakarte.io/assets/img/logo.markdown.png)](https://alakarte.io)
 **alakarteio** is created by two passionate french developers.
 
 Do you want to contact them ? Go to their [website](http://alakarte.io)
