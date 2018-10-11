@@ -59,9 +59,38 @@ export default (
     return class extends Component {
       static displayName = displayName
 
-      state = {
-        props: {},
-        print: true,
+      constructor(props, context) {
+        super(props, context)
+
+        this.state = {
+          props: {},
+          print: true,
+        }
+      }
+
+      componentWillMount() {
+        // Load from hoc argument
+        if (isLoadFunction) {
+          load(this.props, this.context)
+        }
+
+        // Load from props
+        if (this.omitLoadInProps(this.props)) {
+          // eslint-disable-next-line react/destructuring-assignment
+          this.props[loadFunctionName](this.props, this.context)
+        }
+
+        // set delay
+        if (delay) {
+          this.setState(state => ({ ...state, print: false }))
+          this.timer = setTimeout(() => this.setState(state => ({ ...state, print: true })), delay)
+        }
+      }
+
+      componentWillUnmount() {
+        if (this.timer) {
+          clearTimeout(this.timer)
+        }
       }
 
       omitLoadInProps = (props) => {
@@ -81,48 +110,25 @@ export default (
         return isLoadAFunction
       }
 
-      componentWillMount() {
-        // Load from hoc argument
-        if (isLoadFunction) {
-          load(this.props, this.context)
-        }
-
-        // Load from props
-        if (this.omitLoadInProps(this.props)) {
-          this.props[loadFunctionName](this.props, this.context)
-        }
-
-        // set delay
-        if (delay) {
-          this.setState(state => ({ ...state, print: false }))
-          this.timer = setTimeout(() => this.setState(state => ({ ...state, print: true })), delay)
-        }
-      }
-
-      componentWillUnmount() {
-        if (this.timer) {
-          clearTimeout(this.timer)
-        }
-      }
-
       componentWillReceiveProps = (nextProps) => {
         this.omitLoadInProps(nextProps)
       }
 
       render() {
+        const { props } = this.state
         if (isInError(this.props, this.state, this.context)) {
-          return <ErrorIndicator {...this.state.props} />
+          return <ErrorIndicator {...props} />
         }
 
         if (isLoaded(this.props, this.state, this.context)) {
-          return <ComposedComponent {...this.state.props} />
+          return <ComposedComponent {...props} />
         }
 
-        if (!this.state.print) {
+        if (!this.state.print) { // eslint-disable-line react/destructuring-assignment
           return null
         }
 
-        return <LoadingIndicator {...this.state.props} />
+        return <LoadingIndicator {...props} />
       }
     }
   }

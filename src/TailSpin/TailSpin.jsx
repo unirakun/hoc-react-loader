@@ -13,8 +13,9 @@ class TailSpin extends Component {
   }
 
   attach = (svg) => {
+    const { color } = this.state
     const newColor = findCorrectColor(svg)
-    if (this.state.color !== newColor) {
+    if (color !== newColor) {
       this.setState({ color: newColor })
     }
   }
@@ -26,7 +27,8 @@ class TailSpin extends Component {
     return (
       <svg
         ref={this.attach}
-        width="38" height="38"
+        width="38"
+        height="38"
         viewBox="0 0 38 38"
         xmlns="http://www.w3.org/2000/svg"
         style={style}

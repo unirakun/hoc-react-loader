@@ -245,7 +245,7 @@ describe('hoc-react-loader', () => {
 
       const mounted = mount(<Wrapped some="props" />)
       mounted.unmount()
-      expect(mounted.html()).toBe(null)
+      expect(mounted.exists()).toBe(false)
     })
   })
 })

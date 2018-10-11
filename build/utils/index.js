@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _colorUtil = require('./colorUtil');
+var _colorUtil = require("./colorUtil");
 
 Object.keys(_colorUtil).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
