@@ -17,17 +17,34 @@
     "build:core": "yarn --cwd packages/core build",
     "build:full": "yarn --cwd packages/full build",
     "build": "run-p build:*",
-    "lint": "eslint . --ext js,jsx --ignore-pattern dist/ --ignore-pattern coverage/ --ignore-pattern node_modules/ --ignore-pattern misc/ --ignore-pattern public/  --ignore-pattern build/"
+    "lint": "eslint . --ext js,jsx --ignore-pattern dist/ --ignore-pattern coverage/ --ignore-pattern node_modules/ --ignore-pattern misc/ --ignore-pattern public/  --ignore-pattern build/",
+    "test": "jest",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "ci": "run-p lint coveralls"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "coveralls": "^3.0.2",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-babel": "^5.2.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
-    "npm-run-all": "^4.1.3"
+    "jest": "^23.6.0",
+    "npm-run-all": "^4.1.3",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "tinycolor2": "^1.4.1"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -50,9 +67,13 @@
       "react/no-unescaped-entities": "off"
     }
   },
-  "dependencies": {
-    "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "tinycolor2": "^1.4.1"
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "setupFiles": [
+      "./misc/testSetup.js"
+    ]
   }
 }
