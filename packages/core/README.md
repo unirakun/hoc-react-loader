@@ -1,22 +1,20 @@
-# hoc-react-loader
+# @hoc-react-loader/core
 [![CircleCI](https://circleci.com/gh/alakarteio/hoc-react-loader.svg?&style=shield)](https://circleci.com/gh/alakarteio/hoc-react-loader/tree/master) [![NPM Version](https://badge.fury.io/js/hoc-react-loader.svg)](https://www.npmjs.com/package/hoc-react-loader) [![Coverage Status](https://coveralls.io/repos/github/alakarteio/hoc-react-loader/badge.svg?branch=master)](https://coveralls.io/github/alakarteio/hoc-react-loader?branch=master)
 
 This is a [higher order component](https://facebook.github.io/react/docs/higher-order-components.html) ("HOC"). It's an advanced pattern used in React that let you reuse code logic, it can be summarized as a component factory. It improves isolation, interoperability and maintainability of your code base.
 
-**hoc-react-loader**'s purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
+**@hoc-react-loader/core**'s purpose is to call a `load` callback passed through the `props` of a component only once (at `componentWillMount`). This is convenient to load data from a backend for instance. The component shows a loading indicator when it's waiting for the props to be defined. The loading indicator can be changed easily.
 
 ## Demos
 You can test some examples [here](https://alakarteio.github.io/hoc-react-loader/).
 
 ## Installation
-`npm i --save tinycolor2 hoc-react-loader`
-
-`tinycolor2` is a peer dependency of `hoc-react-loader`. It handles color picking for the default loading indicator. You don't have to install it if you use your own loading indicator.
+`yarn add @hoc-react-loader/core`
 
 ## Usage
 ### With `this.props`
 ```es6
-import loader from 'hoc-react-loader'
+import loader from '@hoc-react-loader/core'
 
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
@@ -26,9 +24,9 @@ In this case, the loader waits for `this.props.data` to be truthy, then mounts i
 
 The `print` parameter should be an array of props to waits. All these props should become truthy at some point.
 
-Since the `LoadingIndicator` is not specified, the default `LoadingIndicator` is displayed while waiting for all the props. Here's an exemple with a specified loader:
+Since the `LoadingIndicator` is not specified, `null` (nothing) is displayed while waiting for all the props. Here's an exemple with a specified loader:
 ```es6
-import loader from 'hoc-react-loader'
+import loader from '@hoc-react-loader/core'
 
 const MyLoadingIndicator = () => <div>Waiting...</div>
 const Component = ({ data }) => <div>Component {data}</div>
@@ -40,21 +38,23 @@ The `print` parameter can also be a Promise. The loading indicator is displayed 
 
 ### Don't wait
 ```es6
-import loader from 'hoc-react-loader'
+import loader from '@hoc-react-loader/core'
 
+const LoadingIndicator = () => <div>Waiting...</div>
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader()(Component)
+export default loader({ LoadingIndicator })(Component)
 ```
 In this example, the loader component doesn't wait for props. `this.props.load` is called once, but the `LoadingIndicator` component isn't displayed.
 
 ### Load as a function parameter
 ```es6
-import loader from 'hoc-react-loader'
+import loader from '@hoc-react-loader/core'
 
+const LoadingIndicator = () => <div>Waiting...</div>
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader({ load: () => console.log('here') })(Component)
+export default loader({ LoadingIndicator, load: () => console.log('here') })(Component)
 ```
 In this case, the loader calls `this.props.load` if it exists *AND* the `load` parameter, resulting in `here` to be printed.
 
@@ -62,11 +62,12 @@ The default `print` parameter value is `true`. It means that in this example the
 
 ### Load as a string parameter
 ```es6
-import loader from 'hoc-react-loader'
+import loader from '@hoc-react-loader/core'
 
+const LoadingIndicator = () => <div>Waiting...</div>
 const Component = ({ data }) => <div>Component {JSON.stringify(data)}</div>
 
-export default loader({ load: 'myLoader' })(Component)
+export default loader({ LoadingIndicator, load: 'myLoader' })(Component)
 ```
 In this case, the loader calls `this.props.myLoader` if it exists.
 
@@ -85,7 +86,7 @@ Like for the `print` prop, `error` can be a `boolean`, a `string` (referencing a
 // default error component will be displayed if 'error' prop is truthy
 export default loader()(MyComponent)
 
-// default error component will be displayed
+// default error component will be displayed (null, meaning nothing)
 export default loader({ error: true })(MyComponent)
 
 // default error component will be displayed if 'errorMessage' prop is truthy
