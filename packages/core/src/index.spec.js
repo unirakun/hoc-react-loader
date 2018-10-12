@@ -1,6 +1,6 @@
 /* eslint-env jest */
 /* eslint-disable
-  react/jsx-filename-extension,
+  react/jsx-filename-extension
 */
 import React from 'react'
 import { mount } from 'enzyme'
@@ -257,7 +257,7 @@ describe('@hoc-react-loader/core', () => {
     it('should print the given ErrorIndicator', () => {
       const Wrapped = loader({ ErrorIndicator: Error })(Component)
 
-      const mounted = mount(<Wrapped error={true} />)
+      const mounted = mount(<Wrapped error />)
       expect(mounted.html()).toMatchSnapshot()
     })
   })
