@@ -117,7 +117,7 @@ export default (
       render() {
         const { props } = this.state
         if (isInError(this.props, this.state, this.context)) {
-          return <ErrorIndicator {...props} />
+          return ErrorIndicator === undefined ? null : <ErrorIndicator {...props} />
         }
 
         if (isLoaded(this.props, this.state, this.context)) {
@@ -128,7 +128,7 @@ export default (
           return null
         }
 
-        return <LoadingIndicator {...props} />
+        return LoadingIndicator === undefined ? null : <LoadingIndicator {...props} />
       }
     }
   }
