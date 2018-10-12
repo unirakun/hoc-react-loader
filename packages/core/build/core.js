@@ -179,7 +179,7 @@ var _default = function _default() {
           var props = this.state.props;
 
           if (isInError(this.props, this.state, this.context)) {
-            return _react.default.createElement(ErrorIndicator, props);
+            return ErrorIndicator === undefined ? null : _react.default.createElement(ErrorIndicator, props);
           }
 
           if (isLoaded(this.props, this.state, this.context)) {
@@ -191,7 +191,7 @@ var _default = function _default() {
             return null;
           }
 
-          return _react.default.createElement(LoadingIndicator, props);
+          return LoadingIndicator === undefined ? null : _react.default.createElement(LoadingIndicator, props);
         }
       }]);
 
