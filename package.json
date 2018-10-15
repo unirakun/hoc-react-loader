@@ -1,22 +1,28 @@
 {
   "name": "hoc-react-loader",
-  "version": "6.3.0",
+  "version": "7.0.0",
   "description": "Higher order component to call a load function from props at mount.",
-  "main": "build/index.js",
-  "peerDependencies": {
-    "prop-types": "^15.x",
-    "react": "^15.x || ^16.x",
-    "tinycolor2": "^1.x"
-  },
+  "license": "MIT",
+  "private": true,
+  "author": "Fabien JUIF <fabien.juif@gmail.com>",
+  "contributors": [
+    "Yvonnick FRIN <yvonnick.frin@zenika.com>",
+    "Yoann Prot <yoann.prot@gmail.com>",
+    "Benjamin CAVY <benjamin.cavy@gmail.com>"
+  ],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "lint": "find src -iname \"*.jsx\" -exec eslint {} +; find src -iname \"*.js\" -exec eslint {} +;",
-    "build": "cross-env BABEL_ENV=cjs babel --ignore \"**/*.spec.js\" ./src/ --out-dir build",
-    "test": "jest --collectCoverageFrom=src/**/*.js --collectCoverageFrom=src/**/*.jsx",
+    "build:core": "yarn --cwd packages/core build",
+    "build:full": "yarn --cwd packages/full build",
+    "build": "run-p build:*",
+    "lint": "eslint . --ext js,jsx --ignore-pattern dist/ --ignore-pattern coverage/ --ignore-pattern node_modules/ --ignore-pattern misc/ --ignore-pattern public/  --ignore-pattern build/",
+    "test": "jest",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "ci": "npm-run-all --parallel lint coveralls"
+    "ci": "run-p lint coveralls"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
@@ -24,81 +30,52 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "blanket": "^1.2.3",
-    "chai": "^4.2.0",
-    "chai-spies": "^1.0.0",
     "coveralls": "^3.0.2",
-    "cross-env": "^5.2.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
     "eslint": "^5.6.1",
     "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-babel": "^5.2.1",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0",
     "jest": "^23.6.0",
-    "jsdom": "^12.2.0",
-    "lodash": "^4.17.11",
-    "mocha": "^5.2.0",
     "npm-run-all": "^4.1.3",
-    "nyc": "^13.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-test-renderer": "^16.5.2",
     "tinycolor2": "^1.4.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/alakarteio/hoc-react-loader.git"
-  },
-  "author": "Fabien JUIF <fabien.juif@gmail.com>",
-  "contributors": [
-    "Yvonnick FRIN <yvonnick.frin@zenika.com>",
-    "Yoann Prot <yoann.prot@gmail.com>",
-    "Benjamin CAVY <benjamin.cavy@gmail.com>"
-  ],
-  "license": "MIT",
-  "keywords": [
-    "react",
-    "loader",
-    "hoc",
-    "placeholder"
-  ],
-  "bugs": {
-    "url": "https://github.com/alakarteio/hoc-react-loader/issues"
-  },
-  "homepage": "https://github.com/alakarteio/hoc-react-loader#readme",
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": [
       "airbnb"
     ],
+    "plugins": [
+      "babel"
+    ],
     "rules": {
+      "max-len": [
+        2,
+        200
+      ],
       "semi": [
         2,
         "never"
       ],
-      "arrow-body-style": 0,
-      "import/no-named-as-default": 0,
-      "import/prefer-default-export": 0,
-      "import/no-unresolved": 0,
-      "react/forbid-prop-types": 0
+      "react/forbid-prop-types": "off",
+      "react/no-unescaped-entities": "off"
     }
   },
   "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/",
+      "/misc/",
+      "/build/"
+    ],
     "setupFiles": [
       "./misc/testSetup.js"
     ]
-  },
-  "dependencies": {}
+  }
 }

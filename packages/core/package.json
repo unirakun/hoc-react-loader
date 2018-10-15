@@ -1,0 +1,42 @@
+{
+  "name": "@hoc-react-loader/core",
+  "version": "7.0.0",
+  "description": "Higher order component to call a load function from props at mount",
+  "main": "build/index.js",
+  "repository": "https://github.com/alakarteio/hoc-react-loader",
+  "author": "Fabien JUIF <fabien.juif@gmail.com>",
+  "contributors": [
+    "Yvonnick FRIN <yvonnick.frin@zenika.com>",
+    "Yoann Prot <yoann.prot@gmail.com>",
+    "Benjamin CAVY <benjamin.cavy@gmail.com>"
+  ],
+  "keywords": [
+    "react",
+    "loader",
+    "hoc",
+    "placeholder"
+  ],
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "babel --ignore \"**/*.spec.js\" ./src/ --out-dir build"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "enzyme": "^3.7.0",
+    "react": "^16.5.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}
