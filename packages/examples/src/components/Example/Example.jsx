@@ -70,7 +70,7 @@ class Example extends Component {
             <Code className="code">{code}</Code>
             <Ink />
           </a>
-          {React.cloneElement(example, { ...this.state, className: "result" })}
+          {React.cloneElement(example, { ...this.state, className: 'result' })}
           <div className="debug">
             <h2>Props values</h2>
             <pre className="props">

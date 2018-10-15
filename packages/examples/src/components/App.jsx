@@ -4,7 +4,7 @@ import './App.scss'
 
 const App = () => (
   <div className="app">
-    <img className="icon" src={"/favicon.png"} alt="presentation" />
+    <img className="icon" src="/favicon.png" alt="presentation" />
 
     <h1>
       hoc-react-loader
