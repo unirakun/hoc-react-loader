@@ -117,6 +117,7 @@ export default (
       render() {
         const { props } = this.state
         if (isInError(this.props, this.state, this.context)) {
+          // react renders nothing if you return null but is not happy if you return undefined
           return ErrorIndicator === undefined ? null : <ErrorIndicator {...props} />
         }
 
@@ -128,6 +129,7 @@ export default (
           return null
         }
 
+        // react renders nothing if you return null but is not happy if you return undefined
         return LoadingIndicator === undefined ? null : <LoadingIndicator {...props} />
       }
     }
