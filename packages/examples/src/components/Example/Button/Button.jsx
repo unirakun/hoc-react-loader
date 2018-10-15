@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Ink from 'react-ink'
-
-import styles from './Button.scss'
+import './Button.scss'
 
 const Button = ({
   style,
@@ -14,7 +13,7 @@ const Button = ({
   untoggleText,
 }) => (
   <button
-    className={`${styles.button} ${className}`}
+    className={`button ${className}`}
     style={style}
     onClick={onClick}
     type="button"

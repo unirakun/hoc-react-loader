@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '!!style!css!highlight.js/styles/github.css' // eslint-disable-line import/no-webpack-loader-syntax, import/no-unresolved
+import 'highlight.js/styles/github.css' // eslint-disable-line import/no-webpack-loader-syntax, import/no-unresolved
 import Highlight from 'react-highlight'
-
 import styles from './Code.scss'
 
 const Code = ({
