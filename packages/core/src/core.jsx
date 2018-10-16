@@ -59,6 +59,22 @@ export default (
     return class extends Component {
       static displayName = displayName
 
+      static getDerivedStateFromProps(props, state) {
+        const isLoadAFunction = isFunction(props[loadFunctionName])
+
+        if (isLoadAFunction) {
+          return {
+            ...state,
+            props: {
+              ...props,
+              [loadFunctionName]: undefined,
+            },
+          }
+        }
+
+        return { ...state, props }
+      }
+
       constructor(props, context) {
         super(props, context)
 
@@ -68,16 +84,16 @@ export default (
         }
       }
 
-      componentWillMount() {
+      componentDidMount() {
         // Load from hoc argument
         if (isLoadFunction) {
           load(this.props, this.context)
         }
 
         // Load from props
-        if (this.omitLoadInProps(this.props)) {
-          // eslint-disable-next-line react/destructuring-assignment
-          this.props[loadFunctionName](this.props, this.context)
+        const loadFunction = this.props[loadFunctionName] // eslint-disable-line react/destructuring-assignment
+        if (isFunction(loadFunction)) {
+          loadFunction(this.props, this.context)
         }
 
         // set delay
@@ -91,27 +107,6 @@ export default (
         if (this.timer) {
           clearTimeout(this.timer)
         }
-      }
-
-      omitLoadInProps = (props) => {
-        const isLoadAFunction = isFunction(props[loadFunctionName])
-
-        if (isLoadAFunction) {
-          this.setState({
-            props: {
-              ...props,
-              [loadFunctionName]: undefined,
-            },
-          })
-        } else {
-          this.setState({ props })
-        }
-
-        return isLoadAFunction
-      }
-
-      componentWillReceiveProps = (nextProps) => {
-        this.omitLoadInProps(nextProps)
       }
 
       render() {
