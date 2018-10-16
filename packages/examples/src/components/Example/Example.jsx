@@ -3,9 +3,9 @@ import { PropTypes } from 'prop-types'
 import Ink from 'react-ink'
 import Code from '../Code'
 import Button from './Button'
-import styles from './Example.scss'
+import './Example.scss'
 
-const BASE_URL = 'https://github.com/Zenika/react-loader/blob/master/examples/src/components/Examples/'
+const BASE_URL = 'https://github.com/alakarteio/hoc-react-loader/blob/master/packages/examples/src/components/Examples/'
 
 class Example extends Component {
   constructor() {
@@ -65,22 +65,22 @@ class Example extends Component {
     return (
       <div>
         {children}
-        <div style={style} className={`${styles.sample} ${className}`}>
+        <div style={style} className={`sample ${className}`}>
           <a href={`${BASE_URL}${link}.jsx`}>
-            <Code className={styles.code}>{code}</Code>
+            <Code className="code">{code}</Code>
             <Ink />
           </a>
-          {React.cloneElement(example, { ...this.state, className: styles.result })}
-          <div className={styles.debug}>
+          {React.cloneElement(example, { ...this.state, className: 'result' })}
+          <div className="debug">
             <h2>Props values</h2>
-            <pre className={styles.props}>
+            <pre className="props">
               {buttons['0'] && `loaded: ${loaded ? 'true' : 'false'}\n`}
               {buttons['1'] && `prop: ${prop || 'undefined'}\n`}
               {buttons['2'] && `prop2: ${prop2 || 'undefined'}\n`}
               {buttons['3'] && `error: ${error || 'undefined'}\n`}
             </pre>
           </div>
-          <div className={styles.buttons}>
+          <div className="buttons">
             {buttons['0'] && (
               <Button onClick={this.onLoad} toggled={loaded} text="data" />
             )}

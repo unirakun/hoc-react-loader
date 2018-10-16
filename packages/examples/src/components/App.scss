@@ -11,12 +11,13 @@
     width: 100px;
   }
 
-  .description {
+  .app-description {
     margin-bottom: 30px;
     width: 50%;
 
     > pre {
       display: inline;
+      margin: 0 .5em;
     }
   }
 

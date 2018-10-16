@@ -1,17 +1,16 @@
 import React from 'react'
-import Icon from '../favicon.png'
 import Examples from './Examples'
-import styles from './App.scss'
+import './App.scss'
 
 const App = () => (
-  <div className={styles.app}>
-    <img className={styles.icon} src={Icon} alt="presentation" />
+  <div className="app">
+    <img className="icon" src="/favicon.png" alt="presentation" />
 
     <h1>
       hoc-react-loader
     </h1>
 
-    <div className={styles.github}>
+    <div className="github">
       <a
         className="github-button"
         href="https://github.com/alakarteio/hoc-react-loader"
@@ -25,7 +24,7 @@ const App = () => (
       </a>
     </div>
 
-    <p className={styles.description}>
+    <p className="app-description">
       This is a higher order component ("HOC").
       Its purpose is to call a
       <pre>load</pre>
@@ -38,11 +37,11 @@ const App = () => (
       waiting for the props to be defined. The loading indicator can be changed easily.
     </p>
 
-    <p className={styles.description}>
+    <p className="description">
       Check out the examples below. Use the button to trigger a stubbed loading.
     </p>
 
-    <Examples className={styles.app} />
+    <Examples className="app" />
   </div>
 )
 

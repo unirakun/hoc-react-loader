@@ -7,20 +7,20 @@ import TwoParams from './TwoParams'
 import DontWait from './DontWait'
 import LoadingIndicator from './LoadingIndicator'
 import ErrorIndicator from './ErrorIndicator'
-import styles from './Examples.scss'
+import './Examples.scss'
 
 const Examples = ({ style, className }) => (
-  <div style={style} className={`${styles.examples} ${className}`}>
+  <div style={style} className={`examples ${className}`}>
     <Example
-      className={styles.example}
+      className="example"
       link="Base"
       code="export&nbsp;default loader()(Base)"
       buttons={{ 0: true }}
       example={<Base />}
     >
-      <div className={styles.doc}>
+      <div className="doc">
         <h3>Base: `this.props.loaded` is defined</h3>
-        <p className={styles.description}>
+        <p className="description">
           In this example, the loader wraps a Component with &nbsp;
           <pre>this.props.loaded</pre>
           &nbsp;defined. It means that the loader calls
@@ -35,15 +35,15 @@ const Examples = ({ style, className }) => (
     </Example>
 
     <Example
-      className={styles.example}
+      className="example"
       link="OneParam"
       code="export&nbsp;default loader({ print: ['prop'] })(OneParam)"
       buttons={{ 1: true }}
       example={<OneParam />}
     >
-      <div className={styles.doc}>
+      <div className="doc">
         <h3>OneParam: waiting for a given param</h3>
-        <p className={styles.description}>
+        <p className="description">
           Like in the previous example, the default loading indicator is used (the spinner) and &nbsp;
           <pre>this.props.load</pre>
           is called. But this time, the
@@ -58,15 +58,15 @@ const Examples = ({ style, className }) => (
     </Example>
 
     <Example
-      className={styles.example}
+      className="example"
       link="TwoParams"
       code="export&nbsp;default loader({ print: ['prop', 'prop2'] })(TwoParams)"
       buttons={{ 1: true, 2: true }}
       example={<TwoParams />}
     >
-      <div className={styles.doc}>
+      <div className="doc">
         <h3>TwoParams: wait for multiple props</h3>
-        <p className={styles.description}>
+        <p className="description">
           If the
           <pre>print</pre>
           parameter is given an array of props instead of just one prop, &nbsp;
@@ -81,15 +81,15 @@ const Examples = ({ style, className }) => (
     </Example>
 
     <Example
-      className={styles.example}
+      className="example"
       link="DontWait"
       code="export&nbsp;default loader({ print: true })(DontWait)"
       buttons={{ 0: true }}
       example={<DontWait />}
     >
-      <div className={styles.doc}>
+      <div className="doc">
         <h3>DontWait: don't show the placeholder</h3>
-        <p className={styles.description}>
+        <p className="description">
           If the
           <pre>print</pre>
           param is set to
@@ -104,15 +104,15 @@ const Examples = ({ style, className }) => (
     </Example>
 
     <Example
-      className={styles.example}
+      className="example"
       link="LoadingIndicator"
       code="export&nbsp;default loader({ LoadingIndicator: CustomLoadingIndicator })(LoadingIndicator)" // eslint-disable-line
       buttons={{ 0: true }}
       example={<LoadingIndicator />}
     >
-      <div className={styles.doc}>
+      <div className="doc">
         <h3>LoadingIndicator: change the default loading indicator</h3>
-        <p className={styles.description}>
+        <p className="description">
           In this example, the default loading indicator is replaced with a custom one.
           The component waits for the default prop (
           <pre>this.props.loaded</pre>
@@ -121,15 +121,15 @@ const Examples = ({ style, className }) => (
       </div>
     </Example>
     <Example
-      className={styles.example}
+      className="example"
       link="ErrorIndicator"
       code="export&nbsp;default loader()(Base)"
       buttons={{ 3: true }}
       example={<Base />}
     >
-      <div className={styles.doc}>
+      <div className="doc">
         <h3>Error: defaults parameters</h3>
-        <p className={styles.description}>
+        <p className="description">
           In this example, the loader wraps a Component with its default parameters.
           The loader will wait fo
           <pre>this.props.error</pre>
@@ -138,15 +138,15 @@ const Examples = ({ style, className }) => (
       </div>
     </Example>
     <Example
-      className={styles.example}
+      className="example"
       link="ErrorCustomIndicator"
       code="export&nbsp;default loader({ ErrorIndicator: CustomErrorIndicator })(ErrorIndicator)" // eslint-disable-line
       buttons={{ 3: true }}
       example={<ErrorIndicator />}
     >
-      <div className={styles.doc}>
+      <div className="doc">
         <h3>ErrorIndicator: change the default error indicator</h3>
-        <p className={styles.description}>
+        <p className="description">
           In this example, the default error indicator is replaced with a custom one.
           The component waits for the default prop (
           <pre>this.props.error</pre>
