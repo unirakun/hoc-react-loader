@@ -15,19 +15,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -100,33 +100,29 @@ var _default = function _default() {
     function (_Component) {
       _inherits(_class, _Component);
 
-      function _class(_props, context) {
+      _createClass(_class, null, [{
+        key: "getDerivedStateFromProps",
+        value: function getDerivedStateFromProps(props, state) {
+          var isLoadAFunction = isFunction(props[loadFunctionName]);
+
+          if (isLoadAFunction) {
+            return _objectSpread({}, state, {
+              props: _objectSpread({}, props, _defineProperty({}, loadFunctionName, undefined))
+            });
+          }
+
+          return _objectSpread({}, state, {
+            props: props
+          });
+        }
+      }]);
+
+      function _class(props, context) {
         var _this;
 
         _classCallCheck(this, _class);
 
-        _this = _possibleConstructorReturn(this, _getPrototypeOf(_class).call(this, _props, context));
-
-        _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "omitLoadInProps", function (props) {
-          var isLoadAFunction = isFunction(props[loadFunctionName]);
-
-          if (isLoadAFunction) {
-            _this.setState({
-              props: _objectSpread({}, props, _defineProperty({}, loadFunctionName, undefined))
-            });
-          } else {
-            _this.setState({
-              props: props
-            });
-          }
-
-          return isLoadAFunction;
-        });
-
-        _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "componentWillReceiveProps", function (nextProps) {
-          _this.omitLoadInProps(nextProps);
-        });
-
+        _this = _possibleConstructorReturn(this, _getPrototypeOf(_class).call(this, props, context));
         _this.state = {
           props: {},
           print: true
@@ -135,8 +131,8 @@ var _default = function _default() {
       }
 
       _createClass(_class, [{
-        key: "componentWillMount",
-        value: function componentWillMount() {
+        key: "componentDidMount",
+        value: function componentDidMount() {
           var _this2 = this;
 
           // Load from hoc argument
@@ -145,9 +141,10 @@ var _default = function _default() {
           } // Load from props
 
 
-          if (this.omitLoadInProps(this.props)) {
-            // eslint-disable-next-line react/destructuring-assignment
-            this.props[loadFunctionName](this.props, this.context);
+          var loadFunction = this.props[loadFunctionName]; // eslint-disable-line react/destructuring-assignment
+
+          if (isFunction(loadFunction)) {
+            loadFunction(this.props, this.context);
           } // set delay
 
 
@@ -179,6 +176,7 @@ var _default = function _default() {
           var props = this.state.props;
 
           if (isInError(this.props, this.state, this.context)) {
+            // react renders nothing if you return null but is not happy if you return undefined
             return ErrorIndicator === undefined ? null : _react.default.createElement(ErrorIndicator, props);
           }
 
@@ -189,7 +187,8 @@ var _default = function _default() {
           if (!this.state.print) {
             // eslint-disable-line react/destructuring-assignment
             return null;
-          }
+          } // react renders nothing if you return null but is not happy if you return undefined
+
 
           return LoadingIndicator === undefined ? null : _react.default.createElement(LoadingIndicator, props);
         }
