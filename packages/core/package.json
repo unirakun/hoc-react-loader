@@ -1,6 +1,6 @@
 {
   "name": "@hoc-react-loader/core",
-  "version": "7.0.0-pre",
+  "version": "7.0.0",
   "description": "Higher order component to call a load function from props at mount",
   "main": "build/index.js",
   "repository": "https://github.com/alakarteio/hoc-react-loader",
