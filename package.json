@@ -1,6 +1,6 @@
 {
   "name": "hoc-react-loader",
-  "version": "7.0.0",
+  "version": "7.0.0-pre",
   "description": "Higher order component to call a load function from props at mount.",
   "license": "MIT",
   "private": true,
