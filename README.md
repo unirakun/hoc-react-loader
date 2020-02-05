@@ -1,5 +1,5 @@
 # hoc-react-loader
-[![CircleCI](https://circleci.com/gh/alakarteio/hoc-react-loader.svg?&style=shield)](https://circleci.com/gh/alakarteio/hoc-react-loader/tree/master) [![NPM Version](https://badge.fury.io/js/hoc-react-loader.svg)](https://www.npmjs.com/package/hoc-react-loader) [![Coverage Status](https://coveralls.io/repos/github/alakarteio/hoc-react-loader/badge.svg?branch=master)](https://coveralls.io/github/alakarteio/hoc-react-loader?branch=master)
+[![CircleCI](https://circleci.com/gh/unirakun/hoc-react-loader.svg?&style=shield)](https://circleci.com/gh/unirakun/hoc-react-loader/tree/master) [![NPM Version](https://badge.fury.io/js/hoc-react-loader.svg)](https://www.npmjs.com/package/hoc-react-loader) [![Coverage Status](https://coveralls.io/repos/github/unirakun/hoc-react-loader/badge.svg?branch=master)](https://coveralls.io/github/unirakun/hoc-react-loader?branch=master)
 
 This is a [higher order component](https://facebook.github.io/react/docs/higher-order-components.html) ("HOC"). It's an advanced pattern used in React that let you reuse code logic, it can be summarized as a component factory. It improves isolation, interoperability and maintainability of your code base.
 
@@ -25,12 +25,12 @@ In this example `load` will be called at first mount, then the wrapped `Componen
 `load` function can be the moment you ask for your API data.
 
 ## Demos
-You can test some examples [here](https://alakarteio.github.io/hoc-react-loader/).
+You can test some examples [here](https://unirakun.github.io/hoc-react-loader/).
 
-# About [![alakarteio](https://alakarte.io/assets/img/logo.markdown.png)](https://alakarte.io)
-**alakarteio** is created by two passionate french developers.
+# About uni rakun
+**uni rakun** is created by two passionate french developers.
 
-Do you want to contact them ? Go to their [website](http://alakarte.io)
+Do you want to contact them ? Go to their [website](https://unirakun.fr)
 
 <table border="0">
  <tr>
