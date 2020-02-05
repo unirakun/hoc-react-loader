@@ -3,7 +3,7 @@
   "version": "7.0.0",
   "description": "Higher order component to call a load function from props at mount (with default components)",
   "main": "build/index.js",
-  "repository": "https://github.com/alakarteio/hoc-react-loader",
+  "repository": "https://github.com/unirakun/hoc-react-loader",
   "author": "Fabien JUIF <fabien.juif@gmail.com>",
   "contributors": [
     "Yvonnick FRIN <yvonnick.frin@zenika.com>",
