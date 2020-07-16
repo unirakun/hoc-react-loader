@@ -20,7 +20,7 @@
   "dependencies": {
     "@hoc-react-loader/full": "^7.0.0",
     "highlight.js": "^9.13.0",
-    "lodash": "^4.15.0",
+    "lodash": "^4.17.19",
     "normalize.css": "~4.2.0",
     "prop-types": "^15.5.8",
     "react": "16.5.2",
