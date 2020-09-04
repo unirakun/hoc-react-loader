@@ -14,7 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "gh-pages": "^2.0.1",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.13.1",
     "react-scripts": "^2.0.5"
   },
   "dependencies": {
